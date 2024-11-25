@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Thambi+2:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Thambi&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Anek+Devanagari&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap" rel="stylesheet">
+    <title>User's data</title>
+    <style>
+        html, body {
+            height: 170%;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+        }
+            
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5d7a6;
+        }
+
+        header {
+            background-color: #a05e18;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        header img {
+            height: 40px;
+        }
+
+        nav {
+            display: flex;
+            gap: 15px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        nav a.sign_in_button{
+            background-color: #CF8500;
+            border: 1px solid black;
+            color: black;
+        }
+        nav a.sign_in_button:hover, a.register_button:active{
+            background-color: #d9d9d9	;
+            color: black;
+        }
+        nav a.register_button{
+            background-color: #743A00;
+            color: white;
+            border: 1px solid black;
+        }
+        nav a.register_button:hover, a.register_button:active{
+            background-color: black;
+            color: white;
+        }
+
+            
+        .login-container {
+            width: 43%;
+            height: 100%;
+            margin: 10px auto 70px;
+            background-color: #EDCB89;
+            padding: 30px;
+            border-radius: 28px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .login-container h1 {
+            color: #7d4d1f;
+            text-align: center;
+            padding-top: 25px;
+            padding-bottom: 30px;
+            color: #743A00; 
+            font-family: Baloo Thambi, sans-serif; 
+            font-size: 43px; 
+            margin: auto 10px;
+        }
+
+        .login-container form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .login-container label {
+            margin-bottom: 5px;
+            color: #7d4d1f;
+            width: 100%;
+            
+        }
+
+        .login-container input {
+            display: flex;
+            align-items: center;
+            padding: 8px;
+            margin: 2px auto 28px;
+            border: 1.5px solid #ccc;
+            border-radius: 10px;
+            width: 65%;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+        }
+
+        .login-container button {
+            font-family: 'Baloo Thambi 2', sans-serif;
+            font-size: 25px;
+            padding: 1px;
+            background-color: #743A00;
+            margin: 10px auto 25px;
+            width: 25%;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .login-container .extra-links {
+            text-align: center;
+            margin-top: 1px;
+        }
+
+        .login-container .extra-links a {
+            text-decoration: underline;
+            color: #7d4d1f;
+            font-weight: bold;
+        }
+
+        .login-container button:hover {
+            background-color: #a05e18;
+        }
+        .login-container select {
+            display: flex;
+            align-items: center;
+            padding: 6px;
+            margin: 10px auto 23px;
+            border: 1.5px solid #ccc;
+            border-radius: 10px;
+            width: 67.5%;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+            font-size: 16px;
+            background-color: #fff;
+            color: #7d4d1f;
+            font-family: Arial, sans-serif;
+            cursor: pointer;
+        }
+
+        footer {
+            height: 15%;
+            background-color: #a05e18;
+            color: #fff;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+        }
+
+        footer .social-icons {
+            display: flex;
+            gap: 10px;
+        }
+
+        footer .social-icons a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 20px;
+        }
+
+        footer .contact {
+            height: auto;
+            width: 28%;
+            margin: 30px 30px auto;
+            background-color: #FFAE36;
+            padding: 10px;
+            border-radius: 14px;
+            color: #4E1600;
+            font-size: 75%;
+            line-height: 0.75;
+        }
+        #data{
+            padding-left: 140px;
+            margin-bottom: 1px;
+            line-height: 0.2;
+        }
+        #change_password{
+            padding-left: 140px;
+            font-size: 15px;
+            line-height: 0.1;
+            text-decoration: underline;
+            color:#7d4d1f;
+        }
+
+        table { 
+    width: 40%; 
+    border-collapse: separate;
+    border: 1px solid black;
+    border-radius: 10px;
+    margin: 0 auto; 
+    margin-bottom: 40px;
+    border-spacing: 0 0em; 
+}
+
+th { 
+    padding: 10px;
+    text-align: center; 
+    background-color: #A05F00;
+    color: white;
+}
+
+td { 
+    padding: 10px; 
+    text-align: center;
+}
+
+tbody tr { 
+    background-color: #F2E5CC; 
+    box-shadow: 5px 10px 40px rgba(0, 0, 0, 0.7);
+}
+
+tbody tr:hover { 
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+}
+
+table tr:first-child th:first-child {
+    border-top-left-radius: 10px;
+}
+
+table tr:first-child th:last-child {
+    border-top-right-radius: 10px;
+}
+
+table tr:last-child td:first-child {
+    border-bottom-left-radius: 10px;
+}
+
+table tr:last-child td:last-child {
+    border-bottom-right-radius: 10px;
+}
+        
+    </style>
+</head>
+<body>
+    <header>
+        <img src="logo.png" alt="Logo">
+        <nav>
+            <a href="#" color: black; style="color:black; background-color: #FFAE36;">About us</a>
+            <a href="#" style="color: black;">Honey types</a>
+            <a href="#" style="color: black">Shop</a>
+            <a href="#" style="color: black">Contact</a>
+            <a class="sign_in_button" href="#" >Sign in</a>
+            <a class="register_button" href="#">Register</a>
+        </nav>
+    </header>
+    <p style="text-align: center; color: #686868; font-size: 20px;">Main page / Log In</p>
+    <div class="login-container">
+        <h1 >Your personal information</h1>
+        </p>
+        <form>
+            
+                <label id="data"><span style="color: #7d4d1f">First name</span> 
+                                <span style="color: red">*</span></label><br>
+                <input type="text" id="firstName" placeholder="Your first name" required>
+            
+                <label id="data"><span style="color: #7d4d1f">Last name</span> 
+                    <span style="color: red">*</span></label><br>
+                <input type="text" id="lastName" placeholder="Your last name" required>
+             
+                <label for="email" id="data"><span style="color: #7d4d1f">Email Address</span> 
+                    <span style="color: red">*</span></label><br>
+                <input type="email" id="email" placeholder="Your email" required>
+            
+                <label id="data"><span style="color: #7d4d1f">Country</span> 
+                    <span style="color: red">*</span></label><br>
+                <input type="text" id="country" placeholder="Country" required>
+            
+                <label id="data"><span style="color: #7d4d1f">City</span>
+                                <span style="color:red">*</span></label><br>
+                <input type="text" id="city" placeholder="Your city" required>
+            
+            
+                <label id="data"><span style="color: #7d4d1f">Street</span>
+                                <span style="color:red">*</span></label><br>
+                <input type="text" id="street" placeholder="Your street" required>
+              
+            
+                <label id="data"><span style="color: #7d4d1f">Street number</span>
+                                <span style="color:red">*</span></label><br>
+                <input type="number" id="streetNumber" placeholder="Your street number" required min="0">
+            
+            
+                <label id="data"><span style="color: #7d4d1f">Postal code</span>
+                                <span style="color:red">*</span></label><br>
+                <input type="text" id = "postalCode" placeholder="Your postal code" required>
+             
+            
+                <label for="password" id="data"><span style="color: #7d4d1f">Password</span>
+                                                <span style="color:red">*</span></label><br>
+                <input style="margin-bottom: 0px;" id="password1" required><br>
+                <a href="#" id="change_password">Change the password</a><br>
+        </form>
+    </div>
+    <table> 
+        <thead> 
+            <tr> 
+                <th>Order's number</th> 
+                <th>Date</th> 
+                <th>Final price</th> 
+                <th>Status</th> 
+                <th>More</th> 
+            </tr> 
+        </thead> 
+        <tbody> 
+            <tr> 
+                <td>12345</td> 
+                <td>YYYY-MM-DD</td> 
+                <td>123 EUR</td> 
+                <td>Delivered</td> 
+                <td><a href="#">DETAILS</a></td> 
+            </tr> 
+            <tr> 
+                <td>12346</td> 
+                <td>YYYY-MM-DD</td> 
+                <td>123 EUR</td> 
+                <td>Delivered</td> 
+                <td><a href="#">DETAILS</a></td> 
+            </tr> 
+            <tr> 
+                <td>12347</td> 
+                <td>YYYY-MM-DD</td> 
+                <td>123 EUR</td> 
+                <td>Delivered</td> 
+                <td><a href="#">DETAILS</a></td> 
+            </tr> 
+            <tr> 
+                <td>12348</td> 
+                <td>YYYY-MM-DD</td> 
+                <td>123 EUR</td> 
+                <td>Delivered</td> 
+                <td><a href="#">DETAILS</a></td> 
+            </tr> 
+            <tr> 
+                <td>12349</td> 
+                <td>YYYY-MM-DD</td> 
+                <td>123 EUR</td> 
+                <td>Delivered</td> 
+                <td><a href="#">DETAILS</a></td> 
+            </tr> 
+            <tr> 
+                <td>12350</td> 
+                <td>YYYY-MM-DD</td> 
+                <td>123 EUR</td> 
+                <td>Delivered</td>
+                <td><a href="#">DETAILS</a></td> 
+            </tr> 
+        </tbody> 
+    </table>
+    <footer>
+        <div class="social-icons">
+            <a href="#">X</a>
+            <a href="#">Instagram</a>
+            <a href="#">YouTube</a>
+            <a href="#">LinkedIn</a>
+        </div>
+        <div class="links">
+            <a href="#">About us</a><br>
+            <a href="#">Honey types</a><br>
+            <a href="#">Shop</a><br>
+            <a href="#">Contact</a>
+        </div>
+        <div class="contact">
+            <p>Contact us</p>
+            <p>Phone:</p>
+            <p>Email:</p>
+            <p>Location:</p>
+        </div>
+    </footer>
+</body>
+</html>

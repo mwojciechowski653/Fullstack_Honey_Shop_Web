@@ -223,13 +223,18 @@ td {
     text-align: center;
 }
 
-tbody tr { 
+tbody tr:nth-child(odd) { 
+    background-color: #FFF5DE;  
+    box-shadow: 5px 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+tbody tr:nth-child(even) { 
     background-color: #F2E5CC; 
-    box-shadow: 5px 10px 40px rgba(0, 0, 0, 0.7);
+    box-shadow: 5px 10px 40px rgba(0, 0, 0, 0.5);
 }
 
 tbody tr:hover { 
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.7);
 }
 
 table tr:first-child th:first-child {
@@ -306,7 +311,7 @@ table tr:last-child td:last-child {
             
                 <label for="password" id="data"><span style="color: #7d4d1f">Password</span>
                                                 <span style="color:red">*</span></label><br>
-                <input style="margin-bottom: 0px;" id="password1" required><br>
+                <input style="margin-bottom: 0px;" password" id="password1" required><br>
                 <a href="#" id="change_password">Change the password</a><br>
         </form>
     </div>

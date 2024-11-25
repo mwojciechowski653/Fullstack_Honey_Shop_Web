@@ -252,6 +252,9 @@ table tr:last-child td:first-child {
 table tr:last-child td:last-child {
     border-bottom-right-radius: 10px;
 }
+tbody tr:last-child {
+    box-shadow: 5px 10px 40px rgba(0, 0, 0, 0.5);
+}
         
     </style>
 </head>
@@ -259,7 +262,7 @@ table tr:last-child td:last-child {
     <header>
         <img src="logo.png" alt="Logo">
         <nav>
-            <a href="#" color: black; style="color:black; background-color: #FFAE36;">About us</a>
+            <a href="#" style="color:black; background-color: #FFAE36;">About us</a>
             <a href="#" style="color: black;">Honey types</a>
             <a href="#" style="color: black">Shop</a>
             <a href="#" style="color: black">Contact</a>
@@ -267,10 +270,10 @@ table tr:last-child td:last-child {
             <a class="register_button" href="#">Register</a>
         </nav>
     </header>
-    <p style="text-align: center; color: #686868; font-size: 20px;">Main page / Log In</p>
+    <p style="text-align: center; color: #686868; font-size: 20px;">Main page / Log In / User's data</p>
     <div class="login-container">
         <h1 >Your personal information</h1>
-        </p>
+        
         <form>
             
                 <label id="data"><span style="color: #7d4d1f">First name</span> 
@@ -311,7 +314,7 @@ table tr:last-child td:last-child {
             
                 <label for="password" id="data"><span style="color: #7d4d1f">Password</span>
                                                 <span style="color:red">*</span></label><br>
-                <input style="margin-bottom: 0px;" password" id="password1" required><br>
+                <input style="margin-bottom: 0px;" id="password1" required><br>
                 <a href="#" id="change_password">Change the password</a><br>
         </form>
     </div>

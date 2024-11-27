@@ -1,3 +1,85 @@
-.main-content{
-    color:red
+body {
+    font-family: 'Alfa Slab One', serif;
+    font-weight: 400;
+    font-style: normal;
+    background-color: #FFE1B6;
+    margin: 0;
+    padding: 0;
 }
+
+.main-content .contact-info .material-icons, .fb-icon {
+    font-size: 40px;
+    color: #4E1600;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+.main-content .contact-container {
+    text-align: center;
+    padding: 50px 20px;
+}
+
+    .main-content .contact-container h1 {
+        font-size: 96px;
+        color: #743A00;
+    }
+
+.main-content .contact-info, .opening-hours {
+    display: inline-block;
+    vertical-align: top;
+    text-align: left;
+}
+
+.main-content .contact-info {
+    font-size: 28px;
+    color: #4E1600;
+    margin: 50px 40px;
+}
+
+.main-content .email-link {
+    text-decoration: none;
+    color: #4E1600;
+}
+
+    .main-content .email-link:hover {
+        text-decoration: underline;
+        color: #000000;
+    }
+
+.main-content .opening-hours {
+    margin: 0 40px;
+}
+
+    .main-content .opening-hours p {
+        font-size: 32px;
+        color: #000000;
+        padding-left: 20px;
+        margin: 20px;
+    }
+
+.main-content .grid-container {
+    font-size: 32px;
+    color: #000000;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.main-content .day, .hour {
+    padding: 5px;
+}
+
+.main-content .opening-hours h2 {
+    font-size: 40px;
+    color: #743A00;
+}
+
+.main-content .find-us {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+    .main-content .find-us h2 {
+        color: #743A00;
+        font-size: 60px;
+    }

@@ -1,0 +1,58 @@
+body {
+    font-family: 'Alfa Slab One', serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 25px;
+    background-color: #FFE1B6;
+    margin: 0;
+    padding: 0;
+}
+
+.main-content .container {
+    padding: 40px;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+    .main-content .container h1 {
+        font-size: 96px;
+        color: #743A00;
+        text-align: center;
+    }
+
+.main-content .section {
+    background-color: #FFAE36;
+    margin: 40px auto;
+    padding: 30px;
+    border-radius: 10px;
+    display: flex;
+    max-width: 1200px;
+    align-items: stretch;
+}
+    .main-content .section h2 {
+        font-size: 32px;
+        color: #743A00;
+    }
+
+    .main-content .section p {
+        text-align: justify;
+        line-height: 1.6;
+    }
+
+    .main-content .section div {
+        flex: 1;
+    }
+
+    .main-content .section img {
+        width: 40%;
+        height: auto;
+        background-color: #ececec;
+        margin-right: 20px;
+        border-radius: 10px;
+        object-fit: cover;
+    }
+
+        .main-content .section img.the-process-image {
+            margin-right: 0;
+            margin-left: 20px;
+        }

@@ -7,13 +7,6 @@ body {
     padding: 0;
 }
 
-.main-content .contact-info .material-icons, .fb-icon {
-    font-size: 40px;
-    color: #4E1600;
-    vertical-align: middle;
-    margin-right: 10px;
-}
-
 .main-content .contact-container {
     text-align: center;
     padding: 50px 20px;
@@ -36,6 +29,13 @@ body {
     margin: 50px 40px;
 }
 
+    .main-content .contact-info .material-icons, .fb-icon {
+        font-size: 40px;
+        color: #4E1600;
+        vertical-align: middle;
+        margin-right: 10px;
+    }
+
 .main-content .email-link {
     text-decoration: none;
     color: #4E1600;
@@ -57,6 +57,11 @@ body {
         margin: 20px;
     }
 
+    .main-content .opening-hours h2 {
+        font-size: 40px;
+        color: #743A00;
+    }
+
 .main-content .grid-container {
     font-size: 32px;
     color: #000000;
@@ -67,11 +72,6 @@ body {
 
 .main-content .day, .hour {
     padding: 5px;
-}
-
-.main-content .opening-hours h2 {
-    font-size: 40px;
-    color: #743A00;
 }
 
 .main-content .find-us {

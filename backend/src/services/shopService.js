@@ -4,10 +4,11 @@ const pool = require('../db');                  // getting conection with databa
 async function getAllProducts() {
     const query = `
         SELECT
-            p.id, p.name, p.full_name, p.category, p.key_features, p.description, p.image_url,
-            so.id as size_option_id, so.size, so.regular_price, so.stock, so.is_discounted, so.discounted_price 
-        FROM "PRODUCT" p 
+                p.id, p.name, p.full_name, p.category, p.key_features, p.description, p.image_url,
+                so.id as size_option_id, so.size, so.regular_price, so.stock, so.is_discounted, so.discounted_price
+        FROM "PRODUCT" p
         LEFT JOIN "SIZE_OPTION" so
+        ON p.id = so.product_id
         `;
 
     try {
@@ -49,7 +50,7 @@ async function getAllProducts() {
         }, []);
         return products;
     } catch (error) {
-        console.error('Error during getting all products: ', error);
+        console.error('Error during getting all products: ', error.message);
         throw new Error('Database query failed');
     }
 }

@@ -15,7 +15,7 @@ async function getAllProducts() {
 
         if (rows.length === 0) return null;                 // checking if rows are not null
 
-        const products = rows.reduce((acc, row) => {            // acc - new table where we put our products, row - one row of rows
+        const products = rows.reduce((acc, row) => {            // acc - new table where we put our product, empty at the beginning; row - one row of rows
             const product = acc.find(p => p.id === row.id);     // checking if product exist
             if (!product) {                                     // if product does not exist
                 acc.push({
@@ -54,3 +54,4 @@ async function getAllProducts() {
     }
 }
 
+module.exports = { getAllProducts }

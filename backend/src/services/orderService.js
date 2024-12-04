@@ -1,14 +1,13 @@
-const pool = require('../db');						// getting conection with database
+﻿const pool = require('../db');						// getting conection with database
 
 async function getAllOrders() {
     const query =                                   // query question which get all informations involved in orders
-    `
+        `
 		SELECT
             o.id as order_id, o.user_id, o.date, o.delivered, o.status, o.invoice_id, o.order_value,
             op.id as order_product_id, op.size_option_id,
             so.id as size_option_id, so.size, so.stock, so.regular_price, so.is_discounted, so.discounted_price,
-            p.id as product_id, p.name as product_name, p.full_name as product_full_name, p.category as product_category, p.key_features, p.description as product_description, p.image_url as product_image_url
-            p.category as product_category, p.key_features, p.description, p.image_url,
+            p.id as product_id, p.name as product_name, p.full_name as product_full_name, p.category as product_category, p.key_features, p.description as product_description, p.image_url as product_image_url,
             u.id as user_id, u.first_name, u.last_name, u.email, u.password, u.is_admin, u.created_at, u.phone,
             ua.country, ua.city, ua.street, ua.street_number, ua.postal_code
         FROM "ORDER" o
@@ -70,7 +69,7 @@ async function getAllOrders() {
                     }],
                 });
             } else {                                                                // order exist, checking if product exist not size_option
-                const product = order.product.find(p => p.id === row.product_id);
+                const product = order.products.find(p => p.id === row.product_id);
                 if (!product) {                                                     // order exist but product does not
                     order.products.push({
                         id: row.product_id,

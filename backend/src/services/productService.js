@@ -3,8 +3,8 @@ const pool = require('../db');
 async function getProductById(id) {
     const query = `
             SELECT 
-                p.id, p.name, p.full_name, p.category, p.key_features, p.description,
-                so.id as size_option_id, so.size, so.regular_price, so.stock, so.image_url, so.is_discounted, so.discounted_price 
+                p.id, p.name, p.full_name, p.category, p.key_features, p.description, p.image_url,
+                so.id as size_option_id, so.size, so.regular_price, so.stock, so.is_discounted, so.discounted_price 
             FROM "PRODUCT" p 
             LEFT JOIN "SIZE_OPTION" so 
             ON p.id = so.product_id
@@ -21,12 +21,12 @@ async function getProductById(id) {
             category: rows[0].category,
             key_features: rows[0].key_features,
             description: rows[0].description,
+            image_url: rows[0].image_url,
             size_options: rows.map(row => ({
                 id: row.size_option_id,
                 size: row.size,
                 regular_price: row.regular_price,
                 stock: row.stock,
-                image_url: row.image_url,
                 is_discounted: row.is_discounted,
                 discounted_price: row?.discounted_price
             }))};

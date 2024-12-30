@@ -1,0 +1,18 @@
+.main-content{
+    padding: 4em 12em;
+    font-size: 28px;
+}
+#product-name {
+    font-size: 96px;
+    font-weight: bold;
+}
+
+.main-area {
+    display: flex;
+    gap: 50px;
+}
+.description-title {
+    font-size: 32px;
+    font-weight: 500;
+    margin: 40px 0 25px 0;
+}

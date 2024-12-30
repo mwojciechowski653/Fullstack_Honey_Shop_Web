@@ -1,0 +1,28 @@
+{
+    "id": 1,
+    "name": "Acacia Honey",
+    "fullName": "Fresh Acacia Honey - Spring 2024",
+    "options": [
+        {
+            "size": "250g",
+            "price": 10
+        },
+        {
+            "size": "500g",
+            "price": 17.99
+        },
+        {
+            "size": "1kg",
+            "price": 34.99
+        }
+    ],
+    "features": [
+        "100% natural",
+        "No preservatives",
+        "No added sugar",
+        "No added water"
+    ],
+    "description": "Our premium Acacia Honey is known for its light, delicate flavor and crystal-clear golden color. Sourced from the fragrant blooms of the acacia tree, this honey offers a naturally sweet taste with a hint of vanilla. It’s perfect for sweetening your favorite tea, drizzling over yogurt, or adding to baked goods. Thanks to its high fructose content, Acacia Honey stays liquid longer than other varieties, making it an ideal choice for everyday use. Enjoy the pure, unfiltered goodness of nature in every spoonful."
+}
+
+

@@ -1,12 +1,16 @@
-﻿const pool = require('../db');						// getting conection with database
+﻿const pool = require('../db');  // Establishing a connection with the database
 
+// Asynchronous function to fetch all orders with optional filters
 async function getAllOrders(filters = {}) {
+
+    // Destructuring the filters object to extract specific filter values
     const { name, year, date } = filters;
     console.log(filters);
 
-    let query =                                   // query question which get all informations involved in orders
+    // Main SQL query to retrieve order-related data from multiple tables
+    let query =
         `
-		SELECT
+        SELECT
             o.id as order_id, o.user_id, o.date, o.delivered, o.status, o.invoice_id, o.order_value,
             op.id as order_product_id, op.size_option_id,
             so.id as size_option_id, so.size, so.stock, so.regular_price, so.is_discounted, so.discounted_price,
@@ -19,38 +23,51 @@ async function getAllOrders(filters = {}) {
         LEFT JOIN "PRODUCT" p ON so.product_id = p.id
         LEFT JOIN "USER" u ON o.user_id = u.id
         LEFT JOIN "USER_ADDRESS" ua ON u.id = ua.user_id
-	`;
+        `;
 
-    const queryParams = [];                                             // query parameters
-    const conditions = [];                                              // part of query
+    const queryParams = [];  // Array to hold the query parameters (unused in this case)
+    const conditions = [];   // Array to hold conditions for filtering the query
 
+    // If a 'name' filter is provided, add it to the conditions (search by user's full name)
     if (name) {
         conditions.push(`LOWER(u.first_name || ' ' || u.last_name) LIKE '%${name.toLowerCase()}%'`);
     }
 
+    // If a 'year' filter is provided, add it to the conditions (filter orders by year)
     if (year) {
         conditions.push(`EXTRACT(YEAR FROM o.date) = '${parseInt(year, 10)}'`);
     }
 
+    // If a 'date' filter is provided, add it to the conditions (filter orders by specific date)
     if (date) {
         conditions.push(`DATE(o.date) = '${date}'`);
     }
 
+    // If there are any conditions, append them to the main query
     if (conditions.length > 0) {
         query += ` WHERE ` + conditions.join(` AND `);
     }
+
+    // Add an ORDER BY clause to sort the orders by date in descending order
     query += ` ORDER BY o.date DESC`;
+
+    // Log the constructed query (useful for debugging)
     //console.log(query);
     console.log(conditions);
 
     try {
-        const { rows } = await pool.query(query)                        // getting data from database thanks to query question
+        // Execute the query against the database and get the result
+        const { rows } = await pool.query(query);
 
-        if (rows.length === 0) return null;                             // checking if rows are not null
+        // If no rows (orders) are returned, return null
+        if (rows.length === 0) return null;
 
+        // Reduce the rows into a structured list of orders, with products and size options nested
         const orders = rows.reduce((acc, row) => {
+            // Find the order in the accumulator based on order_id
             const order = acc.find(o => o.id === row.order_id);
             if (!order) {
+                // If the order doesn't exist yet, create a new order object
                 acc.push({
                     id: row.order_id,
                     user: {
@@ -93,9 +110,11 @@ async function getAllOrders(filters = {}) {
                         }],
                     }],
                 });
-            } else {                                                                // order exist, checking if product exist not size_option
+            } else {
+                // If the order already exists, check if the product exists within the order
                 const product = order.products.find(p => p.id === row.product_id);
-                if (!product) {                                                     // order exist but product does not
+                if (!product) {
+                    // If the product does not exist, add it to the order
                     order.products.push({
                         id: row.product_id,
                         name: row.product_name,
@@ -113,7 +132,8 @@ async function getAllOrders(filters = {}) {
                             discounted_price: row.discounted_price,
                         }],
                     });
-                } else {                                                           // order exist, product exist too, but not size_option
+                } else {
+                    // If the product exists, add the new size option to the product
                     product.size_options.push({
                         id: row.size_option_id,
                         size: row.size,
@@ -124,13 +144,15 @@ async function getAllOrders(filters = {}) {
                     });
                 }
             }
-            return acc;
+            return acc;  // Return the accumulator with the updated order
         }, []);
-        return orders;
+
+        return orders;  // Return the structured list of orders
     } catch (error) {
+        // If an error occurs, log it and throw a new error
         console.error('Error during getting all products: ', error.message);
         throw new Error('Database query failed');
     }
 }
 
-module.exports = { getAllOrders };
+module.exports = { getAllOrders };  // Exporting the getAllOrders function for use in other modules

@@ -26,17 +26,14 @@ async function getAllOrders(filters = {}) {
 
     if (name) {
         conditions.push(`LOWER(u.first_name || ' ' || u.last_name) LIKE '%${name.toLowerCase()}%'`);
-        //queryParams.push(`%${name.toLowerCase()}%`);
     }
 
     if (year) {
         conditions.push(`EXTRACT(YEAR FROM o.date) = '${parseInt(year, 10)}'`);
-        //queryParams.push(parseInt(year, 10));
     }
 
     if (date) {
         conditions.push(`DATE(o.date) = '${date}'`);
-        //queryParams.push(date);
     }
 
     if (conditions.length > 0) {

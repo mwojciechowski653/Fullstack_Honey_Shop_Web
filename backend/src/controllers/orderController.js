@@ -6,7 +6,7 @@ async function getAllOrders(req, res) {
         const orders = await orderService.getAllOrders(filters);
 
         if (!orders || orders.length === 0) {
-            return res.status(404).json({ success: false, error: 'Orders not found' });            // Error 404 Products table Not Found
+            return res.json({ success: false, error: 'Orders not found' });            // Error 404 Products table Not Found
         }
 
         res.json({ success: true, orders });                                                      // returning answer as json with table

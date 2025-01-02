@@ -13,16 +13,19 @@ async function fetchOrders(filters = {}) {
         const data = await response.json();
         console.log(data);
 
+        // Sprawdzamy 'success' i 'orders' w odpowiedzi
         if (!data.success || !data.orders || data.orders.length === 0) {
-            console.error('No orders match the filters');
+            console.log('No orders match the filters');
             document.getElementById('table').innerHTML = '<div class="no-results">No orders match the filters</div>';
             return;
         }
 
+        // Jeśli dane są poprawne, uzupełniamy tabelę
         populateTable(data.orders);
         countOrders(data.orders);
     } catch (error) {
         console.error('Error fetching orders: ', error);
+        document.getElementById('table').innerHTML = ''; // Opróżniamy tabelę w przypadku błędu
     }
 }
 

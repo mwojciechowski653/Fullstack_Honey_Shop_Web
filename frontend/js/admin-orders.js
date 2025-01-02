@@ -1,7 +1,8 @@
-async function fetchOrders() {
-    console.log("Fetching orders...");
+async function fetchOrders(filters = {}) {
+    console.log("Fetching orders with filters: ", filters);
     try {
-        const response = await fetch('http://localhost:5000/api/orders');
+        const queryString = new URLSearchParams(filters).toString();
+        const response = await fetch(`http://localhost:5000/api/orders?${queryString}`);
 
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
@@ -11,8 +12,9 @@ async function fetchOrders() {
         const data = await response.json();
         console.log(data);
 
-        if (!data.success || !data.orders) {
-            console.error('No orders found');
+        if (!data.success || !data.orders || data.orders.length === 0) {
+            console.error('No orders match the filters');
+            document.getElementById('table').innerHTML = '<div class="no-results">No orders match the filters</div>';
             return;
         }
 
@@ -108,7 +110,29 @@ function yearList() {
     }
 }
 
+function applyFilters() {
+    const nameInput = document.getElementById('name-input').value.trim();
+    const yearSelect = document.getElementById('year-select').value;
+    const dateInput = document.getElementById('date-input').value;
+
+    const filters = {};
+
+    if (nameInput) filters.name = nameInput;
+    if (yearSelect) filters.year = yearSelect;
+    if (dateInput) filters.date = dateInput;
+
+    fetchOrders(filters);
+}
+function resetFilters() {
+    document.getElementById('name-input').value = '';
+    document.getElementById('year-select').value = '';
+    document.getElementById('date-input').value = '';
+    fetchOrders(); // Fetch all orders without filters
+}
+
 window.addEventListener('DOMContentLoaded', () => {
+    document.querySelector('.filter-button:nth-child(1)').addEventListener('click', applyFilters);
+    document.querySelector('.filter-button:nth-child(2)').addEventListener('click', resetFilters);
     fetchOrders();
     yearList();
 });

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - orders</title>
+  <link rel="stylesheet" href="../css/main.css"> <!-- Link to global CSS -->
+  <link rel="stylesheet" href="../css/admin-orders.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+<script defer src="../js/admin-orders.js"></script>
+</head>
+<body>
+    <div id="navbar"></div>
+    <div class="content">
+        <div id="top-area">
+            <div class="title">Orders</div>
+        </div>
+        <div id="filters-area">
+
+            <div class="filters-column first-column">
+                <div class="filter">
+                    <div class="label">Customer's name</div>
+                    <input type="text"  id="name-input">
+                </div>
+                <div class="filter">
+                    <div class="label"> Month</div>
+                    <select  id="month-select"></select>
+                </div>
+            </div>
+
+            <div class="filters-column second-column">
+                <div class="filter">
+                    <div class="label">Date</div>
+                    <input type="date"  id="date-input">
+                </div>
+
+                <div class="total-display">
+                    Total: 232 Products
+                </div>
+
+            </div>
+
+            <div class="filter-buttons">
+                <div class="filter-button">Search</div>
+                <div class="filter-button">Reset</div>
+            </div>
+        </div>
+        <div id="products-table">
+            <div class="table-title">Order History</div>
+            <div class="table-header">
+                <div class="header-element" style="width: 10%;">DATE</div>
+                <div class="header-element" style="width: 25%;">CUSTOMER</div>
+                <div class="header-element" style="width: 15%;">TOTAL</div>
+                <div class="header-element" style="width: 10%;">INVOICE</div>
+                <div class="header-element" style="width: 15%;">STATUS</div>
+                <div class="header-element" style="width: 25%;"></div>
+            </div>
+            <div id ="table" class="table-content">
+                <!-- place to spawn products -->
+            </div>
+        </div>
+    </div>
+</body>
+</html>

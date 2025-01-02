@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - products</title>
+  <link rel="stylesheet" href="../css/main.css"> <!-- Link to global CSS -->
+  <link rel="stylesheet" href="../css/admin-products.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+<script defer src="../js/admin-products.js"></script>
+</head>
+<body>
+    <div id="navbar"></div>
+    <div class="content">
+        <div id="top-area">
+            <div class="title">Products</div>
+            <div id="switch">
+                <div class="switch-button active">My Products</div>
+                <a href="admin-add-product.html">
+                    <div class="switch-button">Add Product</div>
+                </a>
+            </div>
+        </div>
+        <div id="filters-area">
+
+            <div class="filters-column first-column">
+                <div class="filter">
+                    <div class="label">Product's name</div>
+                    <input type="text"  id="name-input">
+                </div>
+                <div class="filter">
+                    <div class="label"> Stock</div>
+                    <input type="number" id="stock-input">
+                </div>
+            </div>
+
+            <div class="filters-column second-column">
+                <div class="filter">
+                    <div class="label">Category</div>
+                    <select  id="category-select"></select>
+                </div>
+
+                <div id="total" class="total-display"></div>
+
+            </div>
+
+            <div class="filter-buttons">
+                <div class="filter-button">Search</div>
+                <div class="filter-button">Reset</div>
+            </div>
+        </div>
+        <div id="products-table">
+            <div class="table-header">
+                <div class="header-element" style="width: 20%;"></div>
+                <div class="header-element" style="width: 25%;">Product's name</div>
+                <div class="header-element" style="width: 15%;">Number</div>
+                <div class="header-element" style="width: 10%;">Stock</div>
+                <div class="header-element" style="width: 15%;">Sold products</div>
+                <div class="header-element" style="width: 15%;">Status</div>
+            </div>
+            <div id ="table" class="table-content">
+                <!-- place to spawn products -->
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,9 +1,5 @@
 .vscode/
 .idea/
-<<<<<<< HEAD
 .vs/
 node_modules/
 backend/.env
-=======
-.vs
->>>>>>> task-pk

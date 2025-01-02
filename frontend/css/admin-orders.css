@@ -81,9 +81,11 @@ input {
     border-bottom: 1px solid #828282;
 }
 
-#month-select {
+#year-select {
     width: 60%;
     max-width: 200px;
+    font-family: "DM Sans", sans-serif;
+    font-size: 12px;
 }
 
 .total-display {

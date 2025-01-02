@@ -16,7 +16,8 @@ async function fetchOrders() {
             return;
         }
 
-        populateTable(data.orders); // Poprawiona literówka
+        populateTable(data.orders);
+        countOrders(data.orders);
     } catch (error) {
         console.error('Error fetching orders: ', error);
     }
@@ -82,6 +83,32 @@ function populateTable(orders) {
     });
 }
 
+function countOrders(orders) {
+    const ordersNumber = orders.length;
+    let totalText = `Total: ${ordersNumber} orders`;
+
+    if (parseInt(ordersNumber, 10) === 1) {
+        totalText = `Total: ${ordersNumber} order`;
+    }
+
+    const total = document.getElementById("total");
+    total.innerHTML = totalText;
+}
+
+function yearList() {
+    const yearSelect = document.getElementById("year-select");
+    const currentYear = new Date().getFullYear();
+    const startYear = 2000;
+
+    for (let year = currentYear; year >= startYear; year--) {
+        const option = document.createElement("option");
+        option.value = year;                                            // Set the value attribute
+        option.textContent = year;                                      // set the display text
+        yearSelect.appendChild(option);                                 // Add the option to the select element
+    }
+}
+
 window.addEventListener('DOMContentLoaded', () => {
     fetchOrders();
+    yearList();
 });

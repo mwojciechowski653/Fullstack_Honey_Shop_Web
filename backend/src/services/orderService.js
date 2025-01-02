@@ -1,7 +1,9 @@
 ﻿const pool = require('../db');						// getting conection with database
 
-async function getAllOrders() {
-    const query =                                   // query question which get all informations involved in orders
+async function getAllOrders(filters = {}) {
+    const { name, year, date } = filters;
+
+    let query =                                   // query question which get all informations involved in orders
         `
 		SELECT
             o.id as order_id, o.user_id, o.date, o.delivered, o.status, o.invoice_id, o.order_value,
@@ -17,6 +19,29 @@ async function getAllOrders() {
         LEFT JOIN "USER" u ON o.user_id = u.id
         LEFT JOIN "USER_ADDRESS" ua ON u.id = ua.user_id
 	`;
+
+    const queryParams = [];                                             // query parameters
+    const conditions = [];                                              // part of query
+
+    if (name) {
+        conditions.push(`LOWER(u.first_name || ' ' || u.last_name) LIKE $${queryParams.length + 1}`);
+        queryParams.push(`%${name.toLowerCase()}%`);
+    }
+
+    if (year) {
+        conditions.push(`EXTRACT(month FROM o.date) = $${queryParams.length + 1}`);
+        queryParams.push(parseInt(year, 10));
+    }
+
+    if (date) {
+        conditions.push(`DATE(o.date) = $${queryParams.length + 1}`);
+        queryParams.push(date);
+    }
+
+    if (conditions.length > 0) {
+        query += ` WHERE ` + conditions.join(` AND `);
+    }
+    query += ` ORDER BY o.date DESC`;
 
     try {
         const { rows } = await pool.query(query)                        // getting data from database thanks to query question

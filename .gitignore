@@ -1,5 +1,6 @@
 .vscode/
 .idea/
+.vs/
 node_modules/
 backend/.env
 .vs/

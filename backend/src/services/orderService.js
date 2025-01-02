@@ -2,6 +2,7 @@
 
 async function getAllOrders(filters = {}) {
     const { name, year, date } = filters;
+    console.log(filters);
 
     let query =                                   // query question which get all informations involved in orders
         `
@@ -24,24 +25,26 @@ async function getAllOrders(filters = {}) {
     const conditions = [];                                              // part of query
 
     if (name) {
-        conditions.push(`LOWER(u.first_name || ' ' || u.last_name) LIKE $${queryParams.length + 1}`);
-        queryParams.push(`%${name.toLowerCase()}%`);
+        conditions.push(`LOWER(u.first_name || ' ' || u.last_name) LIKE '%${name.toLowerCase()}%'`);
+        //queryParams.push(`%${name.toLowerCase()}%`);
     }
 
     if (year) {
-        conditions.push(`EXTRACT(month FROM o.date) = $${queryParams.length + 1}`);
-        queryParams.push(parseInt(year, 10));
+        conditions.push(`EXTRACT(YEAR FROM o.date) = '${parseInt(year, 10)}'`);
+        //queryParams.push(parseInt(year, 10));
     }
 
     if (date) {
-        conditions.push(`DATE(o.date) = $${queryParams.length + 1}`);
-        queryParams.push(date);
+        conditions.push(`DATE(o.date) = '${date}'`);
+        //queryParams.push(date);
     }
 
     if (conditions.length > 0) {
         query += ` WHERE ` + conditions.join(` AND `);
     }
     query += ` ORDER BY o.date DESC`;
+    //console.log(query);
+    console.log(conditions);
 
     try {
         const { rows } = await pool.query(query)                        // getting data from database thanks to query question

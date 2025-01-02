@@ -2,7 +2,8 @@ const orderService = require('../services/orderService')                      //
 
 async function getAllOrders(req, res) {
     try {
-        const orders = await orderService.getAllOrders();
+        const filters = req.query;                                                                  // getting filters
+        const orders = await orderService.getAllOrders(filters);
 
         if (!orders || orders.length === 0) {
             return res.status(404).json({ success: false, error: 'Orders not found' });            // Error 404 Products table Not Found

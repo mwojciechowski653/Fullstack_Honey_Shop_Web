@@ -9,6 +9,7 @@ async function fetchOrders(filters = {}) {
         }
 
         console.log("Response received");
+        console.log(queryString);
         const data = await response.json();
         console.log(data);
 

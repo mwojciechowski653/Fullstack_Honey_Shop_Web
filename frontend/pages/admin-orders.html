@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin - orders</title>
-  <link rel="stylesheet" href="../css/main.css"> <!-- Link to global CSS -->
-  <link rel="stylesheet" href="../css/admin-orders.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
-<script defer src="../js/admin-orders.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - orders</title>
+    <link rel="stylesheet" href="../css/main.css"> <!-- Link to global CSS -->
+    <link rel="stylesheet" href="../css/admin-orders.css">
+    <link rel="icon" type="image/png" href="../images/icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+    <script defer src="../js/admin-orders.js"></script>
 </head>
 <body>
     <div id="navbar"></div>
@@ -25,8 +26,8 @@
                     <input type="text"  id="name-input">
                 </div>
                 <div class="filter">
-                    <div class="label"> Month</div>
-                    <select  id="month-select"></select>
+                    <div class="label"> Year</div>
+                    <select  id="year-select"></select>
                 </div>
             </div>
 
@@ -36,9 +37,7 @@
                     <input type="date"  id="date-input">
                 </div>
 
-                <div class="total-display">
-                    Total: 232 Products
-                </div>
+                <div id="total" class="total-display"></div>
 
             </div>
 

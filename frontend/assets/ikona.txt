@@ -1,0 +1,23 @@
+        .icon {
+            display: grid; /* Zamiast flex używamy grid */
+            grid-template-columns: repeat(2, 1fr); /* Dwie kolumny o równej szerokości */
+            grid-gap: 3px; /* Odstępy między elementami */
+            width: 52px; /* Kwadratowa siatka o szerokości 60px */
+            height: 52px; /* Kwadratowa siatka o wysokości 60px */
+            background-color: #e9edf2; /* Kolor tła ikony */
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
+            padding-top: 15px;
+            padding-bottom: 20px;
+            padding-left: 16px;
+            padding-right: 9px;
+            margin-right: 20px;
+            box-sizing: border-box; /* Uwzględnij padding w szerokości/ wysokości */
+        }
+
+        .icon div {
+            width: 13px;
+            height: 10px;
+            background-color: #8c949f; /* Szary kolor dla elementów */
+            border-radius: 4px; /* Zaokrąglone elementy */
+        }

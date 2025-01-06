@@ -11,12 +11,10 @@ document.addEventListener("DOMContentLoaded", function() {
       })
       .then(product => {
         // Populate HTML with product details
-        console.log(product);
         // const content = document.querySelector('.main-content');   
         document.getElementById('product-name').textContent = product.name;
         document.getElementById('full-name').textContent = product.fullName;
         document.getElementById('description').textContent = product.description;
-        console.log(content);
         // content.innerHTML = JSON.stringify(product, null, 2);
 
       })

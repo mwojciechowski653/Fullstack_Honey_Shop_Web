@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Product Page</title>
+  <link rel="icon" type="image/png" href="../images/icon.png">
 
   <link rel="stylesheet" href="../css/main.css"> <!-- Link to global CSS -->
   <link rel="stylesheet" href="../css/product.css">
@@ -21,10 +22,27 @@
   <!-- Main content area -->
   <div class="main-content">
     <div class="main-area">
-        <img id="product-image" src="../assets/miod1.jpg" alt="Product Image" width="600px" height="600px">
+        <img id="product-image" src="../assets/miod1.jpg" alt="Product Image">
         <div class="core-info">
             <div id="product-name"></div>
             <div id="full-name"></div>
+            <div id="price">15€</div>
+            <div class="size-container">
+              <div class="size-title">Size</div>
+              <div class="size-controls">
+                <select  id="size-select"></select>
+                <div id="add-to-cart">Add to Cart<img src="../assets/cart-icon.svg" alt="cart-icon" class="cart-icon"></div>
+              </div>
+              <div class="key-features-container">
+                <div class="key-features-title">Key Features:</div>
+                <ul id="key-features">
+                  <li class="key-feature">Feature 1</li>
+                  <li class="key-feature">Feature 2</li>
+                  <li class="key-feature">Feature 3</li>
+                </ul>
+              </div>
+            </div>
+            
         </div>
     </div>
 
@@ -33,10 +51,27 @@
         <div id="description"></div>
     </div>
 
-    <div class="reccomendations-area">
-
+    <div class="reccomendations-title">You might also like</div>
+    <div class="reccomendations-container">
+      <div class="reccomendation ">
+        <img class="reccomendation-image" id="reccomendation-image1" src="../images/AcaciaImage.jpg" alt="reccomendation-image">
+        <div class="reccomendation-title" id="reccomendation-title1">Wildflower Honey</div>
+        <div class="reccomendation-price" id="reccomendation-price1">18€</div>
+        <div class="reccomendation-button" id="reccomendation-button1">See details <img src="../assets/eye-icon.svg" alt="eye-icon"></div>
+      </div>
+      <div class="reccomendation">
+        <img class="reccomendation-image" id="reccomendation-image2">
+        <div class="reccomendation-title" id="reccomendation-title2"></div>
+        <div class="reccomendation-price" id="reccomendation-price2"></div>
+        <div class="reccomendation-button" id="reccomendation-button2">See details <img src="../assets/eye-icon.svg" alt="eye-icon"></div>
+      </div>
+      <div class="reccomendation">
+        <img class="reccomendation-image" id="reccomendation-image3">
+        <div class="reccomendation-title" id="reccomendation-title3"></div>
+        <div class="reccomendation-price" id="reccomendation-price3"></div>
+        <div class="reccomendation-button" id="reccomendation-button3">See details <img src="../assets/eye-icon.svg" alt="eye-icon"></div>
+      </div>
     </div>
-    
   </div>
 
   <div id="footer"></div>

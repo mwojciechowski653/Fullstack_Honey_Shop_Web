@@ -34,6 +34,45 @@ async function getUserById(id) {
         }
 }
 
+async function updateUserById(id, updatedFields) {
+    // Generujemy część zapytania SQL dla pól, które wymagają aktualizacji
+    const fieldsToUpdate = [];
+    const values = [];
+    let index = 1; // Indeks placeholderów ($1, $2, itd.)
+
+    for (const [field, value] of Object.entries(updatedFields)) {
+        fieldsToUpdate.push(`${field} = $${index}`);
+        values.push(value);
+        index++;
+    }
+
+    // Dodajemy id jako ostatni argument (do WHERE)
+    values.push(id);
+
+    // Budujemy zapytanie SQL do aktualizacji
+    const query = `
+        UPDATE "USER"
+        SET ${fieldsToUpdate.join(', ')}
+        WHERE id = $${index}
+        RETURNING *;
+    `;
+
+    try {
+        // Wykonujemy zapytanie SQL
+        const { rows } = await pool.query(query, values);
+
+        if (rows.length === 0) {
+            throw new Error('User not found or no changes made');
+        }
+
+        return rows[0]; // Zwracamy zaktualizowanego użytkownika
+    } catch (error) {
+        console.error('Error updating user by id:', error);
+        throw new Error('Database update failed');
+    }
+}
+
+
 
 
 

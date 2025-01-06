@@ -5,7 +5,6 @@
   
     // Select all navbar links within .navbar-options
     const navbarLinks = document.querySelectorAll(".navbar-options a");
-    console.log(navbarLinks);
     navbarLinks.forEach(link => {
       // Check if the link's href matches the current page
       if (link.getAttribute("href") === currentPage) {

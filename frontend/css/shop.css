@@ -1,0 +1,290 @@
+.main-content{
+    display: block;
+    padding: 2em 20px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.shop-title {
+    font-size: 96px;
+    color: #743A00;
+}
+
+#sorting-buttons {
+    display: flex;
+    gap: 15px;
+    margin: 20px 0;
+    max-width: 70%;
+}
+
+.sorting-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px;
+    gap: 8px;
+    width: 156px;
+    max-width: 25%;
+    height: 36px;
+    font-family: 'Inter';   
+    color: #4E1600;
+    background: #FFAE36;
+    border-radius: 8px;
+    cursor: pointer;
+
+}
+
+.sorting-active {
+    background: #743A00;
+    color: #F5F5F5;
+}
+
+#filters-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px;
+    gap: 24px;
+    width: 269px;
+    min-width: 120px;
+    height: 568px;
+    background: #FFFFFF;
+    border: 1px solid #D9D9D9;
+    border-radius: 8px;
+
+    font-family: 'Inter';
+    color: #4E1600;
+    font-size: 16px;
+    line-height: 140%;
+
+
+}
+
+#price-filter {
+    width: 100%;
+}
+
+.price-labels {
+    display: flex;
+    justify-content: space-between;
+}
+
+#price-range {
+    display: flex;
+}
+
+p{
+    margin: 0;
+}
+
+input[type="checkbox"] {
+    width: 16px;
+    height: 16px; 
+    accent-color: #4E1600;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.checkbox-filters {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+#filter-button {
+    width:70% ;
+    min-width: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 45px;
+    cursor: pointer;
+    background: var(--dark-brown);
+    color: #FFE1B6;
+    border-radius: 8px;
+    align-self: center;
+}
+
+.reccomendation {
+    width: 482px;
+    max-width: 28vw;
+    aspect-ratio: 482/568;
+    height: auto;
+    background: white;
+    border: 1px solid var(--dark-brown);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 15px 0;
+}
+
+.reccomendation-image {
+    width: 70%;
+    height: auto;
+    aspect-ratio: 1/1;
+    border-radius: 8px 8px 0 0;
+}
+
+.reccomendation-price {
+    font-family: 'Inter';
+    font-weight: 700;
+    font-size: 32px;
+    letter-spacing: -0.02em;
+    color: #1E1E1E;
+}
+
+.reccomendation-title {
+    font-family: 'Alfa Slab One';
+    font-weight: 400;
+    font-size: clamp(16px, 2.5vw, 32px);
+    color: #743A00;
+    text-align: center;
+}
+
+
+.reccomendation-button {
+    width: clamp(62%, 300px, 90%);
+    height: 45px;
+    background: #743A00;
+    border: 1px solid #4E1600;
+    border-radius: 8px;
+    font-family: 'Inter';
+    font-size: 16px;
+    color: #FFE1B6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 12px;
+    gap: 8px;
+    cursor: pointer;
+}
+
+#content-area {
+    display: flex;
+    gap:10px
+}
+
+#products-area {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columns, each taking equal space */
+    gap: 12px; /* Space between items */
+}
+
+
+
+@media screen and (max-width: 1000px) {
+    header {
+        flex-direction: column;
+    }
+
+    #sorting-buttons {
+        max-width: 100%;
+    }
+
+    
+    #filters-panel {
+        width: 100%;
+        height:auto;
+        gap:15px;
+    }
+    #content-area {
+        flex-direction: column;
+    }
+}
+
+
+
+/* slider css */
+.slider-container {
+    position: relative;
+    width: 100%;
+    height: 30px;
+  }
+
+  /* Base styles for the range inputs */
+  .range-slider {
+    -webkit-appearance: none; /* Remove default Chrome styling */
+    width: 100%;
+    position: absolute;
+    pointer-events: none; /* So lower slider doesn't block upper slider clicks */
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    height: 0;
+    margin: 0;
+    z-index: 3;
+
+  }
+  .range-slider:focus {
+    outline: none;
+  }
+
+  /* The knobs (thumbs) */
+  .range-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: #4E1600;
+    cursor: pointer;
+    pointer-events: all; /* Re-activate pointer events on the thumb */
+    box-shadow: 0 0 3px rgba(0,0,0,0.3);
+
+  }
+  .range-slider::-moz-range-thumb {
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: #4E1600;
+    cursor: pointer;
+    pointer-events: all;
+    box-shadow: 0 0 3px rgba(0,0,0,0.3);
+    border: none; /* Remove any default Firefox border */
+  }
+
+  /* Remove the default track styling; only show the custom background (slider-track) below */
+  .range-slider::-webkit-slider-runnable-track {
+    background: none;
+    border: none;
+  }
+  .range-slider::-moz-range-track {
+    background: none;
+    border: none;
+  }
+
+  /* The gray bar behind the selected track */
+  .slider-bar {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    height: 4px;
+    background: #ddd; /* Gray color for unselected area */
+    z-index: 1;
+  }
+
+  /* The colored bar in the middle (selected range) */
+  .slider-track {
+    position: absolute;
+    height: 4px;
+    background: #CF8500;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2; /* Put it behind the thumbs but above the .slider-bar */
+  }
+
+  /* Displaying the selected values */
+  .values {
+    display: flex;
+    justify-content: space-between;
+    width: 300px;
+  }

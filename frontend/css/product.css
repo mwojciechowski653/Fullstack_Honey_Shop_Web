@@ -159,8 +159,8 @@
 .reccomendation-title {
     font-family: 'Alfa Slab One';
     font-weight: 400;
-    font-size: 32px;
-    line-height: 44px;
+    font-size: clamp(16px, 2.5vw, 32px);
+    text-align: center;
     color: #743A00;
 }
 

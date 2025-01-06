@@ -4,9 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Shop</title>
+  <link rel="icon" type="image/png" href="../images/icon.png">
   <link rel="stylesheet" href="../css/main.css"> <!-- Link to global CSS -->
+  <link rel="stylesheet" href="../css/shop.css"> <!-- Link to global CSS -->
+
   <script defer src="../js/navbar-footer.js"></script> <!-- JavaScript for loading navbar/footer -->
   <script defer src="../js/main.js"></script> <!-- JavaScript for navigation functionality -->
+  <script defer src="../js/shop.js"></script> 
 
   <link rel="icon" type="image/png" href="../images/icon.png">
 </head>
@@ -17,8 +21,94 @@
 
   <!-- Main content area -->
   <div class="main-content">
-    <!-- Page-specific content goes here -->
-    <p>Welcome to the shop page!</p>
+    <header>
+      <div class="shop-title">SHOP</div>
+      <div id="sorting-buttons">
+        <div class="sorting-button sorting-active" id="new">
+          New
+        </div>
+        <div class="sorting-button" id="price-ascending">
+          Price ascending
+        </div>
+        <div class="sorting-button" id="price-descending">
+          Price descending
+        </div>
+        <div class="sorting-button" id="alphabetical">
+          Alphabetical
+        </div>
+      </div>
+    </header>
+
+    <div id="content-area">
+      <div id="filters-panel">
+        <div id="filters-header"> Filters </div>
+        <div id="price-filter">
+          <div class="price-labels">
+            <div>Price</div>
+            <div id="price-range"><p id="min-output"></p>-<p id="max-output"></p>€</div>
+          </div>
+
+          <div class="price-slider">
+            <div class="slider-container">
+              <div class="slider-bar"></div>
+              <input
+                type="range"
+                min="0"
+                max="100"
+                value="0"
+                id="slider-min"
+                class="range-slider"
+                oninput="updateSlider()"
+              />
+              <input
+                type="range"
+                min="0"
+                max="100"
+                value="80"
+                id="slider-max"
+                class="range-slider"
+                oninput="updateSlider()"
+              />
+              <div class="slider-track" id="slider-track"></div>
+            </div>
+          </div>
+        </div>
+
+        <div id="type-filter" class="checkbox-filters">
+          <div>Type</div>
+          <div class="checkbox-container">
+            <input type="checkbox" class="type-checkbox" id="type1" value= 1>
+            <label for="type1"> Type 1</label>
+          </div>
+          <div class="checkbox-container">
+            <input type="checkbox" class="type-checkbox" id="type2" value= 2>
+            <label for="type2">Type 2</label>
+          </div>
+          <div class="checkbox-container">
+            <input type="checkbox" class="type-checkbox" id="type3" value= 3>
+            <label for="type3">Type 3</label>
+          </div>
+        </div>
+        <div id="category-filter" class="checkbox-filters">
+          <div>Available Size</div>
+          <div class="checkbox-container">
+            <input type="checkbox" class="size-checkbox" value=1>
+            <label for="size1"> 300g</label>
+          </div>
+          <div class="checkbox-container">
+            <input type="checkbox" class="size-checkbox" value=2>
+            <label for="size2">500g</label>
+          </div>
+          <div class="checkbox-container">
+            <input type="checkbox" class="size-checkbox" value=3>
+            <label for="size3">1000g</label>
+          </div>
+        </div>
+        <div id="filter-button" >Apply</div>
+      </div>
+
+      <div id="products-area"></div>
+    </div>
   </div>
 
   <!-- Placeholder for footer -->

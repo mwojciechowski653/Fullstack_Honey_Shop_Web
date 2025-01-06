@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin - add product</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <!-- Link to global CSS -->
+    <link rel="stylesheet" href="../css/admin-add-product.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Outfit:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <script defer src="../js/admin-add-product.js"></script>
+  </head>
+  <body>
+    <div id="navbar"></div>
+
+    <div class="content">
+      <div class="sidebar">
+        <h2>Products</h2>
+        <div class="tabs-container">
+          <button class="tab active">My Products</button>
+          <button class="tab">Add Product</button>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="form-container">
+          <div class="image-section">
+            <img
+              src="../images/CloverImage.jpg"
+              alt="Product Image"
+              id="product-image"
+            />
+            <input
+              type="file"
+              id="image-upload"
+              style="display: none"
+              accept="image/*"
+            />
+            <button id="upload-button">Insert Image</button>
+          </div>
+
+          <div class="details-section">
+            <input type="text" placeholder="Insert title" class="title" />
+            <input type="text" placeholder="Insert subtitle" class="subtitle" />
+            <input type="text" placeholder="Insert price €" class="price" />
+
+            <h3>Key Features:</h3>
+            <ul class="features">
+              <input
+                type="text"
+                placeholder="Key feature 1:"
+                class="key-feature"
+              />
+              <input
+                type="text"
+                placeholder="Key feature 2:"
+                class="key-feature"
+              />
+              <input
+                type="text"
+                placeholder="Key feature 3:"
+                class="key-feature"
+              />
+            </ul>
+
+            <div class="size-section">
+              <h3>Size</h3>
+              <label
+                ><input type="radio" name="size" value="200" /> 200 g</label
+              >
+              <label
+                ><input type="radio" name="size" value="300" /> 300 g</label
+              >
+              <label
+                ><input type="radio" name="size" value="900" /> 900 g</label
+              >
+            </div>
+
+            <input
+              type="text"
+              placeholder="Stock, insert number:"
+              class="stock"
+            />
+          </div>
+        </div>
+
+        <div class="description-section">
+          <h3>Description</h3>
+          <textarea
+            id="description"
+            placeholder="Insert text"
+            maxlength="2000"
+          ></textarea>
+          <p id="char-counter">0 / 2,000</p>
+        </div>
+
+        <button class="add-product-button">Add product</button>
+      </div>
+    </div>
+  </body>
+</html>

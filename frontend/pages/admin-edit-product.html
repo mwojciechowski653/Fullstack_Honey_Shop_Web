@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin - edit product</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <!-- Link to global CSS -->
+    <link rel="stylesheet" href="../css/admin-edit-product.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Outfit:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <script defer src="../js/admin-edit-product.js"></script>
+  </head>
+  <body>
+    <div id="navbar"></div>
+
+    <div class="content">
+      <div class="sidebar">
+        <h2>Change product</h2>
+        <div class="tabs-container">
+          <button class="tab">My Products</button>
+          <button class="tab active">Add Product</button>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="form-container">
+          <div class="image-section">
+            <img
+              src="../images/CloverImage.jpg"
+              alt="Product Image"
+              id="product-image"
+            />
+            <input
+              type="file"
+              id="image-upload"
+              style="display: none"
+              accept="image/*"
+            />
+            <button id="upload-button">Edit Image</button>
+          </div>
+
+          <div class="details-section">
+            <input type="text" placeholder="ACACIA HONEY" class="title" />
+            <input
+              type="text"
+              placeholder="Fresh Acacia Honey - Spring 2024"
+              class="subtitle"
+            />
+            <input type="text" placeholder="15€" class="price" />
+
+            <h3>Key Features:</h3>
+            <ul class="features">
+              <input
+                type="text"
+                placeholder="100% pure and natural"
+                class="key-feature"
+              />
+              <input
+                type="text"
+                placeholder="Delicate, mild flavour"
+                class="key-feature"
+              />
+              <input
+                type="text"
+                placeholder="Long-lasting liquid form"
+                class="key-feature"
+              />
+            </ul>
+
+            <div class="size-section">
+              <h3>Size</h3>
+              <label
+                ><input type="radio" name="size" value="200" /> 200 g</label
+              >
+              <label
+                ><input type="radio" name="size" value="300" /> 300 g</label
+              >
+              <label
+                ><input type="radio" name="size" value="900" /> 900 g</label
+              >
+            </div>
+
+            <input
+              type="text"
+              placeholder="Stock, insert number:"
+              class="stock"
+            />
+          </div>
+        </div>
+
+        <div class="description-section">
+          <h3>Description</h3>
+          <textarea id="description" placeholder="Insert text" maxlength="2000">
+Our premium Acacia Honey is known for its light, delicate flavor and crystal-clear golden color. Sourced from the fragrant blooms of the acacia tree, this honey offers a naturally sweet taste with a hint of vanilla. It’s perfect for sweetening your favorite tea, drizzling over yogurt, or adding to baked goods. Thanks to its high fructose content, Acacia Honey stays liquid longer than other varieties, making it an ideal choice for everyday use. Enjoy the pure, unfiltered goodness of nature in every spoonful.
+          </textarea>
+          <p id="char-counter">0 / 2,000</p>
+        </div>
+        <div class="edit-delete-buttons">
+          <button class="delete-product-button">Delete product</button>
+          <button class="save-product-button">Save product</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

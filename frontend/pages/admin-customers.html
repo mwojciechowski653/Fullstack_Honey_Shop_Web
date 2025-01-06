@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin - customers</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <!-- Link to global CSS -->
+    <link rel="stylesheet" href="../css/admin-customers.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Outfit:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <script defer src="../js/admin-customers.js"></script>
+  </head>
+  <body>
+    <div id="navbar"></div>
+    <div class="content">
+      <div id="top-area">
+        <div class="title">Customers</div>
+      </div>
+      <div id="filters-area">
+        <div class="filters-column first-column">
+          <div class="filter">
+            <div class="label">Customer's name</div>
+            <input type="text" id="name-input" />
+          </div>
+          <div class="filter">
+            <div class="label">Month</div>
+            <select id="month-select"></select>
+          </div>
+        </div>
+
+        <div class="filters-column second-column">
+          <div class="filter">
+            <div class="label">Date</div>
+            <input type="date" id="date-input" />
+          </div>
+
+          <div class="total-display">Total: xxx Customers</div>
+        </div>
+
+        <div class="filter-buttons">
+          <div class="filter-button">Search</div>
+          <div class="filter-button">Reset</div>
+        </div>
+      </div>
+      <div id="customers-table">
+        <div class="table-title">Customer list</div>
+        <div class="table-header">
+          <div class="header-element" style="width: 10%">JOIN DATE</div>
+          <div class="header-element" style="width: 15%">CUSTOMER</div>
+          <div class="header-element" style="width: 10%">EMAIL ADDRESS</div>
+          <div class="header-element" style="width: 15%">COUNTRY</div>
+          <div class="header-element" style="width: 10%">CITY</div>
+          <div class="header-element" style="width: 20%">HOME ADDRESS</div>
+          <div class="header-element" style="width: 10%">PAID AMOUNT</div>
+          <div class="header-element" style="width: 10%">PURCHASES AMOUNT</div>
+        </div>
+        <div id="table" class="table-content">
+          <!-- place to spawn customers -->
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

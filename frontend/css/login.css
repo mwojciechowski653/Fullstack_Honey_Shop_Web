@@ -1,0 +1,110 @@
+nav {
+    display: flex;
+    gap: 15px;
+}
+nav a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+nav a.sign_in_button{
+    background-color: #CF8500;
+    border: 1px solid black;
+    color: black;
+}
+nav a.sign_in_button:hover, a.register_button:active{
+    background-color: #d9d9d9	;
+    color: black;
+}
+nav a.register_button{
+    background-color: #743A00;
+    color: white;
+    border: 1px solid black;
+}
+nav a.register_button:hover, a.register_button:active{
+    background-color: black;
+    color: white;
+}
+    
+.login-container {
+    width: 43%;
+    height: 58%;
+    margin: 10px auto 70px;
+    background-color: #EDCB89;
+    padding: 30px;
+    border-radius: 28px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    margin-bottom: 70px;
+}
+
+.login-container h1 {
+    color: #7d4d1f;
+    text-align: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    color: #743A00; 
+    font-family: Baloo Thambi, sans-serif; 
+    font-size: 60px; 
+    margin: auto 10px;
+}
+
+.login-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-container label {
+    margin-bottom: 5px;
+    color: #7d4d1f;
+    width: 100%;
+    
+}
+
+.login-container input {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    margin: 4px auto 35px;
+    border: 1.5px solid #ccc;
+    border-radius: 10px;
+    width: 65%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+.login-container button {
+    font-family: 'Baloo Thambi 2', sans-serif;
+    font-size: 25px;
+    padding: 1px;
+    background-color: #743A00;
+    margin: 25px auto 0;
+    width: 25%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.login-container .extra-links {
+    text-align: center;
+    margin-top: 1px;
+}
+
+.login-container .extra-links a {
+    text-decoration: underline;
+    color: #7d4d1f;
+    font-weight: bold;
+}
+
+.login-container button:hover {
+    background-color: #a05e18;
+}
+
+#data{
+    padding-left: 140px;
+    margin-bottom: 1px;
+    line-height: 0.2;
+}

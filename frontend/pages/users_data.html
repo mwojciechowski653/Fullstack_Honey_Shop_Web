@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Thambi+2:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Thambi&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Anek+Devanagari&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/main.css"> <!-- Link to global CSS -->
+    <link rel="stylesheet" type="text/css" href="../css/users_data.css">
+    <script defer src="../js/navbar-footer.js"></script> <!-- JavaScript for loading navbar/footer -->
+    <script defer src="../js/main.js"></script> <!-- JavaScript for navigation functionality -->
+    <title>User's data</title>
+</head>
+
+<body>
+      <!-- Placeholder for navbar -->
+  <div id="navbar"></div>
+
+  <!-- Main content area -->
+  <div class="main-content">
+    <!-- Page-specific content goes here -->
+    <p style="text-align: center; color: #686868; font-size: 20px; margin-top: 0px;">Main page / Log In / User's data</p>
+    <div class="login-container">
+        <h1 >Your personal information</h1>
+        
+        <form>
+                <label id="data"><span style="color: #7d4d1f">First name</span> 
+                                <span style="color: red">*</span></label><br>
+                <input type="text" id="firstName" placeholder="Your first name" required>
+            
+                <label id="data"><span style="color: #7d4d1f">Last name</span> 
+                    <span style="color: red">*</span></label><br>
+                <input type="text" id="lastName" placeholder="Your last name" required>
+             
+                <label for="email" id="data"><span style="color: #7d4d1f">Email Address</span> 
+                    <span style="color: red">*</span></label><br>
+                <input type="email" id="email" placeholder="Your email" required>
+
+                <label id="data" for="phone"><span style="color: #7d4d1f">Phone Number</span>
+                    <span style="color: red">*</span></label><br>
+                <input type="tel" id="phone" name="phone" placeholder="+1234567890" 
+                pattern="^\+?[1-9]\d{1,14}$" required>
+            
+                <label id="data"><span style="color: #7d4d1f">Country</span> 
+                    <span style="color: red">*</span></label><br>
+                <input type="text" id="country" placeholder="Country" required>
+            
+                <label id="data"><span style="color: #7d4d1f">City</span>
+                                <span style="color:red">*</span></label><br>
+                <input type="text" id="city" placeholder="Your city" required>
+            
+            
+                <label id="data"><span style="color: #7d4d1f">Street</span>
+                                <span style="color:red">*</span></label><br>
+                <input type="text" id="street" placeholder="Your street" required>
+              
+            
+                <label id="data"><span style="color: #7d4d1f">Street number</span>
+                                <span style="color:red">*</span></label><br>
+                <input type="number" id="streetNumber" placeholder="Your street number" required min="0">
+            
+            
+                <label id="data"><span style="color: #7d4d1f">Postal code</span>
+                                <span style="color:red">*</span></label><br>
+                <input type="text" id = "postalCode" placeholder="Your postal code" required>
+             
+                <label for="password" id="data"><span style="color: #7d4d1f">New password</span></label><br>
+                                                
+                <input style="margin-bottom: 0px;" id="password1" required><br>
+                <label for="password" id="data"><span style="color: #7d4d1f">Repeat password</span></label><br>
+                    
+                <input style="margin-bottom: 0px;" id="password2" required><br>
+                
+                <button type="submit">Save</button>
+        </form>
+    </div>
+    <table> 
+        <thead> 
+            <tr> 
+                <th>Order's number</th> 
+                <th>Date</th> 
+                <th>Final price</th> 
+                <th>Status</th> 
+                <th>More</th> 
+            </tr> 
+        </thead> 
+        <tbody> 
+            <tr> 
+                <td>12345</td> 
+                <td>YYYY-MM-DD</td> 
+                <td>123 EUR</td> 
+                <td>Delivered</td> 
+                <td><a href="#" class="details-link">DETAILS</a></td> 
+            </tr> 
+            <tr> 
+                <td>12346</td> 
+                <td>YYYY-MM-DD</td> 
+                <td>123 EUR</td> 
+                <td>Delivered</td> 
+                <td><a href="#" class="details-link">DETAILS</a></td> 
+            </tr> 
+            <tr> 
+                <td>12347</td> 
+                <td>YYYY-MM-DD</td> 
+                <td>123 EUR</td> 
+                <td>Delivered</td> 
+                <td><a href="#" class="details-link">DETAILS</a></td> 
+            </tr> 
+            <tr> 
+                <td>12348</td> 
+                <td>YYYY-MM-DD</td> 
+                <td>123 EUR</td> 
+                <td>Delivered</td> 
+                <td><a href="#" class="details-link">DETAILS</a></td> 
+            </tr> 
+            <tr> 
+                <td>12349</td> 
+                <td>YYYY-MM-DD</td> 
+                <td>123 EUR</td> 
+                <td>Delivered</td> 
+                <td><a href="#" class="details-link">DETAILS</a></td> 
+            </tr> 
+            <tr> 
+                <td>12350</td> 
+                <td>YYYY-MM-DD</td> 
+                <td>123 EUR</td> 
+                <td>Delivered</td>
+                <td><a href="#" class="details-link">DETAILS</a></td> 
+            </tr> 
+        </tbody> 
+    </table>
+  </div>
+  <!-- Placeholder for footer -->
+  <div id="footer"></div>
+</body>
+</html>

@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function() {
       .then(data => {
         document.getElementById('footer').innerHTML = data;
         const navbarLinks = document.querySelectorAll(".navbar-options a");
-    console.log(navbarLinks);
+        // console.log(navbarLinks);
         document.dispatchEvent(new Event("navbarLoaded"));
       })
       .catch(error => console.error('Error loading footer:', error));

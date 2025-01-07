@@ -15,15 +15,17 @@ async function fetchProducts() {
         if (!data.success || !data.products || data.products.length === 0) {
             console.log('No products');
             document.getElementById('products-area').innerHTML = '';
-            return;
+            return [];
         }
 
         const splitProducts = splitSizeOptions(data.products);
         console.log(splitProducts);
         renderProducts(splitProducts);
+        return splitProducts;
     } catch (error) {
-        console.error('Error fetching orders: ', error);
-        document.getElementById('products-area').innerHTML = ''; 
+        console.error('Error fetching products: ', error);
+        document.getElementById('products-area').innerHTML = '';
+        return [];
     }
 }
 
@@ -55,7 +57,24 @@ function splitSizeOptions(products) {
     return splitProducts;
 }
 
-const allProducts = fetchProducts();
+// Fetch products and store them in a variable
+let allProducts = [];
+
+async function initializeProducts() {
+    allProducts = await fetchProducts();
+
+    // Now you can use allProducts here
+    if (allProducts.length > 0) {
+        const maxPrice = Math.max(...allProducts.map(product => choosePrice(product)));
+        document.getElementById("slider-min").max = maxPrice;
+        const maxSlider = document.getElementById("slider-max");
+        maxSlider.max = maxPrice;
+        maxSlider.value = maxPrice;
+    }
+}
+
+// Call the initialization function
+//initializeProducts();
 
 function renderProducts(products) {
     const productsArea = document.getElementById('products-area');
@@ -67,7 +86,7 @@ function renderProducts(products) {
             <div class="reccomendation-price" id="item-price${product.size_options.id}">${choosePrice(product)}€</div>
             <a href="product.html?id=${product.id}" class="reccomendation-button" id="redirection${product.id}">See details <img src="../assets/eye-icon.svg" alt="eye-icon"></a>
             </div>
-        `).join('')
+        `).join('');
 }
 
 function choosePrice(product) {
@@ -79,120 +98,9 @@ function choosePrice(product) {
     return price;
 }
 
-// set sliders
-const maxPrice = Math.max(...allProducts.map(product => choosePrice(product)));
-document.getElementById("slider-min").max = maxPrice;
-const maxSlider = document.getElementById("slider-max")
-maxSlider.max = maxPrice;
-maxSlider.value = maxPrice;
-
-// ----------------------------------------------------FILTERING----------------------------------------------------
-function handleFiltering() {
-    const checkedCategory = getChecked("category");
-    const checkedSizes = getChecked("size");
-    const minPrice = parseInt(document.getElementById("min-output").value, 10) || null;
-    const maxPrice = parseInt(document.getElementById("max-output").value, 10) || null;
-  
-    let filteredProducts = filterProductsByPrice(allProducts, minPrice, maxPrice);
-
-    if(checkedCategory.length > 0) {
-        filteredProducts = filterProductsByCategory(filteredProducts, checkedCategory);
-    }
-
-    if(checkedSizes.length > 0) {
-        filteredProducts = filterProductsBySize(filteredProducts, checkedSizes);
-    }
-    renderProducts(filteredProducts);
-}
-
-function filterProductsByPrice(products, minPrice, maxPrice) {
-    return products.filter(product => {
-        const isAboveMin = minPrice === null || choosePrice(product) >= minPrice;
-        const isBelowMax = maxPrice === null || choosePrice(product) <= maxPrice;
-        return isAboveMin && isBelowMax;
-    });
-}
-
-function filterProductsByCategory(products, categories) {
-    return products.filter(product => categories.includes(product.category));
-}
-
-function filterProductsBySize(products, sizes) {
-    return products.filter(product => sizes.some(size => product.size_options.size.includes(size)));
-}
-
-function getChecked(option) {
-    acceptedOptions = ["category", "size"];
-    if(!acceptedOptions.includes(option)) {
-        throw new Error("Invalid option parameter.");
-    }
-    const checkboxes = document.querySelectorAll(`.${option}-checkbox`);
-    const checkedOptions = [];
-    checkboxes.forEach(checkbox => {
-      if (checkbox.checked) {
-        checkedOptions.push(parseInt(checkbox.value, 10));
-      }
-    });
-    return checkedOptions;
-}
-
-document.getElementById("filter-button").addEventListener("click", event => {
-    handleFiltering();
-});
-// ----------------------------------------------------SORTING----------------------------------------------------
-
-function sortProducts(products, order = "priceAsc") {
-    return products.sort((a, b) => {
-        if (order === "priceAsc") {
-            return choosePrice(a) - choosePrice(b); // Ascending order
-        } else if (order === "priceDesc") {
-            return choosePrice(b) - choosePrice(a); // Descending order
-        } else if(order === "alph") {
-            return a.name.localeCompare(b.name);
-        } else if(order === "new") {
-            return b.size_option.id - a.size_option.id;
-        } else {
-            throw new Error("Invalid order parameter.");
-        }
-    });
-}
-
-  
-function handleSortButtonClick(event, order) {
-    // Sort the products
-    const sortedProducts = sortProducts(allProducts, order);
-    renderProducts(sortedProducts);
-
-    // Update active button
-    const buttons = document.querySelectorAll(".sorting-button");
-    buttons.forEach(button => button.classList.remove("sorting-active"));
-    event.target.classList.add("sorting-active");
-}
-
-document.getElementById("price-ascending").addEventListener("click", event => {
-    handleSortButtonClick(event, "priceAsc");
-});
-
-document.getElementById("price-descending").addEventListener("click", event => {
-    handleSortButtonClick(event, "priceDesc");
-});
-
-document.getElementById("alphabetical").addEventListener("click", event => {
-    handleSortButtonClick(event, "alph");
-});
-
-document.getElementById("new").addEventListener("click", event => {
-    handleSortButtonClick(event, "new");
-});
-
-
-
-// ----------------------------------------------------SLIDER----------------------------------------------------
-const sliderMin = document.getElementById('slider-min');
-const sliderMax = document.getElementById('slider-max');
-const sliderTrack = document.getElementById('slider-track');
-const minOutput = document.getElementById('min-output');
-const maxOutput = document.getElementById('max-output');
+// set sliders after allProducts are fetched
+document.getElementById("slider-min").addEventListener("input", updateSlider);
+document.getElementById("slider-max").addEventListener("input", updateSlider);
 
 function updateSlider() {
     // Make sure min slider always stays <= max slider
@@ -223,5 +131,116 @@ function updateSlider() {
 
 // Initialize everything on load
 window.onload = () => {
-    updateSlider();
+    initializeProducts();
 };
+
+// ----------------------------------------------------FILTERING----------------------------------------------------
+
+function handleFiltering() {
+    const checkedCategory = getChecked("category");
+    const checkedSizes = getChecked("size");
+    const minPrice = parseInt(document.getElementById("min-output").value, 10) || null;
+    const maxPrice = parseInt(document.getElementById("max-output").value, 10) || null;
+
+    let filteredProducts = filterProductsByPrice(allProducts, minPrice, maxPrice);
+
+    if (checkedCategory.length > 0) {
+        filteredProducts = filterProductsByCategory(filteredProducts, checkedCategory);
+    }
+
+    if (checkedSizes.length > 0) {
+        filteredProducts = filterProductsBySize(filteredProducts, checkedSizes);
+    }
+    renderProducts(filteredProducts);
+}
+
+function filterProductsByPrice(products, minPrice, maxPrice) {
+    return products.filter(product => {
+        const isAboveMin = minPrice === null || choosePrice(product) >= minPrice;
+        const isBelowMax = maxPrice === null || choosePrice(product) <= maxPrice;
+        return isAboveMin && isBelowMax;
+    });
+}
+
+function filterProductsByCategory(products, categories) {
+    console.log(categories);
+    return products.filter(product => categories.includes(categoryNumber(product.category)));
+}
+
+function categoryNumber(category) {
+    let categories = ["Wildflower", "Acacia", "Buckwheat", "Clover", "Creamed", "Alfalfa"];
+    return categories.indexOf(category) + 1;
+}
+
+function filterProductsBySize(products, sizes) {
+    return products.filter(product => sizes.includes(sizeNumber(product.size_options.size)));
+}
+
+function sizeNumber(size) {
+    let sizes = ["200", "300", "900"];
+    return sizes.indexOf(size) + 1;
+}
+
+function getChecked(option) {
+    const acceptedOptions = ["category", "size"];
+    if (!acceptedOptions.includes(option)) {
+        throw new Error("Invalid option parameter.");
+    }
+    const checkboxes = document.querySelectorAll(`.${option}-checkbox`);
+    const checkedOptions = [];
+    checkboxes.forEach(checkbox => {
+        if (checkbox.checked) {
+            checkedOptions.push(parseInt(checkbox.value, 10));
+        }
+    });
+    return checkedOptions;
+}
+
+document.getElementById("filter-button").addEventListener("click", event => {
+    handleFiltering();
+});
+
+// ----------------------------------------------------SORTING----------------------------------------------------
+
+function sortProducts(products, order = "priceAsc") {
+    return products.sort((a, b) => {
+        if (order === "priceAsc") {
+            return choosePrice(a) - choosePrice(b); // Ascending order
+        } else if (order === "priceDesc") {
+            return choosePrice(b) - choosePrice(a); // Descending order
+        } else if (order === "alph") {
+            return a.name.localeCompare(b.name);
+        } else if (order === "new") {
+            return b.id - a.id;
+        } else {
+            throw new Error("Invalid order parameter.");
+        }
+    });
+}
+
+function handleSortButtonClick(event, order) {
+    // Sort the products
+    const sortedProducts = sortProducts(allProducts, order);
+    renderProducts(sortedProducts);
+
+    // Update active button
+    const buttons = document.querySelectorAll(".sorting-button");
+    buttons.forEach(button => button.classList.remove("sorting-active"));
+    event.target.classList.add("sorting-active");
+}
+
+document.getElementById("price-ascending").addEventListener("click", event => {
+    handleSortButtonClick(event, "priceAsc");
+});
+
+document.getElementById("price-descending").addEventListener("click", event => {
+    handleSortButtonClick(event, "priceDesc");
+});
+
+document.getElementById("alphabetical").addEventListener("click", event => {
+    handleSortButtonClick(event, "alph");
+});
+
+document.getElementById("new").addEventListener("click", event => {
+    handleSortButtonClick(event, "new");
+});

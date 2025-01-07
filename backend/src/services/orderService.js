@@ -25,7 +25,6 @@ async function getAllOrders(filters = {}) {
         LEFT JOIN "USER_ADDRESS" ua ON u.id = ua.user_id
         `;
 
-    const queryParams = [];  // Array to hold the query parameters (unused in this case)
     const conditions = [];   // Array to hold conditions for filtering the query
 
     // If a 'name' filter is provided, add it to the conditions (search by user's full name)

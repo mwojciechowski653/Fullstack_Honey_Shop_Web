@@ -1,35 +1,86 @@
-const exampleProduct = {
-    id: 1,
-    name: 'Wildflower Honey',
-    price: 102,
-    imgUrl: "../images/AcaciaImage.jpg",
-    type: 1,
-    sizes:[1,2]
+async function fetchProducts() {
+    console.log("Fetching products...");
+    try {
+        const response = await fetch(`http://localhost:5000/api/products`);
+
+        console.log(response);
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        console.log("Response received");
+        const data = await response.json();
+        console.log(data);
+
+        if (!data.success || !data.products || data.products.length === 0) {
+            console.log('No products');
+            document.getElementById('products-area').innerHTML = '';
+            return;
+        }
+
+        const splitProducts = splitSizeOptions(data.products);
+        console.log(splitProducts);
+        renderProducts(splitProducts);
+    } catch (error) {
+        console.error('Error fetching orders: ', error);
+        document.getElementById('products-area').innerHTML = ''; 
+    }
 }
 
+function splitSizeOptions(products) {
+    const splitProducts = [];
 
-const allProducts = [exampleProduct,  {...exampleProduct, id:2, price:22, name:"Cheap Honey"}, {...exampleProduct, id: 3, name: "Aavender Honey", price:33}];
+    products.forEach(product => {
+        product.size_options.forEach(sizeOption => {
+            const newProduct = {
+                id: product.id,
+                name: product.name,
+                full_name: product.full_name,
+                category: product.category,
+                key_features: product.key_features,
+                description: product.description,
+                image_url: product.image_url,
+                size_options: {
+                    id: sizeOption.id,
+                    size: sizeOption.size,
+                    regular_price: sizeOption.regular_price,
+                    stock: sizeOption.stock,
+                    is_discounted: sizeOption.is_discounted,
+                    discounted_price: sizeOption.discounted_price
+                }
+            };
+            splitProducts.push(newProduct);
+        });
+    });
+    return splitProducts;
+}
+
+const allProducts = fetchProducts();
 
 function renderProducts(products) {
-    document.getElementById('products-area').innerHTML = products.map(product => 
+    const productsArea = document.getElementById('products-area');
+    productsArea.innerHTML = products.map(product =>
         `
             <div class="reccomendation">
-            <img class="reccomendation-image" id="item-image${product.id}" src="${product.imgUrl}" alt="reccomendation-image">
-            <div class="reccomendation-title" id="item-title${product.id}">${product.name}</div>
-            <div class="reccomendation-price" id="item-price${product.id}">${product.price}€</div>
+            <img class="reccomendation-image" id="item-image${product.size_options.id}" src="${product.image_url}" alt="reccomendation-image">
+            <div class="reccomendation-title" id="item-title${product.size_options.id}">${product.name} - ${product.size_options.size}g</div>
+            <div class="reccomendation-price" id="item-price${product.size_options.id}">${choosePrice(product)}€</div>
             <a href="product.html?id=${product.id}" class="reccomendation-button" id="redirection${product.id}">See details <img src="../assets/eye-icon.svg" alt="eye-icon"></a>
             </div>
         `).join('')
 }
 
-
-
-renderProducts(allProducts);
-
-
+function choosePrice(product) {
+    let price = product.size_options.regular_price;
+    if (product.size_options.is_discounted) {
+        console.log("discount");
+        price = product.size_options.discounted_price;
+    }
+    return price;
+}
 
 // set sliders
-const maxPrice = Math.max(...allProducts.map(product => product.price));
+const maxPrice = Math.max(...allProducts.map(product => choosePrice(product)));
 document.getElementById("slider-min").max = maxPrice;
 const maxSlider = document.getElementById("slider-max")
 maxSlider.max = maxPrice;
@@ -37,15 +88,15 @@ maxSlider.value = maxPrice;
 
 // ----------------------------------------------------FILTERING----------------------------------------------------
 function handleFiltering() {
-    const checkedTypes = getChecked("type");
+    const checkedCategory = getChecked("category");
     const checkedSizes = getChecked("size");
     const minPrice = parseInt(document.getElementById("min-output").value, 10) || null;
     const maxPrice = parseInt(document.getElementById("max-output").value, 10) || null;
   
     let filteredProducts = filterProductsByPrice(allProducts, minPrice, maxPrice);
 
-    if(checkedTypes.length > 0) {
-        filteredProducts = filterProductsByType(filteredProducts, checkedTypes);
+    if(checkedCategory.length > 0) {
+        filteredProducts = filterProductsByCategory(filteredProducts, checkedCategory);
     }
 
     if(checkedSizes.length > 0) {
@@ -54,25 +105,24 @@ function handleFiltering() {
     renderProducts(filteredProducts);
 }
 
-
 function filterProductsByPrice(products, minPrice, maxPrice) {
     return products.filter(product => {
-      const isAboveMin = minPrice === null || product.price >= minPrice;
-      const isBelowMax = maxPrice === null || product.price <= maxPrice;
-      return isAboveMin && isBelowMax;
+        const isAboveMin = minPrice === null || choosePrice(product) >= minPrice;
+        const isBelowMax = maxPrice === null || choosePrice(product) <= maxPrice;
+        return isAboveMin && isBelowMax;
     });
 }
 
-function filterProductsByType(products, types) {
-    return products.filter(product => types.includes(product.type));
+function filterProductsByCategory(products, categories) {
+    return products.filter(product => categories.includes(product.category));
 }
 
 function filterProductsBySize(products, sizes) {
-    return products.filter(product => sizes.some(size => product.sizes.includes(size)));
+    return products.filter(product => sizes.some(size => product.size_options.size.includes(size)));
 }
 
 function getChecked(option) {
-    acceptedOptions = ["type", "size"];
+    acceptedOptions = ["category", "size"];
     if(!acceptedOptions.includes(option)) {
         throw new Error("Invalid option parameter.");
     }
@@ -93,18 +143,17 @@ document.getElementById("filter-button").addEventListener("click", event => {
 
 function sortProducts(products, order = "priceAsc") {
     return products.sort((a, b) => {
-      if (order === "priceAsc") {
-        return a.price - b.price; // Ascending order
-      } else if (order === "priceDesc") {
-        return b.price - a.price; // Descending order
-      } else if(order === "alph") {
-        return a.name.localeCompare(b.name);
-      } else if(order === "new") {
-        return b.id - a.id;
-      }
-       else {
-        throw new Error("Invalid order parameter.");
-      }
+        if (order === "priceAsc") {
+            return choosePrice(a) - choosePrice(b); // Ascending order
+        } else if (order === "priceDesc") {
+            return choosePrice(b) - choosePrice(a); // Descending order
+        } else if(order === "alph") {
+            return a.name.localeCompare(b.name);
+        } else if(order === "new") {
+            return b.size_option.id - a.size_option.id;
+        } else {
+            throw new Error("Invalid order parameter.");
+        }
     });
 }
 
@@ -140,39 +189,39 @@ document.getElementById("new").addEventListener("click", event => {
 
 // ----------------------------------------------------SLIDER----------------------------------------------------
 const sliderMin = document.getElementById('slider-min');
-    const sliderMax = document.getElementById('slider-max');
-    const sliderTrack = document.getElementById('slider-track');
-    const minOutput = document.getElementById('min-output');
-    const maxOutput = document.getElementById('max-output');
+const sliderMax = document.getElementById('slider-max');
+const sliderTrack = document.getElementById('slider-track');
+const minOutput = document.getElementById('min-output');
+const maxOutput = document.getElementById('max-output');
 
-    function updateSlider() {
-        // Make sure min slider always stays <= max slider
-        let minVal = parseInt(sliderMin.value);
-        let maxVal = parseInt(sliderMax.value);
+function updateSlider() {
+    // Make sure min slider always stays <= max slider
+    let minVal = parseInt(sliderMin.value);
+    let maxVal = parseInt(sliderMax.value);
 
-        if (minVal > maxVal) {
+    if (minVal > maxVal) {
         // Swap values if the user crosses the sliders
         let temp = minVal;
         minVal = maxVal;
         maxVal = temp;
-        }
-
-        // Update the displayed text values
-        minOutput.textContent = minVal;
-        minOutput.value = minVal;
-        maxOutput.textContent = maxVal;
-        maxOutput.value = maxVal;
-
-        // Calculate how far along each knob is (as percentage of total width)
-        const minPercent = (minVal / (sliderMin.max - sliderMin.min)) * 100;
-        const maxPercent = (maxVal / (sliderMax.max - sliderMax.min)) * 100;
-
-        // Update the track's position and width
-        sliderTrack.style.left = minPercent + '%';
-        sliderTrack.style.right = (100 - maxPercent) + '%';
     }
 
-    // Initialize everything on load
-    window.onload = () => {
-      updateSlider();
-    };
+    // Update the displayed text values
+    minOutput.textContent = minVal;
+    minOutput.value = minVal;
+    maxOutput.textContent = maxVal;
+    maxOutput.value = maxVal;
+
+    // Calculate how far along each knob is (as percentage of total width)
+    const minPercent = (minVal / (sliderMin.max - sliderMin.min)) * 100;
+    const maxPercent = (maxVal / (sliderMax.max - sliderMax.min)) * 100;
+
+    // Update the track's position and width
+    sliderTrack.style.left = minPercent + '%';
+    sliderTrack.style.right = (100 - maxPercent) + '%';
+}
+
+// Initialize everything on load
+window.onload = () => {
+    updateSlider();
+};

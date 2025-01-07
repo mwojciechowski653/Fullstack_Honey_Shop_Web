@@ -154,4 +154,30 @@ async function getAllOrders(filters = {}) {
     }
 }
 
-module.exports = { getAllOrders };  // Exporting the getAllOrders function for use in other modules
+async function getOrderById(id) {
+    const query = `
+        SELECT 
+            id, user_id, date, status, invoice_id, order_value 
+        FROM "ORDER" 
+        WHERE id = $1`;
+    
+    try {
+        const {rows} = await pool.query(query, [id]);
+        if (rows.length === 0)
+            return null;
+        const order = {
+            id: rows[0].id,
+            date: rows[0].date,
+            order_value: rows[0].order_value,
+            status: rows[0].status,
+            invoice_id: rows[0].invoice_id};
+        return order;
+        } catch (error) {
+            console.error('Error getting order by id:', error);
+            throw new Error('Database query failed');
+        }
+}
+
+
+
+module.exports = { getAllOrders, getOrderById };  // Exporting the getAllOrders function for use in other modules

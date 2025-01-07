@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="../css/users_data.css">
     <script defer src="../js/navbar-footer.js"></script> <!-- JavaScript for loading navbar/footer -->
     <script defer src="../js/main.js"></script> <!-- JavaScript for navigation functionality -->
+    <script defer src="../js/users_data.js"></script>
     <title>User's data</title>
 </head>
 
@@ -66,14 +67,13 @@
                                 <span style="color:red">*</span></label><br>
                 <input type="text" id = "postalCode" placeholder="Your postal code" required>
              
-                <label for="password" id="data"><span style="color: #7d4d1f">New password</span></label><br>
-                                                
-                <input style="margin-bottom: 0px;" id="password1" required><br>
+                <label for="password" id="data"><span style="color: #7d4d1f">New password</span></label><br>                                
+                <input type="password" style="margin-bottom: 0px;" id="password1"><br>
+
                 <label for="password" id="data"><span style="color: #7d4d1f">Repeat password</span></label><br>
-                    
-                <input style="margin-bottom: 0px;" id="password2" required><br>
+                <input type="password" style="margin-bottom: 0px;" id="password2"><br>
                 
-                <button type="submit">Save</button>
+                <button id="saveButton" type="submit">Save</button>
         </form>
     </div>
     <table> 
@@ -86,51 +86,42 @@
                 <th>More</th> 
             </tr> 
         </thead> 
-        <tbody> 
-            <tr> 
-                <td>12345</td> 
-                <td>YYYY-MM-DD</td> 
-                <td>123 EUR</td> 
-                <td>Delivered</td> 
-                <td><a href="#" class="details-link">DETAILS</a></td> 
-            </tr> 
-            <tr> 
-                <td>12346</td> 
-                <td>YYYY-MM-DD</td> 
-                <td>123 EUR</td> 
-                <td>Delivered</td> 
-                <td><a href="#" class="details-link">DETAILS</a></td> 
-            </tr> 
-            <tr> 
-                <td>12347</td> 
-                <td>YYYY-MM-DD</td> 
-                <td>123 EUR</td> 
-                <td>Delivered</td> 
-                <td><a href="#" class="details-link">DETAILS</a></td> 
-            </tr> 
-            <tr> 
-                <td>12348</td> 
-                <td>YYYY-MM-DD</td> 
-                <td>123 EUR</td> 
-                <td>Delivered</td> 
-                <td><a href="#" class="details-link">DETAILS</a></td> 
-            </tr> 
-            <tr> 
-                <td>12349</td> 
-                <td>YYYY-MM-DD</td> 
-                <td>123 EUR</td> 
-                <td>Delivered</td> 
-                <td><a href="#" class="details-link">DETAILS</a></td> 
-            </tr> 
-            <tr> 
-                <td>12350</td> 
-                <td>YYYY-MM-DD</td> 
-                <td>123 EUR</td> 
-                <td>Delivered</td>
-                <td><a href="#" class="details-link">DETAILS</a></td> 
-            </tr> 
+        <tbody id="ordersTable"> 
+            
         </tbody> 
     </table>
+    <script>
+        const pool = require('../db');
+        // Pobieranie danych z API
+        async function fetchOrders() {
+            try {
+                const response = await fetch("http://localhost:5000/api/orders");
+                const orders = await response.json();
+
+                // Generowanie wierszy tabeli
+                const tableBody = document.getElementById("ordersTable");
+                tableBody.innerHTML = ""; // Wyczyszczenie tabeli
+
+                orders.forEach(order => {
+                    const row = `
+                        <tr>
+                            <td>${order.orderId}</td>
+                            <td>${order.date}</td>
+                            <td>${order.order_value}</td>
+                            <td>${order.status}</td>
+                            <td><a href="#" class="details-link">DETAILS</a></td>
+                        </tr>
+                    `;
+                    tableBody.innerHTML += row;
+                });
+            } catch (error) {
+                console.error("Error fetching orders:", error);
+            }
+        }
+
+        // Wywołanie funkcji po załadowaniu strony
+        window.onload = fetchOrders;
+    </script>
   </div>
   <!-- Placeholder for footer -->
   <div id="footer"></div>

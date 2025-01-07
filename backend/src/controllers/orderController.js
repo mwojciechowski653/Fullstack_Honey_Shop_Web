@@ -23,4 +23,27 @@ async function getAllOrders(req, res) {
     }
 }
 
-module.exports = { getAllOrders };  // Exporting the function to be used elsewhere in the application
+const productsService = require('../services/orderService');
+
+
+async function getOrderById(req, res) {
+    const ordertId = parseInt(req.params.id, 10);
+    if (isNaN(orderId)) {
+        return res.status(400).json({ success: false, error: 'Invalid ordser ID' }); // 400 Bad Request
+    }
+
+    try {
+        const product = await productsService.getOrderById(orderId);
+
+        if (!order) {
+            return res.status(404).json({ success: false, error: 'Order not found' }); // 404 Not Found
+        }
+
+        res.json({ success: true, order }); // 200 OK
+    } catch (error) {
+        console.error('Error getting order by id:', error);
+        res.status(500).json({ success: false, error: error.message }); // 500 Internal Server Error
+    }
+}
+
+module.exports = { getAllOrders, getOrderById };  // Exporting the function to be used elsewhere in the application

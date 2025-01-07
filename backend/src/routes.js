@@ -1,11 +1,13 @@
 const express = require('express');
 
-productController = require('./controllers/productController');
-shopController = require('./controllers/shopController');
-orderController = require('./controllers/orderController');
-homePageController = require('./controllers/homePageController');
-userController = require('./controllers/userController');
-orderController = require('./controllers/orderController');
+const productController = require('./controllers/productController');
+const shopController = require('./controllers/shopController');
+const orderController = require('./controllers/orderController');
+const homePageController = require('./controllers/homePageController');
+const authController = require('./controllers/authController');
+const userController = require('./controllers/userController');
+const orderController = require('./controllers/orderController');
+
 
 const router = express.Router();
 const customerController = require('./controllers/customerController');
@@ -24,5 +26,9 @@ router.get('/home', homePageController.getHomePageProducts);
 
 router.put('/users/:id', userController.updateUserById);
 router.post('/users/:id', userController.updateUserById);
+
+//Auth routes
+router.post('/auth/signup', authController.signUpValidators, authController.signUp);
+
 
 module.exports = router;

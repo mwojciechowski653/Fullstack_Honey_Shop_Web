@@ -2,15 +2,13 @@ async function fetchProducts() {
     console.log("Fetching products...");
     try {
         const response = await fetch(`http://localhost:5000/api/products`);
-
-        console.log(response);
+        
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
 
         console.log("Response received");
         const data = await response.json();
-        console.log(data);
 
         if (!data.success || !data.products || data.products.length === 0) {
             console.log('No products');
@@ -19,7 +17,6 @@ async function fetchProducts() {
         }
 
         const splitProducts = splitSizeOptions(data.products);
-        console.log(splitProducts);
         renderProducts(splitProducts);
         return splitProducts;
     } catch (error) {
@@ -62,19 +59,7 @@ let allProducts = [];
 
 async function initializeProducts() {
     allProducts = await fetchProducts();
-
-    // Now you can use allProducts here
-    if (allProducts.length > 0) {
-        const maxPrice = Math.max(...allProducts.map(product => choosePrice(product)));
-        document.getElementById("slider-min").max = maxPrice;
-        const maxSlider = document.getElementById("slider-max");
-        maxSlider.max = maxPrice;
-        maxSlider.value = maxPrice;
-    }
 }
-
-// Call the initialization function
-//initializeProducts();
 
 function renderProducts(products) {
     const productsArea = document.getElementById('products-area');
@@ -92,47 +77,19 @@ function renderProducts(products) {
 function choosePrice(product) {
     let price = product.size_options.regular_price;
     if (product.size_options.is_discounted) {
-        console.log("discount");
         price = product.size_options.discounted_price;
     }
     return price;
 }
 
-// set sliders after allProducts are fetched
-document.getElementById("slider-min").addEventListener("input", updateSlider);
-document.getElementById("slider-max").addEventListener("input", updateSlider);
 
-function updateSlider() {
-    // Make sure min slider always stays <= max slider
-    let minVal = parseInt(sliderMin.value);
-    let maxVal = parseInt(sliderMax.value);
-
-    if (minVal > maxVal) {
-        // Swap values if the user crosses the sliders
-        let temp = minVal;
-        minVal = maxVal;
-        maxVal = temp;
-    }
-
-    // Update the displayed text values
-    minOutput.textContent = minVal;
-    minOutput.value = minVal;
-    maxOutput.textContent = maxVal;
-    maxOutput.value = maxVal;
-
-    // Calculate how far along each knob is (as percentage of total width)
-    const minPercent = (minVal / (sliderMin.max - sliderMin.min)) * 100;
-    const maxPercent = (maxVal / (sliderMax.max - sliderMax.min)) * 100;
-
-    // Update the track's position and width
-    sliderTrack.style.left = minPercent + '%';
-    sliderTrack.style.right = (100 - maxPercent) + '%';
-}
-
-// Initialize everything on load
-window.onload = () => {
-    initializeProducts();
-};
+// set sliders
+const maxPrice = Math.max(...allProducts.map(product => choosePrice(product)));
+console.log(maxPrice);
+document.getElementById("slider-min").max = maxPrice;
+const maxSlider = document.getElementById("slider-max")
+maxSlider.max = maxPrice;
+maxSlider.value = maxPrice;
 
 // ----------------------------------------------------FILTERING----------------------------------------------------
 
@@ -163,7 +120,6 @@ function filterProductsByPrice(products, minPrice, maxPrice) {
 }
 
 function filterProductsByCategory(products, categories) {
-    console.log(categories);
     return products.filter(product => categories.includes(categoryNumber(product.category)));
 }
 
@@ -244,3 +200,44 @@ document.getElementById("alphabetical").addEventListener("click", event => {
 document.getElementById("new").addEventListener("click", event => {
     handleSortButtonClick(event, "new");
 });
+
+
+// ----------------------------------------------------SLIDER----------------------------------------------------
+const sliderMin = document.getElementById('slider-min');
+const sliderMax = document.getElementById('slider-max');
+const sliderTrack = document.getElementById('slider-track');
+const minOutput = document.getElementById('min-output');
+const maxOutput = document.getElementById('max-output');
+
+function updateSlider() {
+    // Make sure min slider always stays <= max slider
+    let minVal = parseInt(sliderMin.value);
+    let maxVal = parseInt(sliderMax.value);
+
+    if (minVal > maxVal) {
+        // Swap values if the user crosses the sliders
+        let temp = minVal;
+        minVal = maxVal;
+        maxVal = temp;
+    }
+
+    // Update the displayed text values
+    minOutput.textContent = minVal;
+    minOutput.value = minVal;
+    maxOutput.textContent = maxVal;
+    maxOutput.value = maxVal;
+
+    // Calculate how far along each knob is (as percentage of total width)
+    const minPercent = (minVal / (sliderMin.max - sliderMin.min)) * 100;
+    const maxPercent = (maxVal / (sliderMax.max - sliderMax.min)) * 100;
+
+    // Update the track's position and width
+    sliderTrack.style.left = minPercent + '%';
+    sliderTrack.style.right = (100 - maxPercent) + '%';
+}
+
+// Initialize everything on load
+window.onload = () => {
+    updateSlider();
+    initializeProducts();
+};

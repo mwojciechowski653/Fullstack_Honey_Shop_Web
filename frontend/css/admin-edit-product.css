@@ -137,6 +137,32 @@ body {
   border-radius: 4px;
 }
 
+/* Product Type Dropdown */
+.product-type-dropdown {
+  display: block;
+  width: 100%;
+  margin: 15px 0;
+  padding: 10px;
+  font-size: 1em;
+  color: #743a00;
+  font-weight: bold;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.product-type-dropdown:focus {
+  outline: none;
+  border-color: #b7791f;
+  box-shadow: 0 0 5px rgba(183, 121, 31, 0.5);
+}
+
+.product-type-dropdown option {
+  font-weight: normal;
+  color: #743a00;
+}
+
 .details-section .key-feature {
   width: 32%;
   border: 1px solid #ddd;

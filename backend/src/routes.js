@@ -16,6 +16,6 @@ router.get('/products', shopController.getAllProducts);
 router.get('/orders', orderController.getAllOrders);
 
 //Home page routes
-router.get('/home', productController.getHomePageProducts);
+//router.get('/home', productController.getHomePageProducts);
  
 module.exports = router;

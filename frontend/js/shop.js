@@ -1,36 +1,47 @@
+// ----------------------------------------------------FETCHING----------------------------------------------------
+
+// Function to fetch products from the server
 async function fetchProducts() {
     console.log("Fetching products...");
     try {
+        // Send a GET request to the API to fetch product data
         const response = await fetch(`http://localhost:5000/api/products`);
-        
+
+        // Check if the response is successful
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
 
         console.log("Response received");
+        // Parse the JSON response
         const data = await response.json();
 
+        // Handle cases where no products or invalid data is returned
         if (!data.success || !data.products || data.products.length === 0) {
             console.log('No products');
             document.getElementById('products-area').innerHTML = '';
             return [];
         }
 
+        // Split the size options for each product into separate entries
         const splitProducts = splitSizeOptions(data.products);
+        // Render the products on the page
         renderProducts(splitProducts);
         return splitProducts;
     } catch (error) {
+        // Handle errors during the fetch process
         console.error('Error fetching products: ', error);
         document.getElementById('products-area').innerHTML = '';
         return [];
     }
 }
 
+// Helper function to split product size options into individual products
 function splitSizeOptions(products) {
     const splitProducts = [];
-
     products.forEach(product => {
         product.size_options.forEach(sizeOption => {
+            // Create a new product object for each size option
             const newProduct = {
                 id: product.id,
                 name: product.name,
@@ -54,15 +65,19 @@ function splitSizeOptions(products) {
     return splitProducts;
 }
 
-// Fetch products and store them in a variable
 let allProducts = [];
 
+// Function to initialize products by fetching them from the server
 async function initializeProducts() {
     allProducts = await fetchProducts();
 }
 
+// ----------------------------------------------------RENDERING----------------------------------------------------
+
+// Function to render products on the page
 function renderProducts(products) {
     const productsArea = document.getElementById('products-area');
+    // Generate HTML for each product and insert it into the products area
     productsArea.innerHTML = products.map(product =>
         `
             <div class="reccomendation">
@@ -74,6 +89,7 @@ function renderProducts(products) {
         `).join('');
 }
 
+// Helper function to determine the appropriate price to display
 function choosePrice(product) {
     let price = product.size_options.regular_price;
     if (product.size_options.is_discounted) {
@@ -82,35 +98,42 @@ function choosePrice(product) {
     return price;
 }
 
+// ----------------------------------------------------SETTING-SLIDERS----------------------------------------------
 
-// set sliders
+// Determine the maximum price among all products for slider configuration
 const maxPrice = Math.max(...allProducts.map(product => choosePrice(product)));
 console.log(maxPrice);
 document.getElementById("slider-min").max = maxPrice;
-const maxSlider = document.getElementById("slider-max")
+const maxSlider = document.getElementById("slider-max");
 maxSlider.max = maxPrice;
 maxSlider.value = maxPrice;
 
 // ----------------------------------------------------FILTERING----------------------------------------------------
 
+// Function to handle filtering of products based on user input
 function handleFiltering() {
     const checkedCategory = getChecked("category");
     const checkedSizes = getChecked("size");
     const minPrice = parseInt(document.getElementById("min-output").value, 10) || null;
     const maxPrice = parseInt(document.getElementById("max-output").value, 10) || null;
 
+    // Apply price filtering
     let filteredProducts = filterProductsByPrice(allProducts, minPrice, maxPrice);
 
+    // Apply category filtering if any categories are selected
     if (checkedCategory.length > 0) {
         filteredProducts = filterProductsByCategory(filteredProducts, checkedCategory);
     }
 
+    // Apply size filtering if any sizes are selected
     if (checkedSizes.length > 0) {
         filteredProducts = filterProductsBySize(filteredProducts, checkedSizes);
     }
+    // Render the filtered products
     renderProducts(filteredProducts);
 }
 
+// Filter products based on price range
 function filterProductsByPrice(products, minPrice, maxPrice) {
     return products.filter(product => {
         const isAboveMin = minPrice === null || choosePrice(product) >= minPrice;
@@ -119,24 +142,29 @@ function filterProductsByPrice(products, minPrice, maxPrice) {
     });
 }
 
+// Filter products based on selected categories
 function filterProductsByCategory(products, categories) {
     return products.filter(product => categories.includes(categoryNumber(product.category)));
 }
 
+// Map category names to corresponding numeric identifiers
 function categoryNumber(category) {
     let categories = ["Wildflower", "Acacia", "Buckwheat", "Clover", "Creamed", "Alfalfa"];
     return categories.indexOf(category) + 1;
 }
 
+// Filter products based on selected sizes
 function filterProductsBySize(products, sizes) {
     return products.filter(product => sizes.includes(sizeNumber(product.size_options.size)));
 }
 
+// Map size values to corresponding numeric identifiers
 function sizeNumber(size) {
     let sizes = ["200", "300", "900"];
     return sizes.indexOf(size) + 1;
 }
 
+// Get checked checkboxes for filtering options
 function getChecked(option) {
     const acceptedOptions = ["category", "size"];
     if (!acceptedOptions.includes(option)) {
@@ -152,12 +180,14 @@ function getChecked(option) {
     return checkedOptions;
 }
 
+// Add click event listener to the filter button
 document.getElementById("filter-button").addEventListener("click", event => {
     handleFiltering();
 });
 
 // ----------------------------------------------------SORTING----------------------------------------------------
 
+// Sort products based on the selected order
 function sortProducts(products, order = "priceAsc") {
     return products.sort((a, b) => {
         if (order === "priceAsc") {
@@ -165,26 +195,28 @@ function sortProducts(products, order = "priceAsc") {
         } else if (order === "priceDesc") {
             return choosePrice(b) - choosePrice(a); // Descending order
         } else if (order === "alph") {
-            return a.name.localeCompare(b.name);
+            return a.name.localeCompare(b.name); // Alphabetical order
         } else if (order === "new") {
-            return b.id - a.id;
+            return b.id - a.id; // By ID (newest first)
         } else {
             throw new Error("Invalid order parameter.");
         }
     });
 }
 
+// Handle sort button click events
 function handleSortButtonClick(event, order) {
     // Sort the products
     const sortedProducts = sortProducts(allProducts, order);
     renderProducts(sortedProducts);
 
-    // Update active button
+    // Update the active state of the clicked button
     const buttons = document.querySelectorAll(".sorting-button");
     buttons.forEach(button => button.classList.remove("sorting-active"));
     event.target.classList.add("sorting-active");
 }
 
+// Add click event listeners to sorting buttons
 document.getElementById("price-ascending").addEventListener("click", event => {
     handleSortButtonClick(event, "priceAsc");
 });
@@ -201,21 +233,23 @@ document.getElementById("new").addEventListener("click", event => {
     handleSortButtonClick(event, "new");
 });
 
-
 // ----------------------------------------------------SLIDER----------------------------------------------------
+
+// Slider elements
 const sliderMin = document.getElementById('slider-min');
 const sliderMax = document.getElementById('slider-max');
 const sliderTrack = document.getElementById('slider-track');
 const minOutput = document.getElementById('min-output');
 const maxOutput = document.getElementById('max-output');
 
+// Update slider values and appearance
 function updateSlider() {
-    // Make sure min slider always stays <= max slider
+    // Ensure min slider value is not greater than max slider value
     let minVal = parseInt(sliderMin.value);
     let maxVal = parseInt(sliderMax.value);
 
     if (minVal > maxVal) {
-        // Swap values if the user crosses the sliders
+        // Swap values if sliders cross
         let temp = minVal;
         minVal = maxVal;
         maxVal = temp;
@@ -227,16 +261,18 @@ function updateSlider() {
     maxOutput.textContent = maxVal;
     maxOutput.value = maxVal;
 
-    // Calculate how far along each knob is (as percentage of total width)
+    // Calculate slider knob positions as percentages
     const minPercent = (minVal / (sliderMin.max - sliderMin.min)) * 100;
     const maxPercent = (maxVal / (sliderMax.max - sliderMax.min)) * 100;
 
-    // Update the track's position and width
+    // Update slider track position and width
     sliderTrack.style.left = minPercent + '%';
     sliderTrack.style.right = (100 - maxPercent) + '%';
 }
 
-// Initialize everything on load
+// ----------------------------------------------------INITIALIZING----------------------------------------------------
+
+// Initialize the page when it loads
 window.onload = () => {
     updateSlider();
     initializeProducts();

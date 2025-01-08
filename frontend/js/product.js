@@ -21,6 +21,35 @@ function redirect(pathAfterPages) {
   window.location.href = `http://127.0.0.1:3000/frontend/pages/${pathAfterPages}`;
 }
 
+async function addToCart(sizeOption) {
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  let total = JSON.parse(localStorage.getItem('cartTotal')) || 0;
+  let cartQuantity = JSON.parse(localStorage.getItem('cartQuantity')) || 0;
+
+  // Check if the product is already in the cart
+  const productIndex = cart.findIndex(item => item.sizeOptionId === sizeOption.id);
+
+  if (productIndex !== -1) {
+      // If the product exists, update the quantity
+      cart[productIndex].numberOfUnits += 1;
+  } else {
+      // If the product is new, add it to the cart
+      cart.push({ sizeOptionId: sizeOption.id, numberOfUnits: 1 });
+  }
+
+  // Update total price
+  total += sizeOption.is_discounted ? sizeOption.discounted_price : sizeOption.regular_price;
+  cartQuantity += 1;
+
+
+  // Save updated cart back to local storage
+  localStorage.setItem('cart', JSON.stringify(cart));
+  localStorage.setItem('cartTotal', JSON.stringify(total));
+  localStorage.setItem('cartQuantity', JSON.stringify(cartQuantity));
+
+  // renderCartPreview(updatedCart); 
+}
+
 document.addEventListener("DOMContentLoaded", function() {
 // ---------------------------------------------FETCHING PRODUCT------------------------------------------------
     // Get the product ID from the URL
@@ -91,9 +120,22 @@ document.addEventListener("DOMContentLoaded", function() {
           updatePrice(size_options.find(option => option.sizeInt === parseInt(event.target.value)));
         });
 
+
+      const addToCartButton = document.getElementById('add-to-cart');
+      addToCartButton.addEventListener('click', async () => {
+      const sizeSelectElement = document.getElementById('size-select');
+      const sizeOption = size_options.find(option => option.sizeInt === parseInt(sizeSelectElement.value));
+      addToCart(sizeOption);
+      alert('Product added to cart');
+    });
+
       })
       .catch(error => {
         console.error('Error loading product data:', error);
       });
+
+
+// ---------------------------------------------ADDING TO CART------------------------------------------------
+    
   });
   

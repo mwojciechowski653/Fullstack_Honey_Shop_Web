@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Your cart</title>
+
+  <link rel="stylesheet" href="../css/main.css"> <!-- Link to global CSS -->
+  <link rel="stylesheet" type="text/css" href="../css/cart.css"> <!-- Link to page-specific CSS -->
+
+  <script defer src="../js/navbar-footer.js"></script> <!-- JavaScript for loading navbar/footer -->
+  <script defer src="../js/main.js"></script> <!-- JavaScript for navigation functionality -->
+
+  <link rel="icon" type="image/png" href="../images/icon.png">
+   
+</head>
+<body>
+
+  <!-- Placeholder for navbar -->
+  <div id="navbar"></div>
+
+  <!-- Main content area -->
+  <div class="main-content">
+    <div class="cart-header">Your cart</div>
+    <div id="products-container">
+        <div class="product">
+            <div class="felxbox-left">
+                <img class="product-image" src="../assets/miod1.jpg" alt="">
+                <div class="product-name">Honey Lavender - 200g</div>
+            </div>
+            <div class="flexbox-right">
+                <div class="counter">
+                    <div class="minus">-</div>
+                    <div class="quantity">2</div>
+                    <div class="plus">+</div>
+                </div>
+                <div class="price-calculation">
+                    <div class="x">x</div>
+                    <div class="unit-price">12€</div>
+                    <div class="equals">=</div>
+                    <div class="product-price">24$</div>
+                </div>
+            </div>
+        </div>
+        <div class="product"></div>
+        <div class="product"></div>
+    </div>
+    <div class="delivery-summary">
+        <div class="delivery">
+            <div class="delivery-title">Delivery</div>
+            <form id="delivery-form">
+                <label class="radio-label">
+                    <input type="radio" class="delivery-radio" name="delivery">
+                    <div class="delivery-desc">
+                        <div>Delivery option nr 1</div>
+                        <div>1-2 days</div>
+                        <div>5€</div>
+                    </div>
+                </label>
+                <label class="radio-label">
+                    <input type="radio" class="delivery-radio" name="delivery">
+                    <div class="delivery-desc">
+                        <div>Delivery option nr 1</div>
+                        <div>1-2 days</div>
+                        <div>5€</div>
+                    </div>
+                </label>
+                <label class="radio-label">
+                    <input type="radio" class="delivery-radio" name="delivery">
+                    <div class="delivery-desc">
+                        <div>Delivery option nr 1</div>
+                        <div>1-2 days</div>
+                        <div>5€</div>
+                    </div>
+                </label></form>
+        </div>
+        <div class="summary">
+            <div class="summary-title">Summary</div>
+            <div class="summary-labels-container">
+                <div class="summary-label">
+                    <div class="label-desc">Products</div>
+                    <div class="label-value">48€</div>
+                </div>
+                <div class="summary-label">
+                    <div class="label-desc">Delivery</div>
+                    <div class="label-value">5€</div>
+                </div>
+                <div class="summary-label">
+                    <div class="label-desc">Discounts</div>
+                    <div class="label-value">-6€</div>
+                </div>
+                <div class="summary-label total-label">
+                    <div class="label-desc">Total</div>
+                    <div class="label-value">47€€</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="payment-wrapper"><a href="" id="go-to-payment">Payment</a></div>
+  </div>
+
+  <!-- Placeholder for footer -->
+  <div id="footer"></div>
+
+</body>
+</html>

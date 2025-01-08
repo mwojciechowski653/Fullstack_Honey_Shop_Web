@@ -16,13 +16,9 @@
       }
     });
 
-    //check for token in local storage
     const token = localStorage.getItem('token');
     if(token) {
-      
-      // parse token
       const payload = JSON.parse(atob(token.split('.')[1]));
-      // check if token expired
       if(payload.exp < Date.now() / 1000) {
         localStorage.removeItem('token');
         window.location = 'login.html';

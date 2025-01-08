@@ -29,6 +29,7 @@ router.post('/users/:id', userController.updateUserById);
 
 //Auth routes
 router.post('/auth/signup', authController.signUpValidators, authController.signUp);
+router.post('/auth/login', authController.loginValidators, authController.login);
 
 
 module.exports = router;

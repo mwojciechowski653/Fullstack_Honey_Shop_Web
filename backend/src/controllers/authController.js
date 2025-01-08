@@ -15,6 +15,11 @@ const signUpValidators = [
     body('repeat_password').custom((value, { req }) => value === req.body.password).withMessage('Passwords do not match'),
 ]
 
+const loginValidators = [
+    body('email').isEmail().withMessage('Invalid email format'),
+    body('password').isLength({ min: 8 }).withMessage('Password must be at least 6 characters long'),
+];
+
 async function signUp(req, res) {
     const errors = validationResult(req);
 
@@ -35,7 +40,32 @@ async function signUp(req, res) {
     }
 }
 
+const login = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
+    try {
+        const result = await authService.login(req.body);
+
+        if (result.error) {
+            return res.status(401).json({ error: result.error });
+        }
+
+        res.status(200).json({
+            message: 'Login successful',
+            token: result.token,
+        });
+    } catch (error) {
+        console.error('Error during login:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+};
+
 module.exports = {
     signUp,
     signUpValidators,
+    login, 
+    loginValidators
 };

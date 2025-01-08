@@ -1,5 +1,8 @@
 const pool = require('../db');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+
+const secretKey = process.env.APP_JWT_SECRET; 
 
 
 async function signUp(body) {
@@ -33,7 +36,7 @@ async function signUp(body) {
 
         await dbClient.query(insertAddressQuery, [userId, country, city, street, street_number, postal_code]);
         await dbClient.query('COMMIT');
-        
+
         return { success: true, userId };
     } catch (error) {
         await dbClient.query('ROLLBACK');
@@ -42,9 +45,42 @@ async function signUp(body) {
     } finally {
         dbClient.release();
     }
-
 }
+
+
+
+const login = async ({ email, password }) => {
+    try {
+        // Fetch user by email
+        const userResult = await pool.query('SELECT id, password, is_admin FROM "USER" WHERE email = $1', [email]);
+
+        if (userResult.rows.length === 0) {
+            return { error: 'Invalid email or password' }; 
+        }
+
+        const user = userResult.rows[0];
+
+        // Verify password
+        const passwordMatch = await bcrypt.compare(password, user.password);
+        if (!passwordMatch) {
+            return { error: 'Invalid email or password' };
+        }
+
+        // Generate JWT
+        const token = jwt.sign(
+            { userId: user.id, isAdmin: user.is_admin }, // Payload
+            secretKey,          // Secret key
+            { expiresIn: '30m' } // Expiry time
+        );
+        return { token };
+
+    } catch (error) {
+        console.error('Database error during login:', error);
+        throw error;
+    } 
+};
 
 module.exports = {
     signUp,
+    login
 };

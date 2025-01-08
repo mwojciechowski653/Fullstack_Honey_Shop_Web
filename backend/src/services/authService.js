@@ -52,7 +52,7 @@ async function signUp(body) {
 const login = async ({ email, password }) => {
     try {
         // Fetch user by email
-        const userResult = await pool.query('SELECT id, password, is_admin FROM "USER" WHERE email = $1', [email]);
+        const userResult = await pool.query('SELECT id, first_name, last_name, password, is_admin FROM "USER" WHERE email = $1', [email]);
 
         if (userResult.rows.length === 0) {
             return { error: 'Invalid email or password' }; 
@@ -68,7 +68,7 @@ const login = async ({ email, password }) => {
 
         // Generate JWT
         const token = jwt.sign(
-            { userId: user.id, isAdmin: user.is_admin }, // Payload
+            { userId: user.id, isAdmin: user.is_admin, first_name: user.first_name, last_name: user.last_name }, // Payload
             secretKey,          // Secret key
             { expiresIn: '30m' } // Expiry time
         );

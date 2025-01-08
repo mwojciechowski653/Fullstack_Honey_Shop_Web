@@ -30,13 +30,13 @@ body {
 }
 
 .top-navbar {
+    color: var(--dark-brown);
+    font-size: 16px;
     background-color: var(--light-brown);
-    padding: 10px 0;
-    height: 4em;
+    padding: 5px 5px;
+    height: 111px;
     width: 100%;
     overflow: wrap;
-}
-.top-navbar{
     display: flex;
     justify-content:flex-end;
     align-items: center;
@@ -74,7 +74,7 @@ body {
     }
 }
 
-.login-register-buttons{
+#login-register-buttons{
     color: var(--light);
     display: flex;
     justify-content: space-around;
@@ -170,5 +170,36 @@ body {
     position: static; /* Usuń absolutne pozycjonowanie, aby tekst układał się naturalnie */
     padding-left: 10px; /* Dodaj odstęp od lewej strony */
 }
+
+#logged-user {
+    display: none;
+    height: 85px;
+    width: 185px;
+    padding: 5px;
+    font-family: Inter;
+    background-color: var(--light);
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.user-nav-buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+#go-to-profile, #logout-button {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 5px 0px;
+    cursor: pointer;
+    width: 85px;
+    border-radius: 8px;
+    border: 1px solid var(--dark-brown);
+}
+
+
 
 

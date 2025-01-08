@@ -159,21 +159,26 @@ async function getOrderById(id) {
         SELECT 
             id, user_id, date, status, invoice_id, order_value 
         FROM "ORDER" 
-        WHERE id = $1`;
+        WHERE user_id = $1`;
     
     try {
         const {rows} = await pool.query(query, [id]);
         if (rows.length === 0)
             return null;
-        const order = {
-            id: rows[0].id,
-            date: rows[0].date,
-            order_value: rows[0].order_value,
-            status: rows[0].status,
-            invoice_id: rows[0].invoice_id};
-        return order;
+
+        const orders = rows.map(order => {
+            return {
+                id: order.id,
+                date: order.date,
+                order_value: order.order_value,
+                status: order.status,
+                invoice_id: order.invoice_id
+            }
+        })
+        
+        return orders;
         } catch (error) {
-            console.error('Error getting order by id:', error);
+            console.error('Error getting orders by id:', error);
             throw new Error('Database query failed');
         }
 }

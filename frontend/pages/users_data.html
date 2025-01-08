@@ -91,12 +91,12 @@
         </tbody> 
     </table>
     <script>
-        const pool = require('../db');
         // Pobieranie danych z API
         async function fetchOrders() {
             try {
-                const response = await fetch("http://localhost:5000/api/orders");
-                const orders = await response.json();
+                const response = await fetch("http://localhost:5000/api/orders/1");
+                const responseJson = await response.json();
+                const orders = responseJson.orders
 
                 // Generowanie wierszy tabeli
                 const tableBody = document.getElementById("ordersTable");
@@ -105,9 +105,9 @@
                 orders.forEach(order => {
                     const row = `
                         <tr>
-                            <td>${order.orderId}</td>
-                            <td>${order.date}</td>
-                            <td>${order.order_value}</td>
+                            <td>${order.id}</td>
+                            <td>${order.date.split('T')[0]}</td>
+                            <td>${order.order_value}€</td>
                             <td>${order.status}</td>
                             <td><a href="#" class="details-link">DETAILS</a></td>
                         </tr>

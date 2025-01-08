@@ -27,21 +27,21 @@ const productsService = require('../services/orderService');
 
 
 async function getOrderById(req, res) {
-    const ordertId = parseInt(req.params.id, 10);
-    if (isNaN(orderId)) {
+    const userId = parseInt(req.params.id, 10);
+    if (isNaN(userId)) {
         return res.status(400).json({ success: false, error: 'Invalid ordser ID' }); // 400 Bad Request
     }
 
     try {
-        const product = await productsService.getOrderById(orderId);
+        const orders = await productsService.getOrderById(userId);
 
-        if (!order) {
-            return res.status(404).json({ success: false, error: 'Order not found' }); // 404 Not Found
+        if (!orders) {
+            return res.status(404).json({ success: false, error: 'Orders not found' }); // 404 Not Found
         }
 
-        res.json({ success: true, order }); // 200 OK
+        res.json({ success: true, orders }); // 200 OK
     } catch (error) {
-        console.error('Error getting order by id:', error);
+        console.error('Error getting orders by id:', error);
         res.status(500).json({ success: false, error: error.message }); // 500 Internal Server Error
     }
 }

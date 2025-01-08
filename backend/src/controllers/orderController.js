@@ -23,9 +23,6 @@ async function getAllOrders(req, res) {
     }
 }
 
-const productsService = require('../services/orderService');
-
-
 async function getOrderById(req, res) {
     const userId = parseInt(req.params.id, 10);
     if (isNaN(userId)) {
@@ -33,7 +30,7 @@ async function getOrderById(req, res) {
     }
 
     try {
-        const orders = await productsService.getOrderById(userId);
+        const orders = await orderService.getOrderById(userId);
 
         if (!orders) {
             return res.status(404).json({ success: false, error: 'Orders not found' }); // 404 Not Found

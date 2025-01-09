@@ -46,8 +46,7 @@ async function addToCart(sizeOption) {
   localStorage.setItem('cart', JSON.stringify(cart));
   localStorage.setItem('cartTotal', JSON.stringify(total));
   localStorage.setItem('cartQuantity', JSON.stringify(cartQuantity));
-
-  // renderCartPreview(updatedCart); 
+  document.dispatchEvent(new Event("addedToCart"));
 }
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -72,7 +71,6 @@ document.addEventListener("DOMContentLoaded", function() {
       .then(json => {
         const product = json.product;
         let {id, name, full_name, category, key_features, description, image_url, size_options} = product;
-        console.log(product);
 
         document.getElementById('product-name').textContent = name;
         document.getElementById('full-name').textContent = full_name;
@@ -132,10 +130,6 @@ document.addEventListener("DOMContentLoaded", function() {
       })
       .catch(error => {
         console.error('Error loading product data:', error);
-      });
-
-
-// ---------------------------------------------ADDING TO CART------------------------------------------------
-    
+      });    
   });
   

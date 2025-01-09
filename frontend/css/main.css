@@ -33,11 +33,13 @@ body {
     color: var(--dark-brown);
     font-size: 16px;
     background-color: var(--light-brown);
-    padding: 5px 5px;
+    padding: 5px;
+    padding-right: 30px;
     height: 111px;
     width: 100%;
     overflow: wrap;
     display: flex;
+    gap: 25px;
     justify-content:flex-end;
     align-items: center;
 
@@ -54,8 +56,8 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 35%; 
-    max-width: 420px;
+    width: 450px; 
+    max-width: 60%;
     padding: 0 2em;
 }
 
@@ -79,8 +81,7 @@ body {
     display: flex;
     justify-content: space-around;
     min-width: 10%;
-    padding-right: 1em;
-    gap: 1em;
+    gap: 10px;
 }
 
 .register-button, .login-button{
@@ -172,12 +173,11 @@ body {
 }
 
 #logged-user {
-    display: none;
+    display: flex;
     height: 85px;
     width: 185px;
     padding: 5px;
     font-family: Inter;
-    background-color: var(--light);
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
@@ -200,6 +200,34 @@ body {
     border: 1px solid var(--dark-brown);
 }
 
+#user-and-cart {
+    background-color: var(--light);
+    width: 245px;
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.top-cart-icon {
+    position:relative;
+    width: 49px;
+    height: 48px;
+}
+
+.cart-label {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--dark-yellow);
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    padding: 2px;
+    font-size: 14px;
+    min-width: 24px;
+    bottom: -5px;
+    right: -5px;
+}
 
 
 

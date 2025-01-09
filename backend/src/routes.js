@@ -6,7 +6,6 @@ const orderController = require('./controllers/orderController');
 const homePageController = require('./controllers/homePageController');
 const authController = require('./controllers/authController');
 const userController = require('./controllers/userController');
-const orderController = require('./controllers/orderController');
 
 
 const router = express.Router();

@@ -40,6 +40,14 @@ body {
     display: flex;
     justify-content:flex-end;
     align-items: center;
+
+}
+.logo {     
+    margin-right: auto; 
+    padding-left: 1em; 
+} .logo img {     
+    height: 40px; 
+    width: auto; 
 }
 
 .navbar-options {
@@ -144,21 +152,23 @@ body {
     padding: 10px;
     border-radius: 10px;
     width: 400px;
+    height: auto; /* Automatyczna wysokość dostosowująca się do zawartości */
+    min-height: 200px; /* Minimalna wysokość dla estetyki */
 }
 .contact-us-header {
     font-family: 'Outfit';
-    font-weight: 500;
-    font-size: 16px;
+    font-weight: 700;
+    font-size: 32px;
 }
 .contact-us-data {
     display: flex;
+    flex-direction: column; /* Układ w kolumnie, aby elementy były jeden pod drugim */
     position: relative;
 
 }
 .contact-data {
-    position: absolute;
-    left: 120px;
-    /* margin-left: 100px; */
+    position: static; /* Usuń absolutne pozycjonowanie, aby tekst układał się naturalnie */
+    padding-left: 10px; /* Dodaj odstęp od lewej strony */
 }
 
 

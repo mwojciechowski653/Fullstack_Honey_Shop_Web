@@ -127,7 +127,7 @@ const maxOutput = document.getElementById('max-output');
 // Update slider values and appearance
 function updateSlider() {
     // Pobierz wartości jako zmiennoprzecinkowe
-    let minVal = parseFloat(sliderMin.value);
+    let minVal = sliderMin.value;
     let maxVal = parseFloat(sliderMax.value);
 
     if (minVal > maxVal) {
@@ -137,13 +137,13 @@ function updateSlider() {
     }
 
     // Wyświetl wartości z dwoma miejscami po przecinku
-    minOutput.textContent = minVal.toFixed(2);
+    minOutput.textContent = minVal;
     minOutput.value = minVal;
     maxOutput.textContent = maxVal.toFixed(2);
     maxOutput.value = maxVal;
 
     // Oblicz procentowe położenie suwaków
-    const minPercent = (minVal / parseFloat(sliderMin.max)) * 100;
+    const minPercent = (minVal / sliderMin.max) * 100;
     const maxPercent = (maxVal / parseFloat(sliderMax.max)) * 100;
 
     sliderTrack.style.left = minPercent + '%';

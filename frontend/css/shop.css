@@ -279,7 +279,7 @@ input[type="checkbox"] {
     background: #CF8500;
     top: 50%;
     transform: translateY(-50%);
-    z-index: 7; /* Put it behind the thumbs but above the .slider-bar */
+    z-index: 2; /* Put it behind the thumbs but above the .slider-bar */
   }
 
   /* Displaying the selected values */

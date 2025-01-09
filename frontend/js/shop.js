@@ -70,6 +70,13 @@ let allProducts = [];
 // Function to initialize products by fetching them from the server
 async function initializeProducts() {
     allProducts = await fetchProducts();
+    const maxPrice = Math.max(...allProducts.map(product => choosePrice(product))) + 1;
+    console.log(maxPrice);
+    document.getElementById("slider-min").max = maxPrice;
+    const maxSlider = document.getElementById("slider-max");
+    maxSlider.max = maxPrice;
+    maxSlider.value = maxPrice;
+    updateSlider();
 }
 
 // ----------------------------------------------------RENDERING----------------------------------------------------
@@ -98,15 +105,7 @@ function choosePrice(product) {
     return price;
 }
 
-// ----------------------------------------------------SETTING-SLIDERS----------------------------------------------
 
-// Determine the maximum price among all products for slider configuration
-const maxPrice = Math.max(...allProducts.map(product => choosePrice(product)));
-console.log(maxPrice);
-document.getElementById("slider-min").max = maxPrice;
-const maxSlider = document.getElementById("slider-max");
-maxSlider.max = maxPrice;
-maxSlider.value = maxPrice;
 
 // ----------------------------------------------------FILTERING----------------------------------------------------
 

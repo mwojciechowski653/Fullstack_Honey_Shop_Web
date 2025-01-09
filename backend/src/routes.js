@@ -6,6 +6,7 @@ const orderController = require('./controllers/orderController');
 const homePageController = require('./controllers/homePageController');
 const authController = require('./controllers/authController');
 const userController = require('./controllers/userController');
+const cartController = require('./controllers/cartController');
 
 
 const router = express.Router();
@@ -29,6 +30,9 @@ router.post('/users/:id', userController.updateUserById);
 //Auth routes
 router.post('/auth/signup', authController.signUpValidators, authController.signUp);
 router.post('/auth/login', authController.loginValidators, authController.login);
+
+// cart and payment
+router.post('/cart', cartController.getCartSummary);
 
 
 module.exports = router;

@@ -70,6 +70,22 @@ let allProducts = [];
 // Function to initialize products by fetching them from the server
 async function initializeProducts() {
     allProducts = await fetchProducts();
+
+    // Calculate the maximum price after loading products
+    if (allProducts.length > 0) {
+        const maxPrice = Math.max(...allProducts.map(product => choosePrice(product)));
+        console.log("Max Price:", maxPrice);
+
+        // Set the maximum value of sliders
+        document.getElementById("slider-min").max = maxPrice;
+        const maxSlider = document.getElementById("slider-max");
+        maxSlider.max = maxPrice;
+        maxSlider.value = maxPrice;
+
+        updateSlider();
+    } else {
+        console.log("No products available to calculate max price.");
+    }
 }
 
 // ----------------------------------------------------RENDERING----------------------------------------------------
@@ -100,13 +116,43 @@ function choosePrice(product) {
 
 // ----------------------------------------------------SETTING-SLIDERS----------------------------------------------
 
-// Determine the maximum price among all products for slider configuration
-const maxPrice = Math.max(...allProducts.map(product => choosePrice(product)));
-console.log(maxPrice);
-document.getElementById("slider-min").max = maxPrice;
-const maxSlider = document.getElementById("slider-max");
-maxSlider.max = maxPrice;
-maxSlider.value = maxPrice;
+// Slider elements
+const sliderMin = document.getElementById('slider-min');
+const sliderMax = document.getElementById('slider-max');
+const sliderTrack = document.getElementById('slider-track');
+const minOutput = document.getElementById('min-output');
+const maxOutput = document.getElementById('max-output');
+
+// Update slider values and appearance
+// Update slider values and appearance
+function updateSlider() {
+    // Pobierz wartości jako zmiennoprzecinkowe
+    let minVal = parseFloat(sliderMin.value);
+    let maxVal = parseFloat(sliderMax.value);
+
+    if (minVal > maxVal) {
+        let temp = minVal;
+        minVal = maxVal;
+        maxVal = temp;
+    }
+
+    // Wyświetl wartości z dwoma miejscami po przecinku
+    minOutput.textContent = minVal.toFixed(2);
+    minOutput.value = minVal;
+    maxOutput.textContent = maxVal.toFixed(2);
+    maxOutput.value = maxVal;
+
+    // Oblicz procentowe położenie suwaków
+    const minPercent = (minVal / parseFloat(sliderMin.max)) * 100;
+    const maxPercent = (maxVal / parseFloat(sliderMax.max)) * 100;
+
+    sliderTrack.style.left = minPercent + '%';
+    sliderTrack.style.right = (100 - maxPercent) + '%';
+}
+
+sliderMin.addEventListener('input', updateSlider);
+sliderMax.addEventListener('input', updateSlider);
+
 
 // ----------------------------------------------------FILTERING----------------------------------------------------
 
@@ -232,43 +278,6 @@ document.getElementById("alphabetical").addEventListener("click", event => {
 document.getElementById("new").addEventListener("click", event => {
     handleSortButtonClick(event, "new");
 });
-
-// ----------------------------------------------------SLIDER----------------------------------------------------
-
-// Slider elements
-const sliderMin = document.getElementById('slider-min');
-const sliderMax = document.getElementById('slider-max');
-const sliderTrack = document.getElementById('slider-track');
-const minOutput = document.getElementById('min-output');
-const maxOutput = document.getElementById('max-output');
-
-// Update slider values and appearance
-function updateSlider() {
-    // Ensure min slider value is not greater than max slider value
-    let minVal = parseInt(sliderMin.value);
-    let maxVal = parseInt(sliderMax.value);
-
-    if (minVal > maxVal) {
-        // Swap values if sliders cross
-        let temp = minVal;
-        minVal = maxVal;
-        maxVal = temp;
-    }
-
-    // Update the displayed text values
-    minOutput.textContent = minVal;
-    minOutput.value = minVal;
-    maxOutput.textContent = maxVal;
-    maxOutput.value = maxVal;
-
-    // Calculate slider knob positions as percentages
-    const minPercent = (minVal / (sliderMin.max - sliderMin.min)) * 100;
-    const maxPercent = (maxVal / (sliderMax.max - sliderMax.min)) * 100;
-
-    // Update slider track position and width
-    sliderTrack.style.left = minPercent + '%';
-    sliderTrack.style.right = (100 - maxPercent) + '%';
-}
 
 // ----------------------------------------------------INITIALIZING----------------------------------------------------
 

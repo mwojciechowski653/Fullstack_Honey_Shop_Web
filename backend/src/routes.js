@@ -25,7 +25,6 @@ router.get('/home', homePageController.getHomePageProducts);
  router.get('/orders/:id', orderController.getOrderById);
 
 router.put('/users/:id', userController.updateUserById);
-router.post('/users/:id', userController.updateUserById);
 
 //Auth routes
 router.post('/auth/signup', authController.signUpValidators, authController.signUp);

@@ -1,4 +1,5 @@
 const pool = require('../db');
+const bcrypt = require('bcrypt');
 
 async function getUserById(id) {
     const query = `
@@ -48,7 +49,9 @@ async function updateUserById(id, updatedFields) {
         if (updatedFields.password1 === updatedFields.password2) {
             // Jeśli hasła się zgadzają, dodajemy do zapytania
             fieldsToUpdateUser.push('password = $' + indexUser);
-            valuesUser.push(updatedFields.password2); // Używamy password2 jako nowego hasła
+
+            const passwordHash = await bcrypt.hash(updatedFields.password2, 10);
+            valuesUser.push(passwordHash); // Używamy hasha password2 jako nowego hasła
             indexUser++;
         } else {
             // Jeśli hasła się nie zgadzają, nie aktualizujemy hasła
@@ -132,69 +135,4 @@ async function updateUserById(id, updatedFields) {
     }
 }
 
-async function addUser(userData) {
-    const client = await pool.connect();
-
-    try {
-        await client.query('BEGIN');
-
-        // Dodanie użytkownika do tabeli USER
-        const addUserQuery = `
-            INSERT INTO "USER" (
-                first_name, 
-                last_name, 
-                email, 
-                phone, 
-                password
-            ) VALUES ($1, $2, $3, $4, $5)
-            RETURNING id;
-        `;
-        const addUserValues = [
-            userData.first_name,
-            userData.last_name,
-            userData.email,
-            userData.phone,
-            userData.password // Hasło zahaszowane
-        ];
-        const { rows: userRows } = await client.query(addUserQuery, addUserValues);
-        const userId = userRows[0].id;
-
-        // Dodanie adresu do tabeli USER_ADDRESS
-        const addUserAddressQuery = `
-            INSERT INTO "USER_ADDRESS" (
-                user_id,
-                country,
-                city,
-                street,
-                street_number,
-                postal_code
-            ) VALUES ($1, $2, $3, $4, $5, $6);
-        `;
-        const addUserAddressValues = [
-            userId,
-            userData.country,
-            userData.city,
-            userData.street,
-            userData.street_number,
-            userData.postal_code
-        ];
-        await client.query(addUserAddressQuery, addUserAddressValues);
-
-        // Zatwierdzenie transakcji
-        await client.query('COMMIT');
-
-        return { success: true, userId };
-    } catch (error) {
-        await client.query('ROLLBACK');
-        console.error('Error adding user:', error);
-        throw new Error('Failed to add user to the database');
-    } finally {
-        client.release();
-    }
-}
-
-
-
-
-
-module.exports = {getUserById, updateUserById, addUser};
+module.exports = {getUserById, updateUserById};

@@ -26,28 +26,28 @@
     <div class="login-container">
         <h1 >Your personal information</h1>
         
-        <form>
+        <form id="user-data-form">
                 <label id="data"><span style="color: #7d4d1f">First name</span> 
                                 <span style="color: red">*</span></label><br>
-                <input type="text" id="firstName" placeholder="Your first name" required>
+                <input type="text" id="firstName" placeholder="Your first name" required name="first_name">
             
                 <label id="data"><span style="color: #7d4d1f">Last name</span> 
                     <span style="color: red">*</span></label><br>
-                <input type="text" id="lastName" placeholder="Your last name" required>
+                <input type="text" id="lastName" placeholder="Your last name" required name="last_name">
              
                 <label for="email" id="data"><span style="color: #7d4d1f">Email Address</span> 
                     <span style="color: red">*</span></label><br>
-                <input type="email" id="email" placeholder="Your email" required>
+                <input type="email" id="email" placeholder="Your email" required name="email">
 
                 <label id="data" for="phone"><span style="color: #7d4d1f">Phone Number</span>
                     <span style="color: red">*</span></label><br>
                 <input type="tel" id="phone" name="phone" placeholder="+1234567890" 
-                pattern="^\+?[1-9]\d{1,14}$" required>
+                pattern="^\+?[1-9]\d{1,14}$" required name="phone_number">
             
                 <label id="data"><span style="color: #7d4d1f">Country</span> 
                     <span style="color: red">*</span></label><br>
                     
-                    <select id="country" name="country" placeholder="Spain" style = "width: 475px;" required>
+                    <select id="country" name="country" placeholder="Spain" style = "margin: 2px auto 28px; width: 65%;" required name="country">
                         <script>
                             // Generowanie listy krajów za pomocą Intl.DisplayNames
                             const regionNames = new Intl.DisplayNames(['en'], { type: 'region' });
@@ -92,33 +92,34 @@
             
                 <label id="data"><span style="color: #7d4d1f">City</span>
                                 <span style="color:red">*</span></label><br>
-                <input type="text" id="city" placeholder="Your city" required>
+                <input type="text" id="city" placeholder="Your city" required name="city">
             
             
                 <label id="data"><span style="color: #7d4d1f">Street</span>
                                 <span style="color:red">*</span></label><br>
-                <input type="text" id="street" placeholder="Your street" required>
+                <input type="text" id="street" placeholder="Your street" required name="street">
               
             
                 <label id="data"><span style="color: #7d4d1f">Street number</span>
                                 <span style="color:red">*</span></label><br>
-                <input type="number" id="streetNumber" placeholder="Your street number" required min="0">
+                <input type="number" id="streetNumber" placeholder="Your street number" required min="0" name="street_number">
             
             
                 <label id="data"><span style="color: #7d4d1f">Postal code</span>
                                 <span style="color:red">*</span></label><br>
-                <input type="text" id = "postalCode" placeholder="Your postal code" required>
+                <input type="text" id = "postalCode" placeholder="Your postal code" required name="postal_code">
              
                 <label for="password" id="data"><span style="color: #7d4d1f">New password</span></label><br>                                
-                <input type="password" style="margin-bottom: 0px;" id="password1"><br>
+                <input type="password" style="margin-bottom: 0px;" id="password1" name="password1"><br>
 
                 <label for="password" id="data"><span style="color: #7d4d1f">Repeat password</span></label><br>
-                <input type="password" style="margin-bottom: 0px;" id="password2"><br>
+                <input type="password" style="margin-bottom: 0px;" id="password2" name="password2"><br>
                 
                 <button id="saveButton" type="submit">Save</button>
         </form>
     </div>
-    <table> 
+    <h1 id="orders-header">Your orders</h1>
+    <table id="orders-table"> 
         <thead> 
             <tr> 
                 <th>Order's number</th> 
@@ -132,38 +133,6 @@
             
         </tbody> 
     </table>
-    <script>
-        // Pobieranie danych z API
-        async function fetchOrders() {
-            try {
-                const response = await fetch("http://localhost:5000/api/orders/1");
-                const responseJson = await response.json();
-                const orders = responseJson.orders
-
-                // Generowanie wierszy tabeli
-                const tableBody = document.getElementById("ordersTable");
-                tableBody.innerHTML = ""; // Wyczyszczenie tabeli
-
-                orders.forEach(order => {
-                    const row = `
-                        <tr>
-                            <td>${order.id}</td>
-                            <td>${order.date.split('T')[0]}</td>
-                            <td>${order.order_value}€</td>
-                            <td>${order.status}</td>
-                            <td><a href="#" class="details-link">DETAILS</a></td>
-                        </tr>
-                    `;
-                    tableBody.innerHTML += row;
-                });
-            } catch (error) {
-                console.error("Error fetching orders:", error);
-            }
-        }
-
-        // Wywołanie funkcji po załadowaniu strony
-        window.onload = fetchOrders;
-    </script>
   </div>
   <!-- Placeholder for footer -->
   <div id="footer"></div>

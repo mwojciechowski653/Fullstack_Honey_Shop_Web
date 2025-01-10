@@ -5,7 +5,7 @@ async function fetchProducts() {
     console.log("Fetching products...");
     try {
         // Send a GET request to the API to fetch product data
-        const response = await fetch(`http://localhost:5000/api/products`);
+        const response = await fetch(`https://honeyshopweb.onrender.com/api/products`);
 
         // Check if the response is successful
         if (!response.ok) {

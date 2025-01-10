@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         try {
 
-            const response = await fetch('http://localhost:5000/api/home');
+            const response = await fetch('https://honeyshopweb.onrender.com/api/home');
 
             const products = await response.json();
 

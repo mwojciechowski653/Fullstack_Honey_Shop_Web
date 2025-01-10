@@ -39,7 +39,7 @@ router.use(cors());
 
 // Get products
 router.get("/products_edit/:id", productController.getProductToEditById);
-router.get("/products", productController.getProducts);
+router.get("/products-admin", productController.getProducts);
 
 // Delete products
 router.delete(

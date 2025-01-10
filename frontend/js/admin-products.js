@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Fetch data from the API
   async function fetchProducts() {
     try {
-      const response = await fetch("http://localhost:5000/api/products");
+      const response = await fetch("http://localhost:5000/api/products-admin");
       const productsData = await response.json();
 
       // Save all products for later use
@@ -45,7 +45,6 @@ document.addEventListener("DOMContentLoaded", () => {
     products.forEach((product) => {
       const { id, img_link, name, category, size, stock, sold, price } =
         product;
-
       const row = document.createElement("div");
       row.classList.add("table-row");
 

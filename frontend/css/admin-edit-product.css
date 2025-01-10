@@ -5,36 +5,123 @@ body {
   display: flex;
   font-family: "DM Sans";
 }
-#navbar {
+.sidebar {
   width: 15%;
-  background-color: white;
-  position: fixed;
+  background-color: #ffffff;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  position: fixed;
 }
+
+.logo-section {
+  text-align: center;
+  padding: 20px 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+.logo {
+  width: 70%;
+  height: auto;
+}
+
+.navbar-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+.row-link {
+  text-decoration: none;
+  color: #333333;
+  display: block;
+  padding: 10px 15%;
+  transition: background-color 0.3s ease;
+}
+.row-link:hover,
+.row-link.active {
+  background-color: #f7f7f7;
+  border-left: 4px solid #ffae36;
+}
+.row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.icon {
+  width: 20%;
+  height: auto;
+}
+
+.smaller-item {
+  margin-left: 20px;
+}
+.smaller-item .smaller-icon {
+  width: 18px;
+  height: 18px;
+}
+.smaller-item .smaller_text {
+  font-size: 12px;
+  color: #666666;
+}
+
+.text {
+  font-size: 14px;
+  font-weight: bold;
+  color: #333333;
+}
+
+.navbar-footer {
+  padding: 15px;
+  border-top: 1px solid #e0e0e0;
+  display: flex;
+  align-items: center;
+}
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.profile-image {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+}
+.profile-info {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+.profile-name {
+  font-size: 14px;
+  font-weight: bold;
+  color: #333333;
+}
+.profile-role {
+  font-size: 10px;
+  color: #666666;
+}
+.logout-icon {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.logout-icon:hover {
+  transform: scale(1.1);
+}
+
 .content {
   margin-left: 15%;
   width: 100%;
   padding: 20px;
 }
 /* Tabs */
-.sidebar h2 {
-  font-size: 2em;
-  color: var(--dark-brown); /* Adjusted to match the dark brown color */
-  margin-bottom: 20px;
-  font-weight: 900;
-  font-family: "Alfa Slab One";
-}
-
-.sidebar {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.sidebar .tabs-container {
-  display: flex;
-  gap: 10px;
-}
 
 .sidebar .tab {
   flex: 1;
@@ -56,6 +143,49 @@ body {
 }
 
 .sidebar .tab:hover {
+  background-color: #6e3a00; /* Slightly darker on hover */
+  color: #fff;
+}
+
+/* Title_area */
+.title_area h2 {
+  font-size: 2em;
+  color: var(--dark-brown); /* Adjusted to match the dark brown color */
+  margin-bottom: 20px;
+  font-weight: 900;
+  font-family: "Alfa Slab One";
+}
+
+.title_area {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.title_area .tabs-container {
+  display: flex;
+  gap: 10px;
+}
+.title_area .tab {
+  flex: 1;
+  text-align: center;
+  padding: 10px 20px;
+  font-size: 1em;
+  font-weight: bold;
+  border: 2px solid #5a2800; /* Border for active state */
+  border-radius: 5px;
+  color: #fff;
+  background-color: var(--dark-brown); /* Default tab background color */
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.title_area .tab.active {
+  background-color: #fff; /* Active tab background color */
+  color: #5a2800; /* Active tab text color */
+}
+
+.title_area .tab:hover {
   background-color: #6e3a00; /* Slightly darker on hover */
   color: #fff;
 }
@@ -245,9 +375,38 @@ body {
   color: #d80606; /* Red color when limit is reached */
 }
 
+/* Modal Styles */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed;
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/opacity */
+  padding-top: 60px;
+}
+
+.modal-content {
+  background-color: white;
+  margin: 5% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 28%;
+  text-align: center;
+}
+
+button {
+  padding: 10px 20px;
+  margin: 10px;
+  cursor: pointer;
+}
 /* Save and Delete Product Buttons */
 .edit-delete-buttons button {
-  width: 49.5%;
+  width: 48.2%;
   padding: 15px;
   color: #fff;
   font-size: 1.2em;

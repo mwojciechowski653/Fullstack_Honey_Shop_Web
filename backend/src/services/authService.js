@@ -66,6 +66,14 @@ const login = async ({ email, password }) => {
             return { error: 'Invalid email or password' };
         }
 
+        const loginStatsQuery = `INSERT INTO monthly_sign_ins (month, sign_in_count)
+                                VALUES (TO_CHAR(CURRENT_DATE, 'YYYY-MM'), 1)
+                                ON CONFLICT (month)
+                                DO UPDATE SET sign_in_count = monthly_sign_ins.sign_in_count + 1;
+                                `;  
+        
+        pool.query(loginStatsQuery);
+
         // Generate JWT
         const token = jwt.sign(
             { userId: user.id, isAdmin: user.is_admin, first_name: user.first_name, last_name: user.last_name }, // Payload

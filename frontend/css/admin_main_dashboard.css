@@ -1,3 +1,6 @@
+* {
+    box-sizing: border-box;
+}
 body {
     margin: 0;
     display: flex;
@@ -34,17 +37,13 @@ body {
     margin-bottom: 3px;
 }
 .sidebar {
-    width: 224px; 
     background-color: #ffffff;
     height: 100vh; /* Pełna wysokość okna */
     display: flex;
     flex-direction: column; /* Ułóżenie wewnętrznych sekcji w kolumnie */
     position: relative; /* Potrzebne do precyzyjnego ustawienia wewnętrznego paska */
 }
-.logo-section {
-    padding-top: 20px;
-    margin-bottom: 20px;
-}
+
 .content {
     width: 90%; /* Reszta szerokości strony */
     padding: 20px;
@@ -72,21 +71,6 @@ transition: background-color 0.3s ease; /* Animacja zmiany tła */
     padding: 4px;
 }
 
-.icon {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Dwie kolumny o równej szerokości */
-    grid-gap: 3px; /* Odstępy między elementami */
-    width: 52px; /* Kwadratowa siatka o szerokości 60px */
-    height: 52px; /* Kwadratowa siatka o wysokości 60px */
-    background-color: #e9edf2;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-    padding-top: 15px;
-    padding-bottom: 20px;
-    padding-left: 16px;
-    padding-right: 9px;
-    box-sizing: border-box; /* Uwzględnij padding w szerokości/ wysokości */
-}
 
 .icon div {
     width: 13px;
@@ -109,14 +93,7 @@ transition: background-color 0.3s ease; /* Animacja zmiany tła */
     flex: 1; /* Wyrównuje elementy do równej szerokości */
     text-align: center;
 }
-#company_logo{
-    width: 150px;
-    height: 150px;
-    margin-left: 31px;
-    align-items: center;
-    justify-content: center;
-    margin-top: 0;
-}
+
 
 .text {
     display: flex;
@@ -235,14 +212,14 @@ ul {
 .stats{
     background-color: white;
     border-radius: 8px;
-    width: 300px;
+    width: 200px;
     height: 310px;
     padding-bottom: 20px;
 }
 .stats2{
     background-color: white;
     border-radius: 8px;
-    width: 400px;
+    width: 600px;
     height: 310px;
     padding-bottom: 20px;
     margin: 0;
@@ -250,12 +227,12 @@ ul {
 .stats3{
     background-color: white;
     border-radius: 8px;
-    width: 700px;
+    width: 600px;
     height: 310px;
     padding-bottom: 20px;
     margin: 0;
 }
-#stats_num{
+.stats_num{
     font-family: Alfa Slab One;
     font-size: 40px;
     padding-left: 18px;
@@ -267,11 +244,11 @@ ul {
     align-items: center;
     gap:10px;
 }
-#stats_num_green{
+.stats_num_green{
     font-family: Alfa Slab One;
     font-size: 12px;
 }
-#green_color{
+.green_color{
     color: #40C203;
 }
 .triangle {
@@ -293,7 +270,6 @@ ul {
 .table-container th, .table-container td {
     padding: 10px;
     text-align: left;
-    line-height: 0.3;
     font-family: Alfa Slab One;
     font-size: 15px;
 }
@@ -326,3 +302,151 @@ font-size: 15px;
 color: white;
 font-weight: bold;
 }
+
+
+
+
+
+.sidebar {
+    width: 15%;
+    background-color: #ffffff;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    position: fixed;
+  }
+  
+  .logo-section {
+    text-align: center;
+    padding: 20px 0;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  .logo {
+    width: 70%;
+    height: auto;
+    padding-left: 1em;
+  }
+  
+  .navbar-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  .row-link {
+    text-decoration: none;
+    color: #333333;
+    display: block;
+    padding: 10px 15%;
+    transition: background-color 0.3s ease;
+  }
+  .row-link:hover,
+  .row-link.active {
+    background-color: #f7f7f7;
+    border-left: 4px solid #ffae36;
+  }
+  .row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .icon {
+    width: 20%;
+    height: auto;
+  }
+  
+  .smaller-item {
+    margin-left: 20px;
+  }
+  .smaller-item .smaller-icon {
+    width: 18px;
+    height: 18px;
+  }
+  .smaller-item .smaller_text {
+    font-size: 12px;
+    color: #666666;
+  }
+  
+  .text {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333333;
+  }
+  
+  .navbar-footer {
+    padding: 15px;
+    border-top: 1px solid #e0e0e0;
+    display: flex;
+    align-items: center;
+  }
+  .profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .profile-image {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+  }
+  .profile-info {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .profile-name {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333333;
+  }
+  .profile-role {
+    font-size: 10px;
+    color: #666666;
+  }
+  .logout-icon {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  .logout-icon:hover {
+    transform: scale(1.1);
+  }
+  
+  .content {
+    margin-left: 15%;
+    width: 100%;
+    padding: 20px;
+  }
+  /* Tabs */
+  
+  .sidebar .tab {
+    flex: 1;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 1em;
+    font-weight: bold;
+    border: 2px solid #5a2800; /* Border for active state */
+    border-radius: 5px;
+    color: #fff;
+    background-color: var(--dark-brown); /* Default tab background color */
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .sidebar .tab.active {
+    background-color: #fff; /* Active tab background color */
+    color: #5a2800; /* Active tab text color */
+  }
+  
+  .sidebar .tab:hover {
+    background-color: #6e3a00; /* Slightly darker on hover */
+    color: #fff;
+  }
+  

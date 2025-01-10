@@ -1,6 +1,5 @@
 document.getElementById('login-form').addEventListener('submit', async function(event) {
     event.preventDefault(); 
-    console.log('Form submitted');
     const formData = new FormData(this);
     const jsonData = Object.fromEntries(formData.entries());
     try {
@@ -19,7 +18,6 @@ document.getElementById('login-form').addEventListener('submit', async function(
         const token = responseJson.token;
         localStorage.setItem('token', token);
         const payload = JSON.parse(atob(token.split('.')[1]));
-        console.log(payload)
         if(payload.isAdmin) {
           window.location = 'admin_main_dashboard.html';
         } else {

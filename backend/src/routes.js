@@ -1,6 +1,5 @@
-const express = require("express");
-
-
+const express = require('express');
+const loginRequired = require('./middleware/authenticate');
 const productController = require('./controllers/productController');
 const shopController = require('./controllers/shopController');
 const orderController = require('./controllers/orderController');
@@ -32,6 +31,8 @@ router.post('/auth/login', authController.loginValidators, authController.login)
 
 // cart and payment
 router.post('/cart', cartController.getCartSummary);
+router.post('/order', loginRequired, cartController.placeOrderValidators, cartController.placeOrder);
+
 
 const cors = require("cors");
 router.use(express.json()); // Parse JSON bodies

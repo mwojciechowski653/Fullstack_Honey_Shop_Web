@@ -14,14 +14,120 @@
     <script defer src="../js/admin-add-product.js"></script>
   </head>
   <body>
-    <div id="navbar"></div>
+    <div class="sidebar">
+      <div class="logo-section">
+        <img
+          src="../assets/company_logo.png"
+          alt="Company logo"
+          id="company_logo"
+          class="logo"
+        />
+      </div>
+      <ul class="navbar-links">
+        <li>
+          <a href="../pages/admin_main_dashboard.html" class="row-link">
+            <div class="row">
+              <img
+                src="../assets/dashboard_icon.png"
+                alt="Dashboard"
+                class="icon"
+              />
+              <i class="fas fa-th-large"></i>
+              <div class="text">Dashboard</div>
+            </div>
+          </a>
+        </li>
+        <li>
+          <a href="../pages/admin-products.html" class="row-link">
+            <div class="row">
+              <img
+                src="../assets/trolley_icon.png"
+                alt="Trolley"
+                class="icon"
+              />
+              <div class="text">Product</div>
+            </div>
+          </a>
+        </li>
+        <li>
+          <a href="../pages/admin-products.html" class="row-link smaller-item">
+            <div class="row">
+              <img
+                src="../assets/my_products_icon.png"
+                alt="Edit Products"
+                class="icon smaller-icon"
+              />
+              <div class="smaller_text">My products</div>
+            </div>
+          </a>
+        </li>
+        <li>
+          <a
+            href="../pages/admin-add-product.html"
+            class="row-link smaller-item"
+          >
+            <div class="row">
+              <img
+                src="../assets/add_products_icon.png"
+                alt="Add Products"
+                class="icon smaller-icon"
+              />
+              <div class="smaller_text">Add products</div>
+            </div>
+          </a>
+        </li>
+        <li>
+          <a href="../pages/admin-orders.html" class="row-link">
+            <div class="row">
+              <img src="../assets/orders_icon.png" alt="Orders" class="icon" />
+              <div class="text">Orders</div>
+            </div>
+          </a>
+        </li>
+        <li>
+          <a href="../pages/admin-customers.html" class="row-link active">
+            <div class="row">
+              <img
+                src="../assets/customers_icon.png"
+                alt="Customers"
+                class="icon"
+              />
+              <div class="text">Customers</div>
+            </div>
+          </a>
+        </li>
+      </ul>
 
+      <div class="navbar-footer">
+        <div class="profile">
+          <img
+            src="../assets/employee.png"
+            alt="Employee"
+            class="profile-image"
+          />
+          <div class="profile-info">
+            <div class="profile-name">Worker</div>
+            <div class="profile-role">HoneyCompany Store</div>
+          </div>
+          <img
+            src="../assets/log_out_icon.png"
+            alt="Logout"
+            class="logout-icon"
+          />
+        </div>
+      </div>
+    </div>
     <div class="content">
-      <div class="sidebar">
-        <h2>Products</h2>
+      <div class="title_area">
+        <h2>Add product</h2>
         <div class="tabs-container">
-          <button class="tab active">My Products</button>
-          <button class="tab">Add Product</button>
+          <a href="../pages/admin-products.html">
+            <button class="tab active">My Products</button>
+          </a>
+          <a href="../pages/admin-add-product.html">
+            <button class="tab">Add Product</button>
+          </a>
+
         </div>
       </div>
 
@@ -46,6 +152,17 @@
             <input type="text" placeholder="Insert title" class="title" />
             <input type="text" placeholder="Insert subtitle" class="subtitle" />
             <input type="text" placeholder="Insert price €" class="price" />
+
+            <!-- Dropdown for selecting product type -->
+            <select class="product-type-dropdown">
+              <option value="" disabled selected>Select type</option>
+              <option value="Wildflower">Wildflower</option>
+              <option value="Acacia">Acacia</option>
+              <option value="Buckwheat">Buckwheat</option>
+              <option value="Clover">Clover</option>
+              <option value="Creamed">Creamed</option>
+              <option value="Alfalfa">Alfalfa</option>
+            </select>
 
             <h3>Key Features:</h3>
             <ul class="features">

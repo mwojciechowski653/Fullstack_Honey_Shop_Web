@@ -114,7 +114,6 @@ function choosePrice(product) {
     return price;
 }
 
-// ----------------------------------------------------SETTING-SLIDERS----------------------------------------------
 
 // Slider elements
 const sliderMin = document.getElementById('slider-min');

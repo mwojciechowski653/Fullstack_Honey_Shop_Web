@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Your cart</title>
+
+  <link rel="stylesheet" href="../css/main.css"> <!-- Link to global CSS -->
+  <link rel="stylesheet" type="text/css" href="../css/cart.css"> <!-- Link to page-specific CSS -->
+
+  <script defer src="../js/navbar-footer.js"></script> <!-- JavaScript for loading navbar/footer -->
+  <script defer src="../js/main.js"></script> <!-- JavaScript for navigation functionality -->
+  <script defer src="../js/cart.js"></script>
+
+  <link rel="icon" type="image/png" href="../images/icon.png">
+   
+</head>
+<body>
+
+  <!-- Placeholder for navbar -->
+  <div id="navbar"></div>
+
+  <!-- Main content area -->
+  <div class="main-content">
+    <div class="cart-header" id="cart-header">Your cart</div>
+    <div id="products-container"></div>
+    <div id="delivery-summary" class="delivery-summary">
+        <div class="delivery">
+            <div class="delivery-title">Delivery</div>
+            <form id="delivery-form">
+                <label class="radio-label">
+                    <input checked type="radio" class="delivery-radio" name="delivery" value=1>
+                    <div class="delivery-desc">
+                        <div>InPost</div>
+                        <div>3-5 days</div>
+                        <div>5€</div>
+                    </div>
+                </label>
+                <label class="radio-label">
+                    <input type="radio" class="delivery-radio" name="delivery" value=2>
+                    <div class="delivery-desc">
+                        <div>DHL</div>
+                        <div>2-3 days</div>
+                        <div>8€</div>
+                    </div>
+                </label>
+                <label class="radio-label">
+                    <input type="radio" class="delivery-radio" name="delivery" value=3>
+                    <div class="delivery-desc">
+                        <div>FedEx</div>
+                        <div>1-2 days</div>
+                        <div>11€</div>
+                    </div>
+                </label>
+            </form>
+        </div>
+        <div class="summary">
+            <div class="summary-title">Summary</div>
+            <div class="summary-labels-container">
+                <div class="summary-label">
+                    <div class="label-desc">Products</div>
+                    <div class="label-value" id="summary-products"></div>
+                </div>
+                <div class="summary-label">
+                    <div class="label-desc">Delivery</div>
+                    <div class="label-value" id="summary-delivery">5€</div>
+                </div>
+                <div class="summary-label">
+                    <div class="label-desc">Discounts</div>
+                    <div class="label-value">0€</div>
+                </div>
+                <div class="summary-label total-label">
+                    <div class="label-desc">Total</div>
+                    <div class="label-value" id="summary-total">47€</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="payment-wrapper"><a href="" id="go-to-payment">Payment</a></div>
+  </div>
+
+  <!-- Placeholder for footer -->
+  <div id="footer"></div>
+
+</body>
+</html>

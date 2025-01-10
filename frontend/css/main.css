@@ -30,24 +30,34 @@ body {
 }
 
 .top-navbar {
+    color: var(--dark-brown);
+    font-size: 16px;
     background-color: var(--light-brown);
-    padding: 10px 0;
-    height: 4em;
+    padding: 5px;
+    padding-right: 30px;
+    height: 111px;
     width: 100%;
     overflow: wrap;
-}
-.top-navbar{
     display: flex;
+    gap: 25px;
     justify-content:flex-end;
     align-items: center;
+
+}
+.logo {     
+    margin-right: auto; 
+    padding-left: 1em; 
+} .logo img {     
+    height: 40px; 
+    width: auto; 
 }
 
 .navbar-options {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 35%; 
-    max-width: 420px;
+    width: 450px; 
+    max-width: 60%;
     padding: 0 2em;
 }
 
@@ -66,13 +76,12 @@ body {
     }
 }
 
-.login-register-buttons{
+#login-register-buttons{
     color: var(--light);
     display: flex;
     justify-content: space-around;
     min-width: 10%;
-    padding-right: 1em;
-    gap: 1em;
+    gap: 10px;
 }
 
 .register-button, .login-button{
@@ -144,21 +153,104 @@ body {
     padding: 10px;
     border-radius: 10px;
     width: 400px;
+    height: auto; /* Automatyczna wysokość dostosowująca się do zawartości */
+    min-height: 200px; /* Minimalna wysokość dla estetyki */
 }
 .contact-us-header {
     font-family: 'Outfit';
-    font-weight: 500;
-    font-size: 16px;
+    font-weight: 700;
+    font-size: 32px;
 }
 .contact-us-data {
     display: flex;
+    flex-direction: column; /* Układ w kolumnie, aby elementy były jeden pod drugim */
     position: relative;
 
 }
 .contact-data {
-    position: absolute;
-    left: 120px;
-    /* margin-left: 100px; */
+    position: static; /* Usuń absolutne pozycjonowanie, aby tekst układał się naturalnie */
+    padding-left: 10px; /* Dodaj odstęp od lewej strony */
 }
 
+#logged-user {
+    display: flex;
+    height: 85px;
+    width: 185px;
+    padding: 5px;
+    font-family: Inter;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.user-nav-buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+#go-to-profile, #logout-button {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 5px 0px;
+    cursor: pointer;
+    width: 85px;
+    border-radius: 8px;
+    border: 1px solid var(--dark-brown);
+}
+
+#user-and-cart {
+    background-color: var(--light);
+    width: 245px;
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.top-cart-icon {
+    position:relative;
+    width: 49px;
+    height: 48px;
+}
+
+.cart-label {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--dark-yellow);
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    padding: 2px;
+    font-size: 14px;
+    min-width: 24px;
+    bottom: -5px;
+    right: -5px;
+}
+
+@media screen and (max-width: 1000px) {
+    .top-navbar {
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        height: auto;
+        padding: 15px 5px;
+    }
+
+    .logo{
+        all: unset;
+    }
+
+    .navbar-options {
+        max-width: 90%;
+        padding: 0;
+    }
+
+    .footer {
+        flex-direction: column;
+        gap: 10px;
+        height: auto;
+    }
+}
 

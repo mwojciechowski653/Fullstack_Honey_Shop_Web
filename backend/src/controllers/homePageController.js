@@ -1,20 +1,20 @@
-const productService = require('../services/productService');
+const homePageServices = require('../services/homePageService'); 
 
-const productController = {
-  getHomePageProducts: async (req, res) => {
-    try {
-      const topSellingProducts = await productService.getTopSellingProducts();
-      const discountedProducts = await productService.getDiscountedProducts();
-
-      res.json({
-        topSellingProducts,
-        discountedProducts,
-      });
-    } catch (error) {
-      console.error('Error fetching products:', error);
-      res.status(500).json({ error: 'Internal server error' });
-    }
-  },
+const getTopSellingProducts = async (req, res) => {
+  try {
+    const topProducts = await homePageServices.getTopSellingProducts(); 
+    res.status(200).json({
+      success: true,
+      data: topProducts,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
 };
 
-module.exports = productController;
+module.exports = {
+  getTopSellingProducts,
+};

@@ -229,5 +229,28 @@ body {
     right: -5px;
 }
 
+@media screen and (max-width: 1000px) {
+    .top-navbar {
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        height: auto;
+        padding: 15px 5px;
+    }
 
+    .logo{
+        all: unset;
+    }
+
+    .navbar-options {
+        max-width: 90%;
+        padding: 0;
+    }
+
+    .footer {
+        flex-direction: column;
+        gap: 10px;
+        height: auto;
+    }
+}
 

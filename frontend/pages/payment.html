@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Summary & Payment</title>
+
+  <link rel="stylesheet" href="../css/main.css"> <!-- Link to global CSS -->
+  <link rel="stylesheet" href="../css/payment.css"> 
+
+  <script defer src="../js/navbar-footer.js"></script> <!-- JavaScript for loading navbar/footer -->
+  <script defer src="../js/main.js"></script> <!-- JavaScript for navigation functionality -->
+  <script defer src="../js/payment.js"></script>
+
+  <!-- page icon -->
+  <link rel="icon" type="image/png" href="../images/icon.png">
+   
+</head>
+<body>
+
+  <!-- Placeholder for navbar -->
+  <div id="navbar"></div>
+
+  <!-- Main content area -->
+  <div class="main-content">
+    <img src="../assets/big-company-logo.svg" alt="company logo" id="big-company-logo">
+    <!-- Page-specific content goes here -->
+    <div class="big-title">Summary & Payment</div>
+    <div class="content">
+        <div class="summary">
+            <div class="summary-title">Summary</div>
+            <div id="summary-products-container">
+                <div class="summary-product">
+                    <div class="summary-product-name">Acacia Honey - 300g</div>
+                    <div class="summary-product-quantity">x3</div>
+                    <div class="summary-product-price">66.50€</div>
+                </div>
+                <div class="summary-product">
+                    <div class="summary-product-name">Acacia Honey - 300g</div>
+                    <div class="summary-product-quantity">x3</div>
+                    <div class="summary-product-price">66.50€</div>
+                </div>
+                <div class="summary-product">
+                    <div class="summary-product-name">Acacia Honey - 300g</div>
+                    <div class="summary-product-quantity">x3</div>
+                    <div class="summary-product-price">66.50€</div>
+                </div>
+                <div class="summary-product">
+                    <div class="summary-product-name">Acacia Honey - 300g</div>
+                    <div class="summary-product-quantity">x3</div>
+                    <div class="summary-product-price">66.50€</div>
+                </div>
+                <div class="delivery">
+                    <div class="delivery-title">Delivery DHL</div>
+                    <div class="delivery-price">5€</div>
+                </div>
+            </div>
+            <div id="total">Total: 253.50€</div>
+            <div id="total-quantity">15 products</div>
+        </div>
+        <form id="credit-card-info-form">
+            <div class="form-fields">
+                <div class="card-number">
+                    <label for="cardNumber">Card number</label><br>
+                    <input type="text" id="cardNumber" name="card_number" placeholder="1234123412341234" pattern="\d{16}" maxlength="16" required>
+                </div>
+                <div class="card-holder">
+                    <label for="cardHolder">Card holder</label><br>
+                    <input type="text" id="cardHolder" name="card_holder" placeholder="John Doe" maxlength="50" pattern="[A-Za-z\s]+" title="Please enter a valid name (letters and spaces only)" required>
+                </div>
+                <div class="expiration-and-cvv">
+                    <div class="expiration-date">
+                        <label for="expirationDate">Expiration date</label><br>
+                        <input type="text" id="expiration-date" name="expiry_date" placeholder="YY/MM" pattern="\d{2}\/(0[1-9]|1[0-2])" title="Please enter a valid expiration date in YY/MM format (e.g., 25/12)" maxlength="5" required>
+
+                    </div>
+                    <div class="cvv">
+                        <label for="cvv">CVV</label><br>
+                        <input type="text" id="cvv" name="cvv" placeholder="CVV" pattern="\d{3}" maxlength="3" title="Three digit cvv number required" required>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" id="pay-button">Pay</button>
+        </form>
+    </div>
+  </div>
+
+  <!-- Placeholder for footer -->
+  <div id="footer"></div>
+
+</body>
+</html>

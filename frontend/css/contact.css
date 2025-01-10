@@ -9,7 +9,7 @@ body {
 
 .main-content .contact-container {
     text-align: center;
-    padding: 50px 20px;
+    margin-top: -40px;
 }
 
     .main-content .contact-container h1 {
@@ -27,6 +27,7 @@ body {
     font-size: 28px;
     color: #4E1600;
     margin: 50px 40px;
+    margin-top: -10px;
 }
 
     .main-content .contact-info .material-icons, .fb-icon {
@@ -48,6 +49,7 @@ body {
 
 .main-content .opening-hours {
     margin: 0 40px;
+    margin-top: -60px;
 }
 
     .main-content .opening-hours p {
@@ -77,6 +79,7 @@ body {
 .main-content .find-us {
     text-align: center;
     padding: 40px 20px;
+    margin-top: -40px;
 }
 
     .main-content .find-us h2 {

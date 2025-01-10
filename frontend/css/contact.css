@@ -1,4 +1,4 @@
-body {
+.main-content {
     font-family: 'Alfa Slab One', serif;
     font-weight: 400;
     font-style: normal;
@@ -9,7 +9,7 @@ body {
 
 .main-content .contact-container {
     text-align: center;
-    margin-top: -40px;
+    margin-top: 0px;
 }
 
     .main-content .contact-container h1 {

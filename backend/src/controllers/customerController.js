@@ -9,16 +9,16 @@ exports.getCustomersByFilters = async (req, res) => {
     try {
         // Base query for fetching customers
         let query = `
-            SELECT 
-                u.id, 
-                u.first_name, 
-                u.last_name, 
-                u.email, 
-                u.created_at, 
-                ua.country, 
-                ua.city, 
-                ua.street, 
-                ua.street_number, 
+            SELECT
+                u.id,
+                u.first_name,
+                u.last_name,
+                u.email,
+                u.created_at,
+                ua.country,
+                ua.city,
+                ua.street,
+                ua.street_number,
                 ua.postal_code
             FROM "USER" u
             LEFT JOIN "USER_ADDRESS" ua ON u.id = ua.user_id
@@ -38,10 +38,19 @@ exports.getCustomersByFilters = async (req, res) => {
             params.push(date);
         }
  
-        // Filter by name (first name or last name)
+        // Filter by name (first name, last name, or both)
         if (name) {
-            query += ` AND (u.first_name ILIKE $${params.length + 1} OR u.last_name ILIKE $${params.length + 1})`;
-            params.push(`%${name}%`);
+            const names = name.split(" ");
+            if (names.length > 1) {
+                // Assume user entered both first name and last name
+                query += ` AND (u.first_name ILIKE $${params.length + 1} AND u.last_name ILIKE $${params.length + 2})`;
+                params.push(`%${names[0]}%`);
+                params.push(`%${names[1]}%`);
+            } else {
+                // Single name, search in both first and last name columns
+                query += ` AND (u.first_name ILIKE $${params.length + 1} OR u.last_name ILIKE $${params.length + 1})`;
+                params.push(`%${name}%`);
+            }
         }
  
         // Query for total customers

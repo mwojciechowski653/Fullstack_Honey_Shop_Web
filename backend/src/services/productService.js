@@ -3,8 +3,8 @@ const pool = require("../db");
 async function getProductById(id) {
   const query = `
             SELECT 
-                p.id, p.name, p.full_name, p.category, p.key_features, p.description,
-                so.id as size_option_id, so.size, so.regular_price, so.stock, so.image_url, so.is_discounted, so.discounted_price 
+                p.id, p.name, p.full_name, p.category, p.key_features, p.description, p.image_url,
+                so.id as size_option_id, so.size, so.regular_price, so.stock, so.is_discounted, so.discounted_price 
             FROM "PRODUCT" p 
             LEFT JOIN "SIZE_OPTION" so 
             ON p.id = so.product_id
@@ -35,6 +35,7 @@ async function getProductById(id) {
     console.error("Error getting product by id:", error);
     throw new Error("Database query failed");
   }
+
 }
 
 async function getProductToEditById(id) {

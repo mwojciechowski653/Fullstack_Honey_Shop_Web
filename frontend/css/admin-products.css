@@ -189,6 +189,7 @@ body {
 .title_area .tab:hover {
   background-color: #6e3a00; /* Slightly darker on hover */
   color: #fff;
+
 }
 
 /* filters */
@@ -264,6 +265,7 @@ input {
   .filter-buttons {
     width: 100%;
   }
+
 }
 
 /* table */
@@ -352,3 +354,4 @@ input {
 .table-cell {
   text-align: center;
 }
+

@@ -11,13 +11,26 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('cart-header').innerText = 'Your cart is empty';
     } else {
         getCartSummary();
+        localStorage.setItem('deliveryOptionId', 1);
         document.getElementById('summary-products').innerText = total.toFixed(2) + '€';
         updateTotal()
 
         document.getElementById('delivery-form').addEventListener('change', function(event) {
             const deliveryPrice = getDeliveryPrice(parseInt(event.target.value));
+            localStorage.setItem('deliveryOptionId', event.target.value);
             document.getElementById('summary-delivery').innerText = deliveryPrice + '€';
             updateTotal()
+        });
+
+
+        document.getElementById('go-to-payment').addEventListener('click', function(event) {
+            event.preventDefault();
+            const token = localStorage.getItem('token');
+            if(!token) {
+                alert('You need to be logged in to place an order');
+                return;
+            }
+            window.location = 'payment.html';
         });
     }
 });
@@ -149,14 +162,11 @@ function addToCart(sizeOptionId, price) {
   }
 
 function deleteFromCart(sizeOptionId, price) {
-    console.log(sizeOptionId)
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
     let total = JSON.parse(localStorage.getItem('cartTotal')) || 0;
     let cartQuantity = JSON.parse(localStorage.getItem('cartQuantity')) || 0;
-    console.log(cart, total, cartQuantity)
     // Check if the product is already in the cart
     const productIndex = cart.findIndex(item => item.sizeOptionId == sizeOptionId);
-    console.log(productIndex)
     if (productIndex !== -1) {
         // If the product exists, update the quantity
         const numberOfUnits = cart[productIndex].numberOfUnits;

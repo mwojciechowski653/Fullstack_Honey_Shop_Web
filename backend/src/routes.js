@@ -1,5 +1,5 @@
 const express = require('express');
-const loginRequired = require('./middleware/authenticate');
+const {authenticateToken, authenticateAdmin} = require('./middleware/authenticate');
 const productController = require('./controllers/productController');
 const shopController = require('./controllers/shopController');
 const orderController = require('./controllers/orderController');
@@ -7,6 +7,7 @@ const homePageController = require('./controllers/homePageController');
 const authController = require('./controllers/authController');
 const userController = require('./controllers/userController');
 const cartController = require('./controllers/cartController');
+const statsController = require('./controllers/statsController');
 
 const router = express.Router();
 const customerController = require('./controllers/customerController');
@@ -21,7 +22,7 @@ router.get('/orders', orderController.getAllOrders);
 router.get('/users/:id', userController.getUserById);
 //Home page routes
 router.get('/home', homePageController.getHomePageProducts);
- router.get('/orders/:id', orderController.getOrderById);
+router.get('/orders/:id', orderController.getOrderById);
 
 router.put('/users/:id', userController.updateUserById);
 
@@ -31,7 +32,9 @@ router.post('/auth/login', authController.loginValidators, authController.login)
 
 // cart and payment
 router.post('/cart', cartController.getCartSummary);
-router.post('/order', loginRequired, cartController.placeOrderValidators, cartController.placeOrder);
+router.post('/order', authenticateToken, cartController.placeOrderValidators, cartController.placeOrder);
+
+router.get('/stats', statsController.getStats);
 
 
 const cors = require("cors");

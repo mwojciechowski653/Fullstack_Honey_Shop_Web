@@ -21,6 +21,10 @@ router.get('/products', shopController.getAllProducts);
 router.get('/orders', orderController.getAllOrders);
 router.get('/users/:id', userController.getUserById);
 //Home page routes
+
+router.get('/home', homePageController.getTopSellingProducts);
+ 
+
 router.get('/home', homePageController.getHomePageProducts);
 router.get('/orders/:id', orderController.getOrderById);
 

@@ -1,24 +1,20 @@
 const pool = require('../db');
  
-/**
-* Fetch customers with filters and total count.
-*/
 exports.getCustomersByFilters = async (req, res) => {
     const { month, date, name } = req.query;
  
     try {
-        // Base query for fetching customers
         let query = `
-            SELECT 
-                u.id, 
-                u.first_name, 
-                u.last_name, 
-                u.email, 
-                u.created_at, 
-                ua.country, 
-                ua.city, 
-                ua.street, 
-                ua.street_number, 
+            SELECT
+                u.id,
+                u.first_name,
+                u.last_name,
+                u.email,
+                u.created_at,
+                ua.country,
+                ua.city,
+                ua.street,
+                ua.street_number,
                 ua.postal_code
             FROM "USER" u
             LEFT JOIN "USER_ADDRESS" ua ON u.id = ua.user_id
@@ -38,10 +34,17 @@ exports.getCustomersByFilters = async (req, res) => {
             params.push(date);
         }
  
-        // Filter by name (first name or last name)
+        // Filter by name (first name, last name or both)
         if (name) {
-            query += ` AND (u.first_name ILIKE $${params.length + 1} OR u.last_name ILIKE $${params.length + 1})`;
-            params.push(`%${name}%`);
+            const names = name.split(" ");
+            if (names.length > 1) {
+                query += ` AND (u.first_name ILIKE $${params.length + 1} AND u.last_name ILIKE $${params.length + 2})`;
+                params.push(`%${names[0]}%`);
+                params.push(`%${names[1]}%`);
+            } else {
+                query += ` AND (u.first_name ILIKE $${params.length + 1} OR u.last_name ILIKE $${params.length + 1})`;
+                params.push(`%${name}%`);
+            }
         }
  
         // Query for total customers

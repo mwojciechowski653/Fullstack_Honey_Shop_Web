@@ -1,15 +1,174 @@
-
 /* general */
 body {
-    background-color: #F7F6F9;
+    margin: 0;
+    background-color: #f7f6f9;
     display: flex;
+    font-family: "DM Sans";
 }
+
+.sidebar {
+    width: 15%;
+    background-color: #ffffff;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    position: fixed;
+}
+
+.logo-section {
+    text-align: center;
+    padding: 20px 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.logo {
+    width: 70%;
+    height: auto;
+}
+
+.navbar-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.row-link {
+    text-decoration: none;
+    color: #333333;
+    display: block;
+    padding: 10px 15%;
+    transition: background-color 0.3s ease;
+}
+
+    .row-link:hover,
+    .row-link.active {
+        background-color: #f7f7f7;
+        border-left: 4px solid #ffae36;
+    }
+
+.row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.icon {
+    width: 20%;
+    height: auto;
+}
+
+.smaller-item {
+    margin-left: 20px;
+}
+
+    .smaller-item .smaller-icon {
+        width: 18px;
+        height: 18px;
+    }
+
+    .smaller-item .smaller_text {
+        font-size: 12px;
+        color: #666666;
+    }
+
+.text {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333333;
+}
+
+.navbar-footer {
+    padding: 15px;
+    border-top: 1px solid #e0e0e0;
+    display: flex;
+    align-items: center;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.profile-image {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+}
+
+.profile-info {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-name {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333333;
+}
+
+.profile-role {
+    font-size: 10px;
+    color: #666666;
+}
+
+.logout-icon {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+    .logout-icon:hover {
+        transform: scale(1.1);
+    }
+
+.content {
+    margin-left: 15%;
+    width: 100%;
+    padding: 20px;
+}
+/* Tabs */
+
+.sidebar .tab {
+    flex: 1;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 1em;
+    font-weight: bold;
+    border: 2px solid #5a2800; /* Border for active state */
+    border-radius: 5px;
+    color: #fff;
+    background-color: var(--dark-brown); /* Default tab background color */
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+    .sidebar .tab.active {
+        background-color: #fff; /* Active tab background color */
+        color: #5a2800; /* Active tab text color */
+    }
+
+    .sidebar .tab:hover {
+        background-color: #6e3a00; /* Slightly darker on hover */
+        color: #fff;
+    }
+
 #navbar {
-    width:15%;
+    width: 15%;
     background-color: white;
-    position:fixed;
+    position: fixed;
     height: 100vh;
 }
+
 .content {
     margin-left: 15%;
     padding: 30px 9px;
@@ -36,16 +195,16 @@ body {
     font-weight: regular;
     background-color: white;
     color: var(--dark-brown);
-    padding: 9px 11px ;
+    padding: 9px 11px;
     border-radius: 0 8px 8px 0;
     cursor: pointer;
 }
 
-.switch-button.active {
-    background-color: var(--medium-brown);
-    color: white;
-    border-radius: 8px 0 0 8px;
-}
+    .switch-button.active {
+        background-color: var(--medium-brown);
+        color: white;
+        border-radius: 8px 0 0 8px;
+    }
 
 /* filters */
 #filters-area {
@@ -75,6 +234,7 @@ body {
 .label {
     width: 40%;
 }
+
 input {
     width: 60%;
     border: none;
@@ -115,10 +275,12 @@ input {
         flex-direction: column;
         gap: 25px;
     }
+
     .filters-column {
         width: 100%;
         gap: 25px;
     }
+
     .filter-buttons {
         width: 100%;
     }
@@ -135,12 +297,12 @@ input {
 }
 
 .table-title {
-    padding: 20px 0px 30px 20px ;
+    padding: 20px 0px 30px 20px;
     font-size: 16px;
     font-weight: bold;
 }
 
-.table-header{
+.table-header {
     display: flex;
     background-color: var(--light);
     height: 90px;
@@ -159,6 +321,7 @@ input {
     flex-direction: column;
     gap: 20px;
 }
+
 .table-row {
     width: 100%;
     display: flex;

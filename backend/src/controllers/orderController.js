@@ -24,7 +24,7 @@ async function getAllOrders(req, res) {
 }
 
 async function getOrderById(req, res) {
-    const userId = parseInt(req.params.id, 10);
+    const userId = parseInt(req.user.userId, 10);
     if (isNaN(userId)) {
         return res.status(400).json({ success: false, error: 'Invalid ordser ID' }); // 400 Bad Request
     }

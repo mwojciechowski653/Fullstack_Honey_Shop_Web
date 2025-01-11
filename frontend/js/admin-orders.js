@@ -4,9 +4,15 @@ async function fetchOrders(filters = {}) {
     try {
         // Create a query string from the filters object for the API request
         const queryString = new URLSearchParams(filters).toString();
+        // Get the token from local storage
+        const token = localStorage.getItem('token');
 
-        // Make a GET request to the API with the filters as query parameters
-        const response = await fetch(`https://honeyshopweb.onrender.com/api/orders?${queryString}`);
+        // Make a GET request to the API with the filters as query parameters and include the token in the headers
+        const response = await fetch(`http://localhost:5000/api/orders?${queryString}`, {
+            headers: {
+            'Authorization': `Bearer ${token}`
+            }
+        });
 
         // If the response is not OK, throw an error
         if (!response.ok) {
@@ -170,6 +176,10 @@ window.addEventListener('DOMContentLoaded', () => {
     // Add event listeners for the filter buttons
     document.querySelector('.filter-button:nth-child(1)').addEventListener('click', applyFilters);
     document.querySelector('.filter-button:nth-child(2)').addEventListener('click', resetFilters);
+    document.getElementById('logout').addEventListener('click', () => {
+        localStorage.removeItem('token');
+        window.location.href = 'homePage.html';
+    });
 
     // Fetch all orders and populate the year list when the page loads
     fetchOrders();

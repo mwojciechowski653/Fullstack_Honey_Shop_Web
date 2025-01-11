@@ -7,39 +7,46 @@ if (!token) {
 const userId = JSON.parse(atob(token.split(".")[1])).userId;
 const url = "http://127.0.0.1:5000/api/users/" + userId;
 
-fetch(url)
+fetch(url, {
+    headers: {
+        "Authorization": `Bearer ${token}`
+    }
+})
 .then(response => {
     return response.json();
 })
 .then(responseJson => {
-    const user = responseJson.user
-    const firstNameInput = document.getElementById("firstName")
-    firstNameInput.value = user.first_name
+    const user = responseJson.user;
+    const firstNameInput = document.getElementById("firstName");
+    firstNameInput.value = user.first_name;
 
-    const lastNameInput = document.getElementById("lastName")
-    lastNameInput.value = user.last_name
+    const lastNameInput = document.getElementById("lastName");
+    lastNameInput.value = user.last_name;
 
-    const emailInput = document.getElementById("email")
-    emailInput.value = user.email
+    const emailInput = document.getElementById("email");
+    emailInput.value = user.email;
 
-    const phoneInput = document.getElementById("phone")
-    phoneInput.value = user.user_phone
+    const phoneInput = document.getElementById("phone");
+    phoneInput.value = user.user_phone;
 
-    const countryInput = document.getElementById("country")
-    countryInput.value = user.country
+    const countryInput = document.getElementById("country");
+    countryInput.value = user.country;
 
-    const cityInput = document.getElementById("city")
-    cityInput.value = user.city
+    const cityInput = document.getElementById("city");
+    cityInput.value = user.city;
 
-    const streetInput = document.getElementById("street")
-    streetInput.value = user.street
+    const streetInput = document.getElementById("street");
+    streetInput.value = user.street;
 
-    const streetNumberInput = document.getElementById("streetNumber")
-    streetNumberInput.value = user.street_number
+    const streetNumberInput = document.getElementById("streetNumber");
+    streetNumberInput.value = user.street_number;
 
-    const postalCodeInput = document.getElementById("postalCode")
-    postalCodeInput.value = user.postal_code
+    const postalCodeInput = document.getElementById("postalCode");
+    postalCodeInput.value = user.postal_code;
 })
+.catch(error => {
+    console.error("Error fetching user data:", error);
+});
 
 
 // submit data from user-data-form
@@ -84,7 +91,11 @@ document.getElementById("user-data-form").addEventListener("submit", async funct
 // Pobieranie danych z API
 async function fetchOrders(id) {
     try {
-        const response = await fetch("http://localhost:5000/api/orders/" + id);
+        const response = await fetch("http://localhost:5000/api/orders/" + id, {
+            headers: {
+            "Authorization": `Bearer ${token}`
+            }
+        });
         const responseJson = await response.json();
         const orders = responseJson.orders
 

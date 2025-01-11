@@ -275,3 +275,8 @@ cancelDeleteButton.addEventListener("click", () => {
   // Close the modal without deleting
   modal.style.display = "none";
 });
+
+document.getElementById('logout').addEventListener('click', () => {
+  localStorage.removeItem('token');
+  window.location.href = 'homePage.html';
+});

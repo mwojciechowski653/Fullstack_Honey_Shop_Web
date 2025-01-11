@@ -39,6 +39,11 @@ textarea.addEventListener("input", () => {
 document.addEventListener("DOMContentLoaded", () => {
   const addProductButton = document.querySelector(".add-product-button");
 
+  document.getElementById('logout').addEventListener('click', () => {
+    localStorage.removeItem('token');
+    window.location.href = 'homePage.html';
+});
+
   addProductButton.addEventListener("click", async (event) => {
     event.preventDefault(); // Prevent default form submission behavior
 

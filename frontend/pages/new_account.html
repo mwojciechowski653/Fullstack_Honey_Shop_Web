@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="../css/new_account.css">
     <script defer src="../js/navbar-footer.js"></script> <!-- JavaScript for loading navbar/footer -->
     <script defer src="../js/main.js"></script> <!-- JavaScript for navigation functionality -->
+    <script defer src="../js/new_account.js"></script>
     <title>New account</title>
 </head>
 <body>
@@ -22,19 +23,19 @@
     <!-- Page-specific content goes here -->
     <p style="text-align: center; color: #686868; font-size: 20px; margin-top: 0px;">Main page / Log In / New account</p>
     <div class="login-container">
-        <h1 style="margin-bottom: 35px;">New Account</h1>
-        <form>
-                <label id="data">First name</label><br>
-                <input type="text" id="firstName" placeholder="Enter your first name" required>
+        <h1 style="margin-bottom: 40px;">New Account</h1>
+        <form id="signup-form">
+                <label for="firstName" id="data">First name</label><br>
+                <input type="text" id="firstName" name="first_name" placeholder="Enter your first name" required>
             
                 <label id="data">Last name</label><br>
-                <input type="text" id="lastName" placeholder="Enter your last name" required>
+                <input type="text" id="lastName" name="last_name" placeholder="Enter your last name" required>
              
                 <label for="email" id="data">Email Address</label><br>
-                <input type="email" id="email" placeholder="Enter your email" required>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
 
                 <label id="data" for="phone">Phone Number</label><br>
-                <input type="tel" id="phone" name="phone" placeholder="+1234567890" 
+                <input type="tel" id="phone" name="phone_number" placeholder="+1234567890" 
                 pattern="^\+?[1-9]\d{1,14}$" required>
             
                 <label id="data">Country</label><br>
@@ -82,18 +83,19 @@
                     </select>
             
                 <label id="data">City</label><br>
-                <input type="text" id="city" placeholder="Enter your city" required>
+                <input type="text" id="city" name="city" placeholder="Enter your city" required>
             
             
                 <label id="data">Street</label><br>
-                <input type="text" id="street" placeholder="Enter your street" required>
+                <input type="text" id="street" name="street" placeholder="Enter your street" required>
               
             
                 <label id="data">Street number</label><br>
-                <input type="number" id="streetNumber" placeholder="Enter your street number" required min="0">
+                <input type="number" id="streetNumber" name="street_number" placeholder="Enter your street number" required min="0">
             
                 <label id="data">Postal code</label><br>
                 <input type="text" 
+                name="postal_code"
                 id = "postalCode" 
                 placeholder="Enter your postal code" 
                 pattern="[A-Za-z0-9\s\-]{3,15}"
@@ -101,14 +103,26 @@
                 required>
              
             
-                <label for="password" id="data">Password</label><br>
-                <input type="password" id="password1" required>
+                <label for="password" id="data" name="password">Password</label><br>
+                <input type="password" 
+                    id="password1" 
+                    name="password"
+                    autocomplete="new-password"
+                    pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+                    title="Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one number, and one special character (@$!%*?&)."
+                    required>
             
             
                 <label for="password" id="data">Repeat password</label><br>
-                <input type="password" id="password2" required>
+                <input 
+                    type="password" 
+                    id="password2" 
+                    name="repeat_password" 
+                    autocomplete="new-password"
+                    title="Passwords have to match"
+                    required>
             
-            <button type="submit">Sign up</button>
+            <button id="signUpButton" type="submit">Sign up</button>
         </form>
     </div>
   </div>

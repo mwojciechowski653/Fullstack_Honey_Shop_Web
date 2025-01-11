@@ -1,125 +1,221 @@
-const exampleProduct = {
-    id: 1,
-    name: 'Wildflower Honey',
-    price: 102,
-    imgUrl: "../images/AcaciaImage.jpg",
-    type: 1,
-    sizes:[1,2]
+// ----------------------------------------------------FETCHING----------------------------------------------------
+
+// Function to fetch products from the server
+async function fetchProducts() {
+    console.log("Fetching products...");
+    try {
+        // Send a GET request to the API to fetch product data
+        const response = await fetch(`http://localhost:5000/api/products`);
+
+        // Check if the response is successful
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        console.log("Response received");
+        // Parse the JSON response
+        const data = await response.json();
+
+        // Handle cases where no products or invalid data is returned
+        if (!data.success || !data.products || data.products.length === 0) {
+            console.log('No products');
+            document.getElementById('products-area').innerHTML = '';
+            return [];
+        }
+
+        // Split the size options for each product into separate entries
+        const splitProducts = splitSizeOptions(data.products);
+        // Render the products on the page
+        renderProducts(splitProducts);
+        return splitProducts;
+    } catch (error) {
+        // Handle errors during the fetch process
+        console.error('Error fetching products: ', error);
+        document.getElementById('products-area').innerHTML = '';
+        return [];
+    }
 }
 
+// Helper function to split product size options into individual products
+function splitSizeOptions(products) {
+    const splitProducts = [];
+    products.forEach(product => {
+        product.size_options.forEach(sizeOption => {
+            // Create a new product object for each size option
+            const newProduct = {
+                id: product.id,
+                name: product.name,
+                full_name: product.full_name,
+                category: product.category,
+                key_features: product.key_features,
+                description: product.description,
+                image_url: product.image_url,
+                size_options: {
+                    id: sizeOption.id,
+                    size: sizeOption.size,
+                    regular_price: sizeOption.regular_price,
+                    stock: sizeOption.stock,
+                    is_discounted: sizeOption.is_discounted,
+                    discounted_price: sizeOption.discounted_price
+                }
+            };
+            splitProducts.push(newProduct);
+        });
+    });
+    return splitProducts;
+}
 
-const allProducts = [exampleProduct,  {...exampleProduct, id:2, price:22, name:"Cheap Honey"}, {...exampleProduct, id: 3, name: "Aavender Honey", price:33}];
+let allProducts = [];
 
+// Function to initialize products by fetching them from the server
+async function initializeProducts() {
+    allProducts = await fetchProducts();
+    const maxPrice = Math.max(...allProducts.map(product => choosePrice(product))) + 1;
+    console.log(maxPrice);
+    document.getElementById("slider-min").max = maxPrice;
+    const maxSlider = document.getElementById("slider-max");
+    maxSlider.max = maxPrice;
+    maxSlider.value = maxPrice;
+    updateSlider();
+}
+
+// ----------------------------------------------------RENDERING----------------------------------------------------
+
+// Function to render products on the page
 function renderProducts(products) {
-    document.getElementById('products-area').innerHTML = products.map(product => 
+    const productsArea = document.getElementById('products-area');
+    // Generate HTML for each product and insert it into the products area
+    productsArea.innerHTML = products.map(product =>
         `
             <div class="reccomendation">
-            <img class="reccomendation-image" id="item-image${product.id}" src="${product.imgUrl}" alt="reccomendation-image">
-            <div class="reccomendation-title" id="item-title${product.id}">${product.name}</div>
-            <div class="reccomendation-price" id="item-price${product.id}">${product.price}€</div>
+            <img class="reccomendation-image" id="item-image${product.size_options.id}" src="${product.image_url}" alt="reccomendation-image">
+            <div class="reccomendation-title" id="item-title${product.size_options.id}">${product.name} - ${product.size_options.size}g</div>
+            <div class="reccomendation-price" id="item-price${product.size_options.id}">${choosePrice(product)}€</div>
             <a href="product.html?id=${product.id}" class="reccomendation-button" id="redirection${product.id}">See details <img src="../assets/eye-icon.svg" alt="eye-icon"></a>
             </div>
-        `).join('')
+        `).join('');
+}
+
+// Helper function to determine the appropriate price to display
+function choosePrice(product) {
+    let price = product.size_options.regular_price;
+    if (product.size_options.is_discounted) {
+        price = product.size_options.discounted_price;
+    }
+    return price;
 }
 
 
 
-renderProducts(allProducts);
-
-
-
-// set sliders
-const maxPrice = Math.max(...allProducts.map(product => product.price));
-document.getElementById("slider-min").max = maxPrice;
-const maxSlider = document.getElementById("slider-max")
-maxSlider.max = maxPrice;
-maxSlider.value = maxPrice;
-
 // ----------------------------------------------------FILTERING----------------------------------------------------
+
+// Function to handle filtering of products based on user input
 function handleFiltering() {
-    const checkedTypes = getChecked("type");
+    const checkedCategory = getChecked("category");
     const checkedSizes = getChecked("size");
     const minPrice = parseInt(document.getElementById("min-output").value, 10) || null;
     const maxPrice = parseInt(document.getElementById("max-output").value, 10) || null;
-  
+
+    // Apply price filtering
     let filteredProducts = filterProductsByPrice(allProducts, minPrice, maxPrice);
 
-    if(checkedTypes.length > 0) {
-        filteredProducts = filterProductsByType(filteredProducts, checkedTypes);
+    // Apply category filtering if any categories are selected
+    if (checkedCategory.length > 0) {
+        filteredProducts = filterProductsByCategory(filteredProducts, checkedCategory);
     }
 
-    if(checkedSizes.length > 0) {
+    // Apply size filtering if any sizes are selected
+    if (checkedSizes.length > 0) {
         filteredProducts = filterProductsBySize(filteredProducts, checkedSizes);
     }
+    // Render the filtered products
     renderProducts(filteredProducts);
 }
 
-
+// Filter products based on price range
 function filterProductsByPrice(products, minPrice, maxPrice) {
     return products.filter(product => {
-      const isAboveMin = minPrice === null || product.price >= minPrice;
-      const isBelowMax = maxPrice === null || product.price <= maxPrice;
-      return isAboveMin && isBelowMax;
+        const isAboveMin = minPrice === null || choosePrice(product) >= minPrice;
+        const isBelowMax = maxPrice === null || choosePrice(product) <= maxPrice;
+        return isAboveMin && isBelowMax;
     });
 }
 
-function filterProductsByType(products, types) {
-    return products.filter(product => types.includes(product.type));
+// Filter products based on selected categories
+function filterProductsByCategory(products, categories) {
+    return products.filter(product => categories.includes(categoryNumber(product.category)));
 }
 
+// Map category names to corresponding numeric identifiers
+function categoryNumber(category) {
+    let categories = ["Wildflower", "Acacia", "Buckwheat", "Clover", "Creamed", "Alfalfa"];
+    return categories.indexOf(category) + 1;
+}
+
+// Filter products based on selected sizes
 function filterProductsBySize(products, sizes) {
-    return products.filter(product => sizes.some(size => product.sizes.includes(size)));
+    return products.filter(product => sizes.includes(sizeNumber(product.size_options.size)));
 }
 
+// Map size values to corresponding numeric identifiers
+function sizeNumber(size) {
+    let sizes = ["200", "300", "900"];
+    return sizes.indexOf(size) + 1;
+}
+
+// Get checked checkboxes for filtering options
 function getChecked(option) {
-    acceptedOptions = ["type", "size"];
-    if(!acceptedOptions.includes(option)) {
+    const acceptedOptions = ["category", "size"];
+    if (!acceptedOptions.includes(option)) {
         throw new Error("Invalid option parameter.");
     }
     const checkboxes = document.querySelectorAll(`.${option}-checkbox`);
     const checkedOptions = [];
     checkboxes.forEach(checkbox => {
-      if (checkbox.checked) {
-        checkedOptions.push(parseInt(checkbox.value, 10));
-      }
+        if (checkbox.checked) {
+            checkedOptions.push(parseInt(checkbox.value, 10));
+        }
     });
     return checkedOptions;
 }
 
+// Add click event listener to the filter button
 document.getElementById("filter-button").addEventListener("click", event => {
     handleFiltering();
 });
+
 // ----------------------------------------------------SORTING----------------------------------------------------
 
+// Sort products based on the selected order
 function sortProducts(products, order = "priceAsc") {
     return products.sort((a, b) => {
-      if (order === "priceAsc") {
-        return a.price - b.price; // Ascending order
-      } else if (order === "priceDesc") {
-        return b.price - a.price; // Descending order
-      } else if(order === "alph") {
-        return a.name.localeCompare(b.name);
-      } else if(order === "new") {
-        return b.id - a.id;
-      }
-       else {
-        throw new Error("Invalid order parameter.");
-      }
+        if (order === "priceAsc") {
+            return choosePrice(a) - choosePrice(b); // Ascending order
+        } else if (order === "priceDesc") {
+            return choosePrice(b) - choosePrice(a); // Descending order
+        } else if (order === "alph") {
+            return a.name.localeCompare(b.name); // Alphabetical order
+        } else if (order === "new") {
+            return b.id - a.id; // By ID (newest first)
+        } else {
+            throw new Error("Invalid order parameter.");
+        }
     });
 }
 
-  
+// Handle sort button click events
 function handleSortButtonClick(event, order) {
     // Sort the products
     const sortedProducts = sortProducts(allProducts, order);
     renderProducts(sortedProducts);
 
-    // Update active button
+    // Update the active state of the clicked button
     const buttons = document.querySelectorAll(".sorting-button");
     buttons.forEach(button => button.classList.remove("sorting-active"));
     event.target.classList.add("sorting-active");
 }
 
+// Add click event listeners to sorting buttons
 document.getElementById("price-ascending").addEventListener("click", event => {
     handleSortButtonClick(event, "priceAsc");
 });
@@ -136,43 +232,47 @@ document.getElementById("new").addEventListener("click", event => {
     handleSortButtonClick(event, "new");
 });
 
-
-
 // ----------------------------------------------------SLIDER----------------------------------------------------
+
+// Slider elements
 const sliderMin = document.getElementById('slider-min');
-    const sliderMax = document.getElementById('slider-max');
-    const sliderTrack = document.getElementById('slider-track');
-    const minOutput = document.getElementById('min-output');
-    const maxOutput = document.getElementById('max-output');
+const sliderMax = document.getElementById('slider-max');
+const sliderTrack = document.getElementById('slider-track');
+const minOutput = document.getElementById('min-output');
+const maxOutput = document.getElementById('max-output');
 
-    function updateSlider() {
-        // Make sure min slider always stays <= max slider
-        let minVal = parseInt(sliderMin.value);
-        let maxVal = parseInt(sliderMax.value);
+// Update slider values and appearance
+function updateSlider() {
+    // Ensure min slider value is not greater than max slider value
+    let minVal = parseInt(sliderMin.value);
+    let maxVal = parseInt(sliderMax.value);
 
-        if (minVal > maxVal) {
-        // Swap values if the user crosses the sliders
+    if (minVal > maxVal) {
+        // Swap values if sliders cross
         let temp = minVal;
         minVal = maxVal;
         maxVal = temp;
-        }
-
-        // Update the displayed text values
-        minOutput.textContent = minVal;
-        minOutput.value = minVal;
-        maxOutput.textContent = maxVal;
-        maxOutput.value = maxVal;
-
-        // Calculate how far along each knob is (as percentage of total width)
-        const minPercent = (minVal / (sliderMin.max - sliderMin.min)) * 100;
-        const maxPercent = (maxVal / (sliderMax.max - sliderMax.min)) * 100;
-
-        // Update the track's position and width
-        sliderTrack.style.left = minPercent + '%';
-        sliderTrack.style.right = (100 - maxPercent) + '%';
     }
 
-    // Initialize everything on load
-    window.onload = () => {
-      updateSlider();
-    };
+    // Update the displayed text values
+    minOutput.textContent = minVal;
+    minOutput.value = minVal;
+    maxOutput.textContent = maxVal;
+    maxOutput.value = maxVal;
+
+    // Calculate slider knob positions as percentages
+    const minPercent = (minVal / (sliderMin.max - sliderMin.min)) * 100;
+    const maxPercent = (maxVal / (sliderMax.max - sliderMax.min)) * 100;
+
+    // Update slider track position and width
+    sliderTrack.style.left = minPercent + '%';
+    sliderTrack.style.right = (100 - maxPercent) + '%';
+}
+
+// ----------------------------------------------------INITIALIZING----------------------------------------------------
+
+// Initialize the page when it loads
+window.onload = () => {
+    updateSlider();
+    initializeProducts();
+};

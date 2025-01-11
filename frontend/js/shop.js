@@ -189,6 +189,7 @@ function filterProductsByPrice(products, minPrice, maxPrice) {
 
 // Filter products based on selected categories
 function filterProductsByCategory(products, categories) {
+function filterProductsByCategory(products, categories) {
     return products.filter(product => categories.includes(categoryNumber(product.category)));
 }
 

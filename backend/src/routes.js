@@ -20,12 +20,10 @@ router.get('/products/:id', productController.getProductById);
 router.get('/products', shopController.getAllProducts);
 router.get('/orders', orderController.getAllOrders);
 router.get('/users/:id', userController.getUserById);
-//Home page routes
 
+//Home page routes
 router.get('/home', homePageController.getTopSellingProducts);
  
-
-router.get('/home', homePageController.getHomePageProducts);
 router.get('/orders/:id', orderController.getOrderById);
 
 router.put('/users/:id', userController.updateUserById);

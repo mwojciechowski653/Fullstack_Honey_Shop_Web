@@ -18,7 +18,7 @@ function updatePrice(size_option) {
 }
 
 function redirect(pathAfterPages) {
-  window.location.href = `http://127.0.0.1:3000/frontend/pages/${pathAfterPages}`;
+  window.location.href = `${pathAfterPages}`;
 }
 
 async function addToCart(sizeOption) {
@@ -84,7 +84,7 @@ document.addEventListener("DOMContentLoaded", function() {
             document.getElementById('key-features').appendChild(li);
         }
 
-        document.getElementById('product-image').src = image_url;
+        document.getElementById('product-image').src = size_options[0].image_url;
 
         const sizeSelectElement = document.getElementById('size-select');
         size_options = size_options.map(option => {
@@ -131,5 +131,26 @@ document.addEventListener("DOMContentLoaded", function() {
       .catch(error => {
         console.error('Error loading product data:', error);
       });    
+// ---------------------------------------------FETCHING RECCOMENDATIONS------------------------------------------------
+      fetch('https://honeyshopweb.onrender.com/api/home')
+      .then(response => {
+        if (!response.ok) throw new Error('Failed to fetch home data');
+        return response.json();
+      })
+      .then(json => {
+        const reccomendations = json.data;
+        const container = document.getElementById('reccomendations-container');
+        console.log(reccomendations);
+        for(const product of reccomendations) {
+          const productDiv = document.createElement('div');
+          productDiv.classList.add('reccomendation');
+          productDiv.innerHTML = `
+          <img class="reccomendation-image"  src="${product.image_url}" alt="reccomendation-image">
+          <div class="reccomendation-title" >${product.product_name}</div>
+          <a href="product.html?id=${product.product_id}" class="reccomendation-button" >See details <img src="../assets/eye-icon.svg" alt="eye-icon"></a>
+          `;
+          container.appendChild(productDiv);
+        }
+      })
   });
   

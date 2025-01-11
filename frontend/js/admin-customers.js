@@ -97,8 +97,7 @@ function renderCustomers(customers) {
  
         // Purchases amount cell
         const purchasesAmountDiv = document.createElement('div');
-        purchasesAmountDiv.classList.add('table-cell');
-        purchasesAmountDiv.innerHTML = customer.purchases_amount || 0;
+
  
         // Append all cells to the row
         row.appendChild(dateDiv);

@@ -277,7 +277,7 @@ input {
 }
 
 .table-cell:nth-child(3) {
-  width: 10%;
+  width: 20%;
 }
 
 .table-cell:nth-child(4) {
@@ -297,10 +297,6 @@ input {
   /* text-align: left; */
 }
 
-.table-cell:nth-child(8) {
-  width: 10%;
-  /* text-align: left; */
-}
 
 .table-cell {
   text-align: center;

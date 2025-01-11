@@ -1,9 +1,13 @@
 const pool = require('../db');
  
+/**
+* Fetch customers with filters and total count.
+*/
 exports.getCustomersByFilters = async (req, res) => {
     const { month, date, name } = req.query;
  
     try {
+        // Base query for fetching customers
         let query = `
             SELECT
                 u.id,
@@ -34,14 +38,16 @@ exports.getCustomersByFilters = async (req, res) => {
             params.push(date);
         }
  
-        // Filter by name (first name, last name or both)
+        // Filter by name (first name, last name, or both)
         if (name) {
             const names = name.split(" ");
             if (names.length > 1) {
+                // Assume user entered both first name and last name
                 query += ` AND (u.first_name ILIKE $${params.length + 1} AND u.last_name ILIKE $${params.length + 2})`;
                 params.push(`%${names[0]}%`);
                 params.push(`%${names[1]}%`);
             } else {
+                // Single name, search in both first and last name columns
                 query += ` AND (u.first_name ILIKE $${params.length + 1} OR u.last_name ILIKE $${params.length + 1})`;
                 params.push(`%${name}%`);
             }

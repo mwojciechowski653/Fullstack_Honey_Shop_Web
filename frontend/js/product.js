@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function() {
       redirect('shop.html');
     }
     // Fetch the specific product JSON file based on the ID
-    fetch(`http://127.0.0.1:5000/api/products/${productId}`)
+    fetch(`https://honeyshopweb.onrender.com/api/products/${productId}`)
       .then(response => {
         if (response.status === 404) {
           redirect('shop.html');

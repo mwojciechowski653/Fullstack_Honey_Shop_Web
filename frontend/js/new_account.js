@@ -14,7 +14,7 @@ document.getElementById("signup-form").addEventListener("submit", async function
     const jsonData = Object.fromEntries(formData.entries());
 
     try{
-        const response = await fetch('http://127.0.0.1:5000/api/auth/signup', {
+        const response = await fetch('https://honeyshopweb.onrender.com/api/auth/signup', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'

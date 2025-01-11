@@ -8,7 +8,7 @@ async function fetchOrders(filters = {}) {
         const token = localStorage.getItem('token');
 
         // Make a GET request to the API with the filters as query parameters and include the token in the headers
-        const response = await fetch(`http://localhost:5000/api/orders?${queryString}`, {
+        const response = await fetch(`https://honeyshopweb.onrender.com/api/orders?${queryString}`, {
             headers: {
             'Authorization': `Bearer ${token}`
             }

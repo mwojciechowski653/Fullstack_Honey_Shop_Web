@@ -5,7 +5,7 @@ if (!token) {
 }
 // get userId from token
 const userId = JSON.parse(atob(token.split(".")[1])).userId;
-const url = "http://127.0.0.1:5000/api/users/" + userId;
+const url = "https://honeyshopweb.onrender.com/api/users/" + userId;
 
 fetch(url, {
     headers: {
@@ -91,7 +91,7 @@ document.getElementById("user-data-form").addEventListener("submit", async funct
 // Pobieranie danych z API
 async function fetchOrders(id) {
     try {
-        const response = await fetch("http://localhost:5000/api/orders/" + id, {
+        const response = await fetch("https://honeyshopweb.onrender.com/api/orders/" + id, {
             headers: {
             "Authorization": `Bearer ${token}`
             }

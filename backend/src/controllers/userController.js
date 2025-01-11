@@ -2,7 +2,7 @@ const userService = require('../services/userService');
 
 
 async function getUserById(req, res) {
-    const userId = parseInt(req.params.id, 10);
+    const userId = parseInt(req.user.userId, 10);
     if (isNaN(userId)) {
         return res.status(400).json({ success: false, error: 'Invalid user ID' }); // 400 Bad Request
     }
@@ -22,7 +22,7 @@ async function getUserById(req, res) {
 }
 
 async function updateUserById(req, res) {
-    const userId = parseInt(req.params.id, 10);
+    const userId = parseInt(req.user.userId, 10);
     if (isNaN(userId)) {
         return res.status(400).json({ success: false, error: 'Invalid user ID' }); // 400 Bad Request
     }

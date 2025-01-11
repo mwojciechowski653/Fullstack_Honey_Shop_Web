@@ -18,15 +18,15 @@ router.get('/customers', customerController.getCustomersByFilters);
 //Product routes
 router.get('/products/:id', productController.getProductById);
 router.get('/products', shopController.getAllProducts);
-router.get('/orders', orderController.getAllOrders);
-router.get('/users/:id', userController.getUserById);
+router.get('/orders', authenticateToken, authenticateAdmin, orderController.getAllOrders);
+router.get('/users/:id', authenticateToken, userController.getUserById);
 
 //Home page routes
 router.get('/home', homePageController.getTopSellingProducts);
  
-router.get('/orders/:id', orderController.getOrderById);
+router.get('/orders/:id', authenticateToken, orderController.getOrderById);
 
-router.put('/users/:id', userController.updateUserById);
+router.put('/users/:id', authenticateToken, userController.updateUserById);
 
 //Auth routes
 router.post('/auth/signup', authController.signUpValidators, authController.signUp);
@@ -36,7 +36,7 @@ router.post('/auth/login', authController.loginValidators, authController.login)
 router.post('/cart', cartController.getCartSummary);
 router.post('/order', authenticateToken, cartController.placeOrderValidators, cartController.placeOrder);
 
-router.get('/stats', statsController.getStats);
+router.get('/stats', authenticateToken, authenticateAdmin, statsController.getStats);
 
 
 const cors = require("cors");
@@ -45,7 +45,7 @@ router.use(cors());
 
 // Get products
 router.get("/products_edit/:id", productController.getProductToEditById);
-router.get("/products-admin", productController.getProducts);
+router.get("/products-admin", authenticateToken, authenticateAdmin, productController.getProducts);
 
 // Delete products
 router.delete(

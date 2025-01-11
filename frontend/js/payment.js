@@ -1,4 +1,4 @@
-const BACKEND_URL = 'http://localhost:5000/api';
+const BACKEND_URL = 'https://honeyshopweb.onrender.com/api';
 document.getElementById("credit-card-info-form").addEventListener("submit", async function (event) {
     event.preventDefault();
     const formData = new FormData(this);

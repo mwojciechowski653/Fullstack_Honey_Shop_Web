@@ -4,6 +4,10 @@ const BACKEND_URL = 'https://honeyshopweb.onrender.com/api';
 * Fetch all customers or apply filters if specified.
 */
 async function fetchCustomers() {
+    document.getElementById('logout').addEventListener('click', () => {
+        localStorage.removeItem('token');
+        window.location.href = 'homePage.html';
+    });
     // Get values of filters
     const month = document.getElementById('month-select').value; // Selected month
     const date = document.getElementById('date-input').value; // Selected date

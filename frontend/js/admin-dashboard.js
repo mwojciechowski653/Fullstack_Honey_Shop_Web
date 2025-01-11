@@ -1,7 +1,13 @@
-const BACKEND_URL = 'http://localhost:5000/api';
+const BACKEND_URL = 'https://honeyshopweb.onrender.com/api';
 
 async function getAdminStats() {
-    const response = await fetch(`${BACKEND_URL}/stats`);
+    const token = localStorage.getItem('token');
+    const response = await fetch(`${BACKEND_URL}/stats`, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    });
     const stats = await response.json();
     return stats;
 }
@@ -21,6 +27,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.getElementById('users-vs').innerText = stats.newUsers.this_month_new_users - stats.newUsers.last_month_new_users;
         document.getElementById('sign-ins').innerText = stats.loginStats[0].sign_in_count;
         document.getElementById('sign-ins-vs').innerText = stats.loginStats[0].sign_in_count - stats.loginStats[1].sign_in_count
+
+        document.getElementById('logout').addEventListener('click', () => {
+            localStorage.removeItem('token');
+            window.location.href = 'homePage.html';
+        });
 
         const productsTable = document.getElementById('products-table');
         stats.topProducts.forEach(product => {

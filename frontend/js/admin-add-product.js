@@ -39,6 +39,11 @@ textarea.addEventListener("input", () => {
 document.addEventListener("DOMContentLoaded", () => {
   const addProductButton = document.querySelector(".add-product-button");
 
+  document.getElementById('logout').addEventListener('click', () => {
+    localStorage.removeItem('token');
+    window.location.href = 'homePage.html';
+});
+
   addProductButton.addEventListener("click", async (event) => {
     event.preventDefault(); // Prevent default form submission behavior
 
@@ -93,7 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     try {
       // Send POST request to the backend
-      const response = await fetch("http://localhost:5000/api/add_product", {
+      const response = await fetch("https://honeyshopweb.onrender.com/api/add_product", {
         method: "POST",
         body: formData,
       });

@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // ---------------------------------------------FETCHING CART------------------------------------------------
 async function getCartSummary() {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    const response = await fetch('http://127.0.0.1:5000/api/cart', {
+    const response = await fetch('https://honeyshopweb.onrender.com/api/cart', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

@@ -6,7 +6,7 @@ async function fetchOrders(filters = {}) {
         const queryString = new URLSearchParams(filters).toString();
 
         // Make a GET request to the API with the filters as query parameters
-        const response = await fetch(`http://localhost:5000/api/orders?${queryString}`);
+        const response = await fetch(`https://honeyshopweb.onrender.com/api/orders?${queryString}`);
 
         // If the response is not OK, throw an error
         if (!response.ok) {

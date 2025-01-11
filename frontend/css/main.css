@@ -16,7 +16,6 @@
     text-decoration: none;
     color: inherit;
     box-sizing: border-box; 
-     
 }
 
 body {
@@ -108,8 +107,13 @@ body {
 
 .footer {
     background-color: var(--light-brown);
+    font-family: 'Alfa Slab One', serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 16px;
+    color: var(--dark-brown);
     padding: 20px 20px;
-    height: 13.5em;
+    height: 16em;
     width: 100%;
     display: flex;
     gap: 15px;
@@ -145,6 +149,7 @@ body {
 
 .contact-us {
     align-self: center;
+    
 }
 
 .contact-us-section {

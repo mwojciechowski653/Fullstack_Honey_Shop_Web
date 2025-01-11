@@ -1,4 +1,4 @@
-body {
+.main-content {
     font-family: 'Alfa Slab One', serif;
     font-weight: 400;
     font-style: normal;
@@ -10,9 +10,9 @@ body {
 }
 
 .main-content .container {
-    padding: 40px;
     max-width: 1300px;
     margin: 0 auto;
+    margin-top: 0px;
 }
 
     .main-content .container h1 {

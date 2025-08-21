@@ -52,9 +52,7 @@ async function fetchProductDetails() {
 
   try {
     // Make the API request
-    const response = await fetch(
-      `https://honeyshopweb.onrender.com/api/products_edit/${id}`
-    );
+    const response = await fetch(`http://backend:5000/api/products_edit/${id}`);
     const data = await response.json();
 
     if (data.success) {
@@ -247,7 +245,7 @@ confirmDeleteButton.addEventListener("click", async () => {
 
   try {
     const response = await fetch(
-      `https://honeyshopweb.onrender.com/api/product_delete/${id}`,
+      `http://backend:5000/api/product_delete/${id}`,
       {
         method: "DELETE",
       }
@@ -276,7 +274,7 @@ cancelDeleteButton.addEventListener("click", () => {
   modal.style.display = "none";
 });
 
-document.getElementById('logout').addEventListener('click', () => {
-  localStorage.removeItem('token');
-  window.location.href = 'homePage.html';
+document.getElementById("logout").addEventListener("click", () => {
+  localStorage.removeItem("token");
+  window.location.href = "homePage.html";
 });

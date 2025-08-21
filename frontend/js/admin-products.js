@@ -6,21 +6,21 @@ document.addEventListener("DOMContentLoaded", () => {
   const searchButton = document.querySelector(".filter-button:nth-child(1)");
   const resetButton = document.querySelector(".filter-button:nth-child(2)");
 
-  document.getElementById('logout').addEventListener('click', () => {
-    localStorage.removeItem('token');
-    window.location.href = 'homePage.html';
-});
+  document.getElementById("logout").addEventListener("click", () => {
+    localStorage.removeItem("token");
+    window.location.href = "homePage.html";
+  });
 
   let allProducts = [];
 
   // Fetch data from the API
   async function fetchProducts() {
     try {
-      const token = localStorage.getItem('token');
-      const response = await fetch("https://honeyshopweb.onrender.com/api/products-admin", {
+      const token = localStorage.getItem("token");
+      const response = await fetch("http://backend:5000/api/products-admin", {
         headers: {
-          'Authorization': `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       });
       const productsData = await response.json();
 

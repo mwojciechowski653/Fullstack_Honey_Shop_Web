@@ -4,20 +4,43 @@ services:
   backend:
     build: ./backend
     container_name: honey_backend
+    environment:
+      - APP_JWT_SECRET="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ"
     ports:
-      - "3000:3000"
+      - "5000:5000"
     networks:
       - honey_net
+    depends_on:
+      - db
 
   frontend:
     build: ./frontend
     container_name: honey_frontend
     ports:
       - "8080:80"
-    depends_on:
-      - backend
     networks:
       - honey_net
+    depends_on:
+      - backend
+
+  db:
+    image: postgres:15-alpine
+    container_name: honey_db
+    restart: always
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=honeyshop
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - honey_net
+
+volumes:
+  pgdata:
 
 networks:
   honey_net:

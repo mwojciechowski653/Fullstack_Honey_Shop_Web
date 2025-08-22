@@ -9,7 +9,7 @@ async function fetchOrders(filters = {}) {
 
     // Make a GET request to the API with the filters as query parameters and include the token in the headers
     const response = await fetch(
-      `http://backend:5000/api/orders?${queryString}`,
+      `http://localhost:5000/api/orders?${queryString}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,

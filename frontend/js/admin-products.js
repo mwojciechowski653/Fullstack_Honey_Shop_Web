@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
   async function fetchProducts() {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://backend:5000/api/products-admin", {
+      const response = await fetch("http://localhost:5000/api/products-admin", {
         headers: {
           Authorization: `Bearer ${token}`,
         },

@@ -1,4 +1,4 @@
-const BACKEND_URL = "http://backend:5000/api";
+const BACKEND_URL = "http://localhost:5000/api";
 document
   .getElementById("credit-card-info-form")
   .addEventListener("submit", async function (event) {

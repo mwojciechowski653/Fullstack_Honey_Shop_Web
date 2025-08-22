@@ -52,7 +52,9 @@ async function fetchProductDetails() {
 
   try {
     // Make the API request
-    const response = await fetch(`http://backend:5000/api/products_edit/${id}`);
+    const response = await fetch(
+      `http://localhost:5000/api/products_edit/${id}`
+    );
     const data = await response.json();
 
     if (data.success) {
@@ -133,8 +135,8 @@ saveButton.addEventListener("click", async () => {
   const isPhotoChanged = !originalImageUrl.startsWith("http"); // Assuming links will start with "http"
 
   const apiUrl = isPhotoChanged
-    ? `https://honeyshopweb.onrender.com/api/products_update_new_photo/${id}`
-    : `https://honeyshopweb.onrender.com/api/products_update_same_photo/${id}`;
+    ? `http://localhost:5000/api/products_update_new_photo/${id}`
+    : `http://localhost:5000/api/products_update_same_photo/${id}`;
 
   const payload = {
     name: name,
@@ -245,7 +247,7 @@ confirmDeleteButton.addEventListener("click", async () => {
 
   try {
     const response = await fetch(
-      `http://backend:5000/api/product_delete/${id}`,
+      `http://localhost:5000/api/product_delete/${id}`,
       {
         method: "DELETE",
       }

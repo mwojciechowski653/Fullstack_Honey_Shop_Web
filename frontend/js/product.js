@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function () {
     redirect("shop.html");
   }
   // Fetch the specific product JSON file based on the ID
-  fetch(`http://backend:5000/api/products/${productId}`)
+  fetch(`http://localhost:5000/api/products/${productId}`)
     .then((response) => {
       if (response.status === 404) {
         redirect("shop.html");
@@ -157,7 +157,7 @@ document.addEventListener("DOMContentLoaded", function () {
       console.error("Error loading product data:", error);
     });
   // ---------------------------------------------FETCHING RECCOMENDATIONS------------------------------------------------
-  fetch("http://backend:5000/api/home")
+  fetch("http://localhost:5000/api/home")
     .then((response) => {
       if (!response.ok) throw new Error("Failed to fetch home data");
       return response.json();

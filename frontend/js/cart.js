@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
 // ---------------------------------------------FETCHING CART------------------------------------------------
 async function getCartSummary() {
   const cart = JSON.parse(localStorage.getItem("cart")) || [];
-  const response = await fetch("http://backend:5000/api/cart", {
+  const response = await fetch("http://localhost:5000/api/cart", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

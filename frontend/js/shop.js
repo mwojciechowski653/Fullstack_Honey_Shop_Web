@@ -5,7 +5,7 @@ async function fetchProducts() {
   console.log("Fetching products...");
   try {
     // Send a GET request to the API to fetch product data
-    const response = await fetch(`http://backend:5000/api/products`);
+    const response = await fetch(`http://localhost:5000/api/products`);
 
     // Check if the response is successful
     if (!response.ok) {

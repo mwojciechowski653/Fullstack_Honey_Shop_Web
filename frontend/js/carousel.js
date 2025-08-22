@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
   const fetchTopSellingProducts = async () => {
     try {
-      const response = await fetch("http://backend:5000/api/home");
+      const response = await fetch("http://localhost:5000/api/home");
 
       const products = await response.json();
 

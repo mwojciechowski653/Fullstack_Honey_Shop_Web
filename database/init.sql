@@ -85,22 +85,40 @@ INSERT INTO "USER_ADDRESS" (user_id, country, city, street, street_number, posta
 -- Produkty
 INSERT INTO "PRODUCT" (name, full_name, category, key_features, description, image_url) VALUES
 ('Acacia Honey', 'Premium Acacia Honey', 'Acacia', 'Light taste;Natural origin;boosts immunity system', 'Delicious honey from acacia flowers.', 'http://localhost:8080/images/AcaciaImage.jpg'),
-('Buckwheat Honey', 'Strong Buckwheat Honey', 'Buckwheat', 'Intense aroma;High in minerals;Light taste', 'Rich taste and health benefits.', 'http://localhost:8080/images/BuckwheatImage.png');
+('Buckwheat Honey', 'Strong Buckwheat Honey', 'Buckwheat', 'Intense aroma;High in minerals;Light taste', 'Rich taste and health benefits.', 'http://localhost:8080/images/BuckwheatImage.png'),
+('Wildflower Honey', 'Natural Wildflower Honey', 'Wildflower', 'Rich taste;Floral aroma;Boosts energy', 'Pure honey from wildflower nectar.', 'http://localhost:8080/images/WildflowerImage.png'),
+('Clover Honey', 'Sweet Clover Honey', 'Clover', 'Mild flavor;Golden color;Versatile use', 'Popular honey with smooth taste.', 'http://localhost:8080/images/CloverImage.jpg'),
+('Creamed Honey', 'Soft Creamed Honey', 'Creamed', 'Spreadable texture;Natural sweetness;Healthy alternative', 'Delicious creamed honey perfect for toast.', 'http://localhost:8080/images/CreamedImage.jpg'),
+('Alfalfa Honey', 'Fresh Alfalfa Honey', 'Alfalfa', 'Mild herbal notes;Light color;Rich in vitamins', 'Nutritious honey with a gentle flavor.', 'http://localhost:8080/images/AlfalfaImage.jpg');
 
 -- Opcje rozmiarów
 INSERT INTO "SIZE_OPTION" (product_id, size, stock, regular_price, is_discounted, discounted_price) VALUES
 (1, '200', 100, 15.00, FALSE, NULL),
-(1, '300', 50, 25.00, TRUE, 20.00),
-(2, '900', 80, 12.00, FALSE, NULL);
+(1, '300', 50, 25.00, FALSE, NULL),
+(2, '900', 80, 12.00, FALSE, NULL),
+(3, '200', 120, 10.00, FALSE, NULL),
+(3, '900', 60, 35.00, TRUE, 30.00),
+(4, '200', 100, 8.50, FALSE, NULL),
+(4, '300', 70, 12.00, FALSE, NULL),
+(5, '200', 150, 9.00, FALSE, NULL),
+(5, '300', 80, 14.00, TRUE, 12.00),
+(5, '900', 40, 38.00, FALSE, NULL),
+(6, '200', 90, 11.00, FALSE, NULL),
+(6, '900', 50, 33.00, FALSE, NULL);
 
 -- Zamówienie przykładowe
 INSERT INTO "ORDER" (user_id, status, order_value) VALUES
-(2, 'Processing', 40.00);
+(2, 'Processing', 40.00),
+(2, 'Processing', 29.00),
+(2, 'Delivered', 50.00);
 
 -- Produkty w zamówieniu
 INSERT INTO "ORDER_PRODUCT" (order_id, size_option_id, quantity, price) VALUES
 (1, 1, 2, 15.00),
-(1, 3, 1, 12.00);
+(1, 3, 1, 12.00),
+(2, 4, 2, 8.50),
+(2, 5, 1, 12.00),
+(3, 2, 2, 25.00);
 
 -- Statystyka logowań
 INSERT INTO monthly_sign_ins (month, sign_in_count) VALUES

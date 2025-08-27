@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
     getCartSummary();
     localStorage.setItem("deliveryOptionId", 1);
     document.getElementById("summary-products").innerText =
-      total.toFixed(2) + "€";
+      parseFloat(total).toFixed(2) + "€";
     updateTotal();
 
     document
@@ -101,8 +101,8 @@ function handlePlus(sizeOptionId, price) {
   const quantityDiv = document.getElementById(`quantity${sizeOptionId}`);
   const totalDiv = document.getElementById(`total${sizeOptionId}`);
   quantityDiv.innerText = parseInt(quantityDiv.innerText) + 1;
-  totalDiv.innerText = (parseFloat(totalDiv.innerText) + price).toFixed(2);
-  +"€";
+  totalDiv.innerText =
+    (parseFloat(totalDiv.innerText) + price).toFixed(2) + "€";
   addToCart(sizeOptionId.toString(), price);
 }
 
@@ -122,7 +122,7 @@ function removeFromCart(sizeOptionId, price) {
   let cart = JSON.parse(localStorage.getItem("cart")) || [];
   let total = JSON.parse(localStorage.getItem("cartTotal")) || 0;
   let cartQuantity = JSON.parse(localStorage.getItem("cartQuantity")) || 0;
-
+  sizeOptionId = parseInt(sizeOptionId);
   // Check if the product is already in the cart
   const productIndex = cart.findIndex(
     (item) => item.sizeOptionId === sizeOptionId
@@ -137,7 +137,7 @@ function removeFromCart(sizeOptionId, price) {
   }
 
   // Update total price
-  total -= price;
+  total = parseFloat(total) - parseFloat(price);
   cartQuantity -= 1;
 
   // Save updated cart back to local storage
@@ -146,7 +146,7 @@ function removeFromCart(sizeOptionId, price) {
   localStorage.setItem("cartQuantity", JSON.stringify(cartQuantity));
 
   document.getElementById("summary-products").innerText =
-    total.toFixed(2) + "€";
+    parseFloat(total).toFixed(2) + "€";
   updateTotal();
   document.dispatchEvent(new Event("addedToCart"));
 }
@@ -155,7 +155,7 @@ function addToCart(sizeOptionId, price) {
   let cart = JSON.parse(localStorage.getItem("cart")) || [];
   let total = JSON.parse(localStorage.getItem("cartTotal")) || 0;
   let cartQuantity = JSON.parse(localStorage.getItem("cartQuantity")) || 0;
-
+  sizeOptionId = parseInt(sizeOptionId);
   // Check if the product is already in the cart
   const productIndex = cart.findIndex(
     (item) => item.sizeOptionId === sizeOptionId
@@ -170,7 +170,7 @@ function addToCart(sizeOptionId, price) {
   }
 
   // Update total price
-  total += price;
+  total = parseFloat(total) - parseFloat(price);
   cartQuantity += 1;
 
   // Save updated cart back to local storage
@@ -208,7 +208,7 @@ function deleteFromCart(sizeOptionId, price) {
     location.reload();
   }
   document.getElementById("summary-products").innerText =
-    total.toFixed(2) + "€";
+    parseFloat(total).toFixed(2) + "€";
   document.getElementById(`product${sizeOptionId}`).remove();
   updateTotal();
   document.dispatchEvent(new Event("addedToCart"));
@@ -216,11 +216,12 @@ function deleteFromCart(sizeOptionId, price) {
 
 function updateTotal() {
   const productsTotal = JSON.parse(localStorage.getItem("cartTotal")) || 0;
-  const deliveryPrice = parseInt(
+  const deliveryPrice = parseFloat(
     document.getElementById("summary-delivery").innerText
   );
-  const total = productsTotal + deliveryPrice;
-  document.getElementById("summary-total").innerText = total.toFixed(2) + "€";
+  const total = parseFloat(productsTotal) + deliveryPrice;
+  document.getElementById("summary-total").innerText =
+    parseFloat(total).toFixed(2) + "€";
 }
 
 function getDeliveryPrice(deliveryOption) {

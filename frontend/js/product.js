@@ -42,9 +42,10 @@ async function addToCart(sizeOption) {
   }
 
   // Update total price
-  total += sizeOption.is_discounted
-    ? sizeOption.discounted_price
-    : sizeOption.regular_price;
+  total =
+    parseFloat(total) + sizeOption.is_discounted
+      ? parseFloat(sizeOption.discounted_price)
+      : parseFloat(sizeOption.regular_price);
   cartQuantity += 1;
 
   // Save updated cart back to local storage

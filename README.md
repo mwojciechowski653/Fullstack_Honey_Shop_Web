@@ -48,7 +48,7 @@ Fullstack_Honey_Shop_Web
 
 ```bash
 git clone https://github.com/mwojciechowski653/fullstack-honey-shop-web.git
-cd fullstack_honey_shop_web
+cd fullstack-honey-shop-web
 ```
 
 ### 2. Build and run the containers
